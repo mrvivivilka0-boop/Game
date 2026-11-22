@@ -35,13 +35,13 @@ summary{cursor:pointer;color:var(--rust)}li{margin:.35em 0}
 .tm{color:#b01a24}
 #sb,#fs{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);font-size:.8em;padding:5px 10px;z-index:6;opacity:.7}#sb{right:10px}#fs{left:10px}
 #gr,#lt{position:fixed;pointer-events:none}
-#gr{inset:-50%;z-index:5;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .9s steps(6) infinite}
+#gr{inset:-40px;will-change:transform;z-index:5;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .9s steps(6) infinite}
 #lt{inset:0;z-index:4;background:radial-gradient(ellipse at 50% 42%,#0000 20%,#000e 100%);animation:fk 4s infinite}
 #pg{position:fixed;inset:0;z-index:50;background:#050404;box-shadow:-40px 0 50px #000;pointer-events:none;transform:translateX(110%)}#pg.on{animation:sw .85s cubic-bezier(.7,0,.3,1)}
 .ash{position:fixed;top:-10px;width:3px;height:3px;border-radius:50%;background:#8a1018;pointer-events:none;z-index:-1;animation:ash linear infinite}
 body.fl2{animation:bl 1s}body.fl2 #app{animation:shk .6s}
 @keyframes fl{0%,92%,100%{opacity:1}94%{opacity:.4}96%{opacity:1}98%{opacity:.6}}
-@keyframes gr{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}}
+@keyframes gr{0%{transform:translate(0,0)}20%{transform:translate(-24px,16px)}40%{transform:translate(16px,-24px)}60%{transform:translate(-16px,-8px)}80%{transform:translate(24px,24px)}}
 @keyframes fk{0%,100%{opacity:1}45%{opacity:.88}50%{opacity:1}70%{opacity:.94}}
 @keyframes ash{to{transform:translateY(105vh) translateX(40px)}}
 @keyframes sw{to{transform:translateX(110%)}}@keyframes sw{0%{transform:translateX(0)}100%{transform:translateX(110%)}}
@@ -254,6 +254,23 @@ body[data-p=vote] #lt,body[data-p=arrest] #lt{background:radial-gradient(ellipse
 .win.kira::after{content:'';position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 180px 40px #000;animation:hbv 1.3s ease-in-out infinite}
 @keyframes hbv{0%,100%{opacity:.8}10%{opacity:1}22%{opacity:.85}32%{opacity:1}}
 @media(prefers-reduced-motion:reduce){.win.peace .term{display:none}}
+
+/* ===== v3: производительность (вид тот же, лишнее не работает впустую) ===== */
+#rn{animation:none;visibility:hidden;transition:opacity 2s,visibility 0s 2s}
+body[data-p=night] #rn,body.bfog #rn{animation:rnf .55s linear infinite;visibility:visible;transition:opacity 2s,visibility 0s}
+#fg2{visibility:hidden;transition:opacity 3s,visibility 0s 3s;will-change:transform}
+body.bfog #fg2{visibility:visible;transition:opacity 3s,visibility 0s}
+#fg{will-change:transform}
+#mn{animation:none;visibility:hidden;transition:opacity 2s,background 1.4s,box-shadow 1.4s,transform 1.4s,visibility 0s 2s}
+body[data-p=night] #mn,body.bmoon #mn{animation:mnb 16s ease-in-out infinite;visibility:visible;transition:opacity 2s,background 1.4s,box-shadow 1.4s,transform 1.4s,visibility 0s}
+.scn::before{will-change:transform}
+.ecg{filter:none}.ecg2{stroke-width:6;stroke-opacity:.28}
+.bmA,.bmB{mix-blend-mode:normal}
+html.paused *,html.paused ::before,html.paused ::after,.scn.off *,.scn.off::before{animation-play-state:paused!important}
+html.lowfx #gr,html.lowfx .scn::before,html.lowfx #fg2,html.lowfx .ash:nth-of-type(2n){display:none}
+html.lowfx2 h1,html.lowfx2 .role,html.lowfx2 h2,html.lowfx2 .big,html.lowfx2 .stamp,html.lowfx2 .win .wt{filter:none}
+html.lowfx2 #app.nw>*{animation-name:ink2}
+@keyframes ink2{from{opacity:0;transform:translateY(16px)}}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="rough" x="-10%" y="-25%" width="120%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9"/></filter><filter id="scr" x="-5%" y="-12%" width="110%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".02 .9" numOctaves="1" seed="11" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -10.7" result="l"/><feComposite in="d" in2="l" operator="out"/></filter><symbol id="ap" viewBox="0 0 100 110"><defs><radialGradient id="ag" cx=".35" cy=".35"><stop offset="0" stop-color="#e0303a"/><stop offset="1" stop-color="#5c0710"/></radialGradient><mask id="bt"><rect width="100" height="110" fill="#fff"/><circle cx="93" cy="40" r="15"/></mask></defs><path mask="url(#bt)" fill="url(#ag)" d="M50 32C34 18 8 26 10 58c2 26 20 48 36 46 3 0 5-2 8-2s5 2 8 2c16 2 34-20 34-46 0-28-26-36-46-26z"/><path d="M50 32c0-12 4-20 12-26" stroke="#3a2a14" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M56 14c8-8 20-6 24 0-8 6-18 6-24 0z" fill="#1d3a1a"/><path d="M22 52c0-10 6-16 12-18" stroke="#fff3" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="ey" viewBox="0 0 120 60"><path d="M4 30C30 2 90 2 116 30 90 58 30 58 4 30Z" fill="#0a0504" stroke="#c1121f" stroke-width="3"/><circle cx="60" cy="30" r="17" fill="#d4121f"/><ellipse cx="60" cy="30" rx="5" ry="15" fill="#000"/><circle cx="54" cy="23" r="3" fill="#fff8"/></symbol></svg>
 <button id="sb" onclick="toggleSnd()">Музыка: выкл</button><button id="fs" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">Экран</button><div id="gr"></div><div id="mn"></div><div id="rn"></div><div id="fg"></div><div id="fg2"></div><div id="lt"></div><div id="pg"></div><div id="sl"></div><div id="gh" hidden></div><main id="app"></main><div id="tb" hidden><i id="tbf"></i><span id="tbn"></span></div>
@@ -263,13 +280,13 @@ body[data-p=vote] #lt,body[data-p=arrest] #lt{background:radial-gradient(ellipse
 <div id="rq"></div><div id="md"></div><div id="win" class="win" hidden></div>
 
 <script>
-const NP=12,CFG={wacc:.75,norep:0,botsw:.3,barr:9,follow:.7,claim:.6,nok1:1,selfp:0,strict:0,bself:.3};
+const NP=12,CFG={wacc:.75,fp:.1,ev:.07,skG:1,skE:1,mfr:1,dk:6,pProt:.3,thrE:.8,norep:0,botsw:.3,barr:9,follow:.7,claim:.6,nok1:1,selfp:0,strict:0,bself:.3};
 const R={mikami:'Миками Теру',kira:'Кира',misa:'Миса',l:'L',n:'N',wat:'Ватари',inv:'Следователь'};
 const INFO={
-mikami:'Тетрадь у тебя. Начиная со второй ночи (в первую тетрадь ещё спит) вписываешь имя, причину и детали смерти (каждая причина — один раз), но подставлять игроков не можешь. Пока ты на свободе, Кира бессилен. Если тебя арестуют или разоблачат голосованием, тетрадь перейдёт к Кире. Команда знает друг друга. Слежка L покажет тебя подозрительным (верно в 3 случаях из 4). Миса передаёт тебе то, что узнаёт. У вашей команды есть тайный чат.',
-kira:'Пока Миками Теру на свободе, тетрадь у него, а не у тебя, и ты не убиваешь. Слежка L тебя не видит. Когда его арестуют или разоблачат голосованием, тетрадь перейдёт к тебе, и слежка станет называть тебя подозрительным. Тогда каждую ночь ты вписываешь в тетрадь имя и причину смерти: выбери из списка или придумай свою и добавь детали — время, место, обстоятельства. Каждая причина годится один раз. Раз за игру можешь подставить игрока: слежка L назовёт его подозрительным. Победа: L и N мертвы, или твоя команда в большинстве. У вашей команды есть тайный чат.',
+mikami:'Тетрадь у тебя. Начиная со второй ночи (в первую тетрадь ещё спит) вписываешь имя, причину и детали смерти (каждая причина — один раз), а раз за игру (на всю вашу команду) можешь подставить игрока: слежка L назовёт его подозрительным. Когда за столом остаётся 6 игроков или меньше, можно вписать и второе имя. Пока ты на свободе, Кира бессилен. Если тебя арестуют или разоблачат голосованием, тетрадь перейдёт к Кире. Команда знает друг друга. Слежка L покажет тебя подозрительным в 3 случаях из 4. Миса передаёт тебе то, что узнаёт. У вашей команды есть тайный чат.',
+kira:'Пока Миками Теру на свободе, тетрадь у него, а не у тебя, и ты не убиваешь. Пока тетради у тебя нет, слежка L назовёт тебя подозрительным лишь в 1 случае из 10, как и любого мирного. Когда Миками арестуют или разоблачат голосованием, тетрадь перейдёт к тебе, и слежка станет называть тебя подозрительным в 3 случаях из 4. Тогда каждую ночь ты вписываешь в тетрадь имя и причину смерти: выбери из списка или придумай свою и добавь детали — время, место, обстоятельства. Каждая причина годится один раз. Раз за игру (на всю вашу команду) можешь подставить игрока: слежка L назовёт его подозрительным. Когда за столом остаётся 6 игроков или меньше, можно вписать и второе имя. Победа: L и N мертвы, или твоя команда в большинстве. У вашей команды есть тайный чат.',
 misa:'Ты знаешь Киру. Раз за игру можешь увидеть роль любого игрока, но глаза шинигами заберут твою жизнь в конце ближайшего дня. Кира узнает увиденное этой же ночью. У вашей команды есть тайный чат.',
-l:'Каждую ночь делаешь одно из двух: защищаешь игрока (тетрадь по нему не сработает) или следишь за ним (верно в 3 случаях из 4). Защита и слежка без лимита. Днём один раз за игру можешь арестовать (кнопка только у тебя): угадал Киру — победа; арестовал Мису или Миками — они выбывают, а арест остаётся при тебе; выбрал мирного — выбываешь сам. Ватари знает тебя и один раз примет удар вместо тебя.',
+l:'Каждую ночь делаешь одно из двух: защищаешь игрока (тетрадь по нему не сработает) или следишь за ним. Мирный игрок кажется подозрительным в 1 случае из 10. Миками, Миса и Кира с тетрадью кажутся подозрительными в 3 случаях из 4, а Кира без тетради, как и мирный, лишь в 1 из 10. Защита и слежка без лимита. Днём один раз за игру можешь арестовать (кнопка только у тебя): угадал Киру — победа; арестовал Мису или Миками — они выбывают, но арест тратится; выбрал мирного — выбываешь сам, и арест тоже тратится. Ватари знает тебя и один раз примет удар вместо тебя.',
 n:'Ты преемник L. Раз за игру ночью можешь подменить Тетрадь смерти: тот, у кого она сейчас (Миками Теру, а если он выбыл, то Кира), этой ночью никого не убьёт. Кто именно держит тетрадь, ты не узнаешь. Если L погибнет, ты станешь им и получишь его навыки, в том числе арест, если он не был потрачен. Узнаешь об этом ночью.',
 wat:'Ты знаешь, кто L. Если тетрадь нацелится на L, ты один раз умрёшь вместо него, и причина смерти будет та, что предназначалась ему. Если L защищён, тетрадь не сработает вовсе.',
 inv:'Ты ничего не знаешь. Слушай, спорь, голосуй. Раз за игру твой голос считается за два.'};
@@ -283,6 +300,8 @@ const N=i=>esc(S.names[i]);
 const eff=i=>S.roles[i]=='n'&&S.nUp?'l':S.roles[i];
 const ix=r=>S.roles.indexOf(r);
 const evil=r=>r=='kira'||r=='misa'||r=='mikami';
+/* шанс, что слежка L назовёт игрока подозрительным: Миками, Миса и Кира с тетрадью — wacc (75%); мирные и Кира без тетради — fp (10%); подставленный — всегда */
+const susP=j=>{if(S.fr===j)return 1;const r=S.roles[j];return r=='misa'||r=='mikami'||r=='kira'&&!S.alive[ix('mikami')]?CFG.wacc:CFG.fp};
 const usedC=c=>S.used.some(x=>x.toLowerCase()==String(c).trim().toLowerCase());
 const wr=s=>`<span class=wr>${[...s].map((c,k)=>`<span style="animation-delay:${k*.11+.5}s">${esc(c)}</span>`).join('')}</span>`;
 const Q=()=>S.q&&S.q[CUR];
@@ -304,7 +323,7 @@ const LOC=()=>SEATS.map((s,i)=>((!s.p||s.p===ME)&&!s.bot)?i:-1).filter(i=>i>=0);
 const direct=()=>LOC().length==1;
 const isBot=i=>!!(SEATS[i]&&SEATS[i].bot);
 const needsPass=i=>!rseat(i)&&!isBot(i)&&!direct();
-function mkQ(all){S.q={};S.cs=null;(all?[...Array(NP).keys()]:al()).forEach(i=>S.q[i]={t:null,c:'',d:'',f:null,lm:0,lr:null,seen:null,dbl:0,done:0,st:0,dl:0})}
+function mkQ(all){S.q={};S.cs=null;(all?[...Array(NP).keys()]:al()).forEach(i=>S.q[i]={t:null,t2:null,c:'',d:'',f:null,lm:0,lr:null,seen:null,dbl:0,done:0,st:0,dl:0})}
 function ready(i){if(S.ph!='night')return true;const r=S.roles[i];if(!evil(r)||r=='misa')return true;const m=ix('misa');return !(S.alive[m]&&S.q[m]&&!S.q[m].done)}
 function beginSeat(i){const q=S.q[i];q.st=1;q.dl=Date.now()+ttFor(i)*1000}
 function openGates(){if(!S.q)return;for(const k of Object.keys(S.q)){const i=+k,q=S.q[i];if(!q.done&&!q.dl&&!needsPass(i)&&ready(i))beginSeat(i)}}
@@ -332,7 +351,7 @@ night:i=>{const q=S.q[i],r=eff(i),h=`<p class=sub>Ночь ${S.round}</p>`;
  if(q.swd)return h+swapDone;
  if(writerOf(i)&&CFG.nok1&&S.round==1)return h+`<div class="card paper"><h2>Тетрадь молчит</h2><p>В первую ночь тетрадь ещё не пробудилась. Имя вписывать рано.</p><button class=p onclick="fin()">Скрыть</button></div>`;
  if(writerOf(i)){const t=al().filter(j=>!evil(S.roles[j])),ok=q.t!=null&&q.c.trim()&&!usedC(q.c);
-  return h+`<div class="card paper"><h2>Впиши имя</h2>${pick(t,q.t,'selT')}<h2>Причина смерти</h2><div class=pl>${CAUSES.map(c=>{const u=S.used.includes(c);return `<button class="${q.c==c?'sel':''} ${u?'used':''}" ${u?'disabled':''} onclick="Q().c='${c}';draw()">${c}</button>`}).join('')}</div><input placeholder="…или напиши свою" value="${esc(q.c)}" maxlength=40><input placeholder="Детали: время, место, обстоятельства" value="${esc(q.d)}" maxlength=90>${S.fu||r!='kira'?'':`<h2>Подставить игрока</h2><p class=sub>Один раз. Слежка L назовёт его подозрительным.</p>${pick(al().filter(j=>j!=i),q.f,'selF')}`}<button id=kb class=p ${ok?'':'disabled'} onclick="writeDone()">Записать</button></div>`}
+  return h+`<div class="card paper"><h2>Впиши имя</h2>${pick(t,q.t,'selT')}${al().length<=CFG.dk?`<h2>Второе имя</h2><p class=sub>Игроков осталось мало: тетрадь берёт и вторую жертву. По желанию.</p>${pick(t.filter(j=>j!=q.t),q.t2,'selT2')}`:''}<h2>Причина смерти</h2><div class=pl>${CAUSES.map(c=>{const u=S.used.includes(c);return `<button class="${q.c==c?'sel':''} ${u?'used':''}" ${u?'disabled':''} onclick="Q().c='${c}';draw()">${c}</button>`}).join('')}</div><input placeholder="…или напиши свою" value="${esc(q.c)}" maxlength=40><input placeholder="Детали: время, место, обстоятельства" value="${esc(q.d)}" maxlength=90>${S.fu||!(r=='kira'||CFG.mfr)?'':`<h2>Подставить игрока</h2><p class=sub>Один раз. Слежка L назовёт его подозрительным.</p>${pick(al().filter(j=>j!=i),q.f,'selF')}`}<button id=kb class=p ${ok?'':'disabled'} onclick="writeDone()">Записать</button></div>`}
  if(r=='misa'&&(!S.misaUsed||q.seen!=null)){if(q.seen!=null)return h+`<div class=card>${EYE}<p class=sub>Глаза шинигами видят:</p><div class=big>${N(q.seen)}</div><div class=role>${R[S.roles[q.seen]]}</div><button class=p onclick="fin()">Запомнил</button></div>`;
   return h+`<div class=card><h2>Глаза шинигами</h2><p>Узнать роль игрока? Ты умрёшь в конце ближайшего дня, а Кира узнает увиденное этой же ночью.</p>${pick(al().filter(j=>j!=i),null,'misaSee')}<button onclick="fin()">Не сейчас</button></div>`}
  if(r=='l'){if(q.lr)return h+`<div class=card><p class=sub>Слежка показала:</p><div class=big>${N(q.lr[0])}</div><div class=role>${q.lr[1]?'подозрителен':'выглядит чисто'}</div><button class=p onclick="fin()">Запомнил</button></div>`;
@@ -346,12 +365,12 @@ vote:i=>{const q=S.q[i];if(q.done)return waitCard();if(needsPass(i)&&!q.st)retur
  return `<p class=sub>Голосование</p><div class=card><h2>Кто Кира?</h2>${S.roles[i]=='inv'&&!S.dvu[i]&&!S.nd?`<button class="${q.dbl?'sel':''}" onclick="Q().dbl=!Q().dbl;draw()">Двойной голос (раз за игру)</button>`:''}${pick(al().filter(j=>j!=i),null,'castVote')}<button onclick="castVote(-1)">Воздержаться</button></div>`}
 };
 function dayHtml(o){const d=S.dead!=null;
- const body=d?`<p class=sub>Этой ночью умер</p><div class=big>${wr(S.names[S.dead])}</div><p>Причина: <b>${esc(S.night.c)}</b></p>${S.night.d?`<p>«${esc(S.night.d)}»</p>`:''}`:S.sil?`<div class=big>Тетрадь молчит</div><p class=sub>${S.round==1&&CFG.nok1?'В первую ночь тетрадь ещё спит.':'Этой ночью в ней не появилось ни одного имени.'}</p>`:`<div class=big>Тетрадь молчит</div><p class=sub>Имя вписано, но смерть не пришла. Кто-то был под защитой или тетрадь подменили.</p>`;
+ const body=d?`<p class=sub>Этой ночью ${S.dead2!=null?'умерли':'умер'}</p><div class=big>${wr(S.names[S.dead])}</div>${S.dead2!=null?`<div class=big>${wr(S.names[S.dead2])}</div>`:''}<p>Причина: <b>${esc(S.night.c)}</b></p>${S.night.d?`<p>«${esc(S.night.d)}»</p>`:''}`:S.sil?`<div class=big>Тетрадь молчит</div><p class=sub>${S.round==1&&CFG.nok1?'В первую ночь тетрадь ещё спит.':'Этой ночью в ней не появилось ни одного имени.'}</p>`:`<div class=big>Тетрадь молчит</div><p class=sub>Имя вписано, но смерть не пришла. Кто-то был под защитой или тетрадь подменили.</p>`;
  return `<p class=sub>День ${S.round}</p><div class="big tm" id=tm></div>
 <div class="card paper">${body}</div>
-${S.ev?`<div class="card ev"><svg class=ap2 viewBox="0 0 100 110"><use href="#ap"/></svg>${esc(S.ev)}</div>`:''}${o.nn?'<div class="card ev">L мёртв. Теперь L — это ты: защита и слежка без лимита, а арест твой, если прежний L его не потратил.</div>':''}${status()}<p class=sub>Спорьте вслух или в чате. Когда время выйдет, начнётся голосование.</p>
+${S.ev?`<div class="card ev"><svg class=ap2 viewBox="0 0 100 110"><use href="#ap"/></svg>${esc(S.ev)}</div>`:''}${S.ar?`<div class="card ev">${esc(S.ar)}</div>`:''}${o.nn?'<div class="card ev">L мёртв. Теперь L — это ты: защита и слежка без лимита, а арест твой, если прежний L его не потратил.</div>':''}${status()}<p class=sub>Спорьте вслух или в чате. Когда время выйдет, начнётся голосование.</p>
 ${o.arrest?`<button onclick="arrestGo()">Арест</button>`:''}${o.decoy?`<button onclick="decoyGo()">Арест</button>`:''}${o.host?`<button onclick="more()">Ещё минуту</button><button class=p onclick="startVote()">К голосованию</button>`:''}`}
-const arrestHtml=i=>`<div class=card><h2>${N(i)}, на кого указываешь?</h2><p class=sub>Мису и Миками арестуешь без потерь. Ошибёшься на мирном — выбываешь.</p>${pick(al().filter(j=>j!=i),null,'arrest2')}<button onclick="arrestCancel()">Отмена</button></div>`;
+const arrestHtml=i=>`<div class=card><h2>${N(i)}, на кого указываешь?</h2><p class=sub>Угадаешь Киру — победа. Мису или Миками арестуешь — они выбывают, но арест потратится. Ошибёшься на мирном — выбываешь.</p>${pick(al().filter(j=>j!=i),null,'arrest2')}<button onclick="arrestCancel()">Отмена</button></div>`;
 const pubArrest=()=>`<p class=sub>Арест</p><div class=card><div class=scn data-k=wait></div><div class=big>L принимает решение…</div></div>${status()}`;
 const decoyPick=()=>`<div class=card><h2>Кто объявляет арест?</h2><p class=sub>Только местные игроки. Если это не L, арест недействителен.</p>${pick(LOC().filter(i=>S.alive[i]),null,'arrest1')}<button onclick="arrestCancel()">Назад</button></div>`;
 const resultHtml=h=>`<div class=card><h2>Итоги голосования</h2>${Object.entries(S.vt).map(([a,b])=>`<div>${N(a)} → ${N(b)}${S.vw[a]>1?' ×2':''}</div>`).join('')}${S.abst&&S.abst.length?`<div class=sub>Воздержались: ${S.abst.map(N).join(', ')}</div>`:''}<hr style="border-color:var(--line)">${S.out==null?'<p>Мнения разошлись. Никто не выбыл.</p>':`<div class=stamp>ПРИГОВОРЁН</div><p><b>${N(S.out)}</b> выбывает. Роль: <b>${R[S.roles[S.out]]}</b>.</p>`}${S.extra?`<p>${S.extra}</p>`:''}${h?'<button class=p onclick="after()">Дальше</button>':'<p class=sub>Дальше решит хозяин.</p>'}</div>`;
@@ -363,37 +382,47 @@ function start(){if(!HOST)return;const loc=[...document.querySelectorAll('#app [
  S={ph:'',names,roles:shuffle(['kira','misa','mikami','l','n','wat',...Array(NP-6).fill('inv')]),alive:Array(NP).fill(true),round:0,used:[],misaUsed:0,arrest:0,dvu:{},lpt:null,sw:0,fu:0,fr:null,wu:0,nUp:0,nNew:0,dm:{},gid:Date.now(),q:{},lc:null,vt:{},vw:{},night:{},pt:null,mi:null,a:null};
  botInit();mkQ(1);S.ph='reveal';beginAll();go('reveal',{})}
 function beginAll(){for(const k of Object.keys(S.q)){const i=+k;if(!needsPass(i)&&ready(i))beginSeat(i)}}
-function night(){S.round++;S.night={};S.lpt=S.pt;S.pt=null;S.mi=null;S.lc=null;S.dead=null;mkQ(0);S.ph='night';beginAll();go('night',{})}
-function selT(j){const q=Q();if(q&&!q.done&&S.alive[j]){q.t=j;draw()}}function selF(j){const q=Q();if(q){q.f=q.f===j?null:j;draw()}}
+function night(){S.round++;S.night={};S.lpt=S.pt;S.pt=null;S.mi=null;S.lc=null;S.dead=null;S.dead2=null;mkQ(0);S.ph='night';beginAll();go('night',{})}
+function selT(j){const q=Q();if(q&&!q.done&&S.alive[j]){q.t=j;if(q.t2===j)q.t2=null;draw()}}function selT2(j){const q=Q();if(q&&!q.done&&S.alive[j]&&j!=q.t&&!evil(S.roles[j])&&al().length<=CFG.dk){q.t2=q.t2===j?null:j;draw()}}function selF(j){const q=Q();if(q){q.f=q.f===j?null:j;draw()}}
 function writeDone(){const q=Q();if(!q||q.done||!writerOf(CUR)||S.ph!='night')return draw();if(q.t==null||!S.alive[q.t]||evil(S.roles[q.t])||!q.c.trim()||usedC(q.c))return draw();
- S.night={v:q.t,c:q.c.trim(),d:q.d.trim(),by:CUR};S.used.push(S.night.c);if(q.f!=null&&!S.fu&&eff(CUR)=='kira'){S.fr=q.f;S.fu=1}fin()}
+ S.night={v:q.t,v2:q.t2!=null&&al().length<=CFG.dk&&S.alive[q.t2]&&!evil(S.roles[q.t2])&&q.t2!=q.t?q.t2:null,c:q.c.trim(),d:q.d.trim(),by:CUR};S.used.push(S.night.c);if(q.f!=null&&!S.fu&&(eff(CUR)=='kira'||CFG.mfr)){S.fr=q.f;S.fu=1}fin()}
 function lAct(j){const q=Q();if(!q||q.done||eff(CUR)!='l'||!S.alive[j]||(j==CUR&&!(q.lm==1&&CFG.selfp)))return;
- if(q.lm==1){if(CFG.norep&&S.lpt===j)return draw();S.pt=j;fin()}else if(q.lm==2){const r=S.roles[j],bad=r=='misa'||r=='mikami'||r=='kira'&&!S.alive[ix('mikami')];q.lr=[j,S.fr===j?true:(Math.random()<CFG.wacc?bad:!bad)];draw()}}
+ if(q.lm==1){if(CFG.norep&&S.lpt===j)return draw();S.pt=j;fin()}else if(q.lm==2){q.lr=[j,Math.random()<susP(j)];draw()}}
 function misaSee(j){const q=Q();if(!q||q.done||S.roles[CUR]!='misa'||S.misaUsed||!S.alive[j]||j==CUR)return;S.misaUsed=S.round;q.seen=j;S.mi={kira:[j,S.roles[j]],mikami:[j,S.roles[j]]};draw()}
 function swapBook(){const q=Q();if(!q||q.done||S.ph!='night'||S.roles[CUR]!='n'||S.sw||(CFG.nok1&&S.round==1))return draw();S.sw=S.round;q.swd=1;draw()}
 function promote(){if(!S.alive[ix('l')]&&S.alive[ix('n')]&&!S.nUp){S.nUp=1;S.nNew=1}}
-function resolve(){const n=CFG.nok1&&S.round==1?{}:(S.night||{});let t=n.v!=null?n.v:null;S.sil=t==null;const wi=ix('wat');
- if(t!=null){if(S.sw===S.round)t=null;else if(S.pt===t)t=null;else if(eff(t)=='l'&&S.alive[wi]&&!S.wu){S.wu=1;t=wi}}
- S.dead=t;if(t!=null){S.alive[t]=false;S.dm[t]='note';hit()}S.nNew=0;promote();const w=win();if(w)return end(w[0],w[1]);S.ev=event();S.a=null;S.q={};chatMark('День '+S.round);go('day',{te:Date.now()+(S.fog?12e4:24e4)})}
-function event(){S.fog=S.moon=S.nd=0;const a=al(),k=ix('kira'),o=a.filter(j=>j!=k),nm=()=>S.names[o[Math.random()*o.length|0]];
- if(Math.random()>.3)return null;const E=[()=>`Рюк шепчет: «${nm()} — не Кира».`,()=>a.length<5?null:`Рюк хихикает: «Кира среди ${shuffle([k,...shuffle(o.slice()).slice(0,3)]).map(j=>S.names[j]).join(', ')}».`,()=>(S.fog=1,'Туман над Токио. На обсуждение вдвое меньше времени.'),()=>(S.moon=1,'Кровавая луна: при ничьей выбывает случайный из лидеров.'),()=>(S.nd=1,'Рюк съел яблоко и зевнул: сегодня двойные голоса не считаются.'),()=>null];return E[Math.random()*E.length|0]()}
+function resolve(){const n=CFG.nok1&&S.round==1?{}:(S.night||{});let t=n.v!=null?n.v:null,t2=n.v2!=null?n.v2:null;S.sil=t==null;const wi=ix('wat'),blk=x=>S.sw===S.round||S.pt===x;
+ if(t!=null){if(blk(t))t=null;else if(eff(t)=='l'&&S.alive[wi]&&!S.wu){S.wu=1;t=wi}}
+ if(t2!=null){if(blk(t2))t2=null;else if(eff(t2)=='l'&&S.alive[wi]&&!S.wu){S.wu=1;t2=wi}}
+ if(t2===t||(t2!=null&&!S.alive[t2]))t2=null;if(t==null&&t2!=null){t=t2;t2=null}
+ S.dead=t;S.dead2=t2;[t,t2].forEach(x=>{if(x!=null){S.alive[x]=false;S.dm[x]='note'}});if(t!=null)hit();S.nNew=0;promote();const w=win();if(w)return end(w[0],w[1]);S.ev=event();S.a=null;S.q={};chatMark('День '+S.round);go('day',{te:Date.now()+(S.fog?12e4:24e4),ar:'',ast:0})}
+function event(){S.fog=S.moon=S.nd=0;S.evd=null;if(Math.random()>=CFG.ev)return null;const a=al(),k=ix('kira'),o=a.filter(j=>j!=k);
+ const E=[()=>{const j=o[Math.random()*o.length|0];S.evd={t:'nk',j};return `Рюк шепчет: «${S.names[j]} — не Кира».`},()=>(S.fog=1,'Туман над Токио. На обсуждение вдвое меньше времени.'),()=>(S.moon=1,'Кровавая луна: при ничьей выбывает случайный из лидеров.'),()=>(S.nd=1,'Рюк съел яблоко и зевнул: сегодня двойные голоса не считаются.')];
+ if(a.length>=5)E.push(()=>{const l=shuffle([k,...shuffle(o.slice()).slice(0,3)]);S.evd={t:'in',l};return `Рюк хихикает: «Кира среди ${l.map(j=>S.names[j]).join(', ')}».`});
+ return E[Math.random()*E.length|0]()}
 function win(){const k=ix('kira'),l=ix('l'),n=ix('n');if(!S.alive[k])return['peace','Кира выявлен и больше не пишет в тетрадь.'];if(!S.alive[l]&&!S.alive[n])return['kira','L мёртв, а преемника у него не осталось. Никто больше не остановит Киру.'];const t=al().filter(j=>evil(S.roles[j])).length;if(CFG.strict?t>al().length-t:t>=al().length-t)return['kira','Команда Киры сравнялась с остальными: переубеждать уже некого.']}
 function end(w,why){S.q={};go('end',{w,why})}
-function again(){S.q={};S.vt={};S.dm={};SEATS=SEATS.filter((s,i)=>i==0||(s.p&&s.p!==ME&&s.on));ghostSet(null);go('home',{})}
-function arrestGo(){if(!arrOK()||CUR!==lSeat()||S.ph!='day')return;S.a=CUR;S.adl=Date.now()+30000;go('arrest',{})}
-function decoyGo(){if(!arrOK()||S.ph!='day')return;S.a=null;S.adl=Date.now()+30000;go('arrest',{})}
-function arrest1(j){if(S.ph!='arrest')return;if(lSeat()!==j||!S.alive[j]){S.adl=0;return go('day',{ev:S.names[j]+' объявил арест, но он не L. Арест недействителен.'})}S.a=j;go('arrest',{})}
-function arrestCancel(){S.a=null;S.adl=0;go('day',{})}
+function again(){S.q={};S.vt={};S.dm={};const keep=SEATS.filter((s,i)=>i==0||(s.p&&s.p!==ME&&s.on));SEATS.forEach(s=>{if(s.p&&!keep.includes(s))ACC.delete(s.p)});SEATS=keep;ghostSet(null);go('home',{})}
+function arrestGo(){if(!arrOK()||CUR!==lSeat()||S.ph!='day')return;S.a=CUR;S.adl=Date.now()+30000;S.ast=Date.now();go('arrest',{})}
+function decoyGo(){if(!arrOK()||S.ph!='day')return;S.a=null;S.adl=Date.now()+30000;S.ast=Date.now();go('arrest',{})}
+/* возврат из ареста в день: время, ушедшее на арест, прибавляется к обсуждению, утреннее событие Рюка не теряется */
+function backDay(ar){if(S.ast){S.te=(S.te||0)+Date.now()-S.ast;S.ast=0}S.a=null;S.adl=0;go('day',ar?{ar}:{})}
+function arrest1(j){if(S.ph!='arrest')return;if(lSeat()!==j||!S.alive[j])return backDay(S.names[j]+' объявил арест, но он не L. Арест недействителен.');S.a=j;go('arrest',{})}
+function arrestCancel(){backDay()}
 function arrest2(j){const L=S.a;if(S.ph!='arrest'||L==null||CUR!==L||!S.alive[j]||j==L)return;const r=S.roles[j];S.adl=0;S.a=null;
  if(r=='kira')return end('peace',`L арестовал Киру — ${S.names[j]}.`);
- if(r=='mikami'||r=='misa'){S.alive[j]=false;S.dm[j]='arrest';hit();const w=win();if(w)return end(w[0],w[1]);return go('day',{ev:r=='mikami'?`${S.names[j]} оказался Миками Теру. Его арестовали, и тетрадь перешла к Кире. Арест у L остался.`:`${S.names[j]} оказалась Мисой. Её арестовали. Арест у L остался.`})}
- S.arrest=1;S.alive[L]=false;S.dm[L]='arrest';hit();promote();const w=win();w?end(w[0],w[1]):go('day',{ev:`${S.names[L]} арестовал не того и выбывает.`})}
+ S.arrest=1;
+ if(r=='mikami'||r=='misa'){S.alive[j]=false;S.dm[j]='arrest';hit();const w=win();if(w)return end(w[0],w[1]);return backDay(r=='mikami'?`${S.names[j]} оказался Миками Теру. Его арестовали, и тетрадь перешла к Кире. Арест у L потрачен.`:`${S.names[j]} оказалась Мисой. Её арестовали. Арест у L потрачен.`)}
+ S.alive[L]=false;S.dm[L]='arrest';hit();promote();const w=win();w?end(w[0],w[1]):backDay(`${S.names[L]} арестовал не того и выбывает.`)}
 function startVote(){if(S.ph!='day')return;S.vt={};S.vw={};S.lc=null;mkQ(0);S.ph='vote';beginAll();go('vote',{})}
 function castVote(j){const q=Q();if(!q||q.done||S.ph!='vote')return;if(j>=0&&S.alive[j]&&j!=CUR){S.vt[CUR]=j;S.vw[CUR]=q.dbl?2:1;if(q.dbl)S.dvu[CUR]=1}fin()}
 function tally(){S.abst=al().filter(i=>S.vt[i]==null);const c={};Object.entries(S.vt).forEach(([v,t])=>c[t]=(c[t]||0)+S.vw[v]);const m=Math.max(...Object.values(c)),top=Object.keys(c).filter(k=>c[k]==m);S.out=null;if(top.length>1&&S.moon)top.splice(0,top.length,top[Math.random()*top.length|0]);if(top.length==1){S.out=+top[0];S.alive[S.out]=false;S.dm[S.out]='vote';hit()}
  const mi=ix('misa');S.extra='';if(S.misaUsed&&S.round==S.misaUsed&&S.alive[mi]){S.alive[mi]=false;S.dm[mi]='eyes';S.extra=`${N(mi)} (Миса) расплачивается за глаза шинигами и умирает.`}if(S.out!=null&&S.roles[S.out]=='mikami')S.extra+=' Тетрадь перешла к Кире.';promote();botLearn();S.q={};S.rt=Date.now()+25000;go('result',{})}
 function after(){if(S.ph!='result')return;const w=win();w?end(w[0],w[1]):night()}
-function gtick(){if(!HOST||!S.names||S.ph=='home')return;const n=Date.now();botTick(n);
+/* несколько действий ботов за один тик дают одну перерисовку, а не десять */
+let BATCH=0,DIRTY=0;
+function gtick(){BATCH=1;try{gtick0()}finally{BATCH=0;if(DIRTY){DIRTY=0;draw()}}}
+function gtick0(){if(!HOST||!S.names||S.ph=='home')return;const n=Date.now();botTick(n);
  if(SIM.includes(S.ph)&&S.q){openGates();let ch=0;for(const k of Object.keys(S.q)){const q=S.q[k];if(!q.done&&q.dl&&n>q.dl){q.done=1;q.to=1;if(S.lc==+k)S.lc=null;ch=1}}if(ch){openGates();if(!chkPhase())draw()}}
  else if(S.ph=='day'&&S.te&&n>S.te+1500)startVote();
  else if(S.ph=='result'&&S.rt&&n>S.rt)after();
@@ -432,14 +461,14 @@ function toggleSnd(){const b=$('sb');if(ac){clearTimeout(mt);ac.close();ac=null;
 const RULES=`<div class=card><h2>Правила</h2><details><summary>Роли и ход игры</summary><ul>
 <li><b>Состав:</b> Кира, Миками Теру, Миса, L, N, Ватари и шестеро следователей. Команда Киры знает друг друга, Ватари знает L.</li>
 <li><b>Роли:</b> раздаются одновременно, каждый видит только свою. Кнопка «Роль» внизу слева напомнит её.</li>
-<li><b>Ночь:</b> все ходят одновременно, на ход 30 секунд (у пишущего тетрадь 45). В первую ночь тетрадь ещё спит: никто не умирает. Ночь кончается, когда походили все или вышло время. Тетрадь у Миками Теру: он вписывает имя, причину и детали. Кира без тетради бессилен, пока Миками не арестован или не выбыл, тогда тетрадь уходит к Кире. Каждая причина годится один раз, можно придумывать свои.</li>
+<li><b>Ночь:</b> все ходят одновременно, на ход 30 секунд (у пишущего тетрадь 45). В первую ночь тетрадь ещё спит: никто не умирает. Ночь кончается, когда походили все или вышло время. Тетрадь у Миками Теру: он вписывает имя, причину и детали. Кира без тетради бессилен, пока Миками не арестован или не выбыл, тогда тетрадь уходит к Кире. Каждая причина годится один раз, можно придумывать свои. Когда за столом остаётся 6 игроков или меньше, пишущий может вписать второе имя (одна причина на обоих). Раз за игру он может подставить игрока: слежка L назовёт его подозрительным.</li>
 <li><b>N:</b> раз за игру ночью подменяет Тетрадь смерти: её владелец (Миками Теру, а если он выбыл, то Кира) не сможет никого убить этой ночью. Кто он, N не узнаёт. Умер L — N молча становится L и забирает его навыки. Кира выигрывает, только когда мертвы оба.</li>
 <li><b>Ватари:</b> раз закрывает L собой. Причина смерти при этом достаётся ему.</li>
-<li><b>L:</b> каждую ночь одно действие на выбор: защита или слежка (ошибается в 1 случае из 4), без лимита. Днём один раз арестует, кнопка есть только у L. Арестовал Киру — победа. Арестовал Мису или Миками — они выбывают, а L остаётся и арест не тратится. Выбрал мирного — L выбывает.</li>
+<li><b>L:</b> каждую ночь одно действие на выбор: защита или слежка, без лимита. Слежка называет подозрительным Миками, Мису и Киру с тетрадью в 75% случаев, а мирного и Киру без тетради в 10%. Днём один раз арестует, кнопка есть только у L. Арестовал Киру — победа. Арестовал Мису или Миками — они выбывают, но арест тратится. Выбрал мирного — L выбывает.</li>
 <li><b>Миса:</b> раз ночью видит роль игрока. Кира и Миками узнают её в ту же ночь, а Миса умирает в конце ближайшего дня.</li>
 <li><b>Чаты:</b> общий чат работает только днём, во время обсуждения и голосования. Тайный чат Киры, Миками и Мисы работает и днём, и ночью, остальные его не видят. Выбывшие только читают.</li>
 <li><b>Голосование:</b> одновременное и тайное, 30 секунд, можно воздержаться. Больше всех голосов — выбывает, роль открывается. Следователь раз голосует за двоих.</li>
-<li><b>Рюк:</b> каждый день может вмешаться: подсказка, туман (таймер вдвое короче), кровавая луна (при ничьей выбывает случайный лидер) или зевок (двойные голоса не считаются).</li>
+<li><b>Рюк:</b> очень редко (примерно раз в 14 дней) вмешивается: подсказка, туман (таймер вдвое короче), кровавая луна (при ничьей выбывает случайный лидер) или зевок (двойные голоса не считаются).</li>
 <li><b>Победа Киры:</b> L и N мертвы или команда Киры сравнялась числом с остальными. <b>Победа мирных:</b> Кира арестован или выбыл.</li></ul></details></div>`;
 
 /* ===== СЕТЬ: WebRTC (PeerJS). Без аккаунтов, вход по ссылке #КОД. Хозяин — центр комнаты ===== */
@@ -487,7 +516,7 @@ function copyLink(){const l=LINK(),b=document.querySelector('#app [data-cp]'),ok
 function shareLink(){navigator.share?navigator.share({title:'Тетрадь',text:'Садись за стол:',url:LINK()}).catch(()=>{}):copyLink()}
 
 /* ===== ОНЛАЙН: хозяин ведёт игру, каждому игроку отправляется только его экран ===== */
-let SEQ=0,HX=0,PN=0,PP=null,TI=null,TT=null,KEY='',ALLOW={H:new Set()},KEYS={},VIEWS={},LASTK={},LASTM={},LN={},HP=0,LT=null,LX=null,RN=0,GONE=0,RQ=0,RQ2=0,AUTO=false,CHP=[],CHK=[],RIC={},CT={},LAST=null,RI='',PWF=null,TK=null;
+let PT=0,SEQ=0,HX=0,PN=0,PP=null,TI=null,TT=null,KEY='',ALLOW={H:new Set()},KEYS={},VIEWS={},LASTK={},LASTM={},LN={},HP=0,LT=null,LX=null,RN=0,GONE=0,RQ=0,RQ2=0,AUTO=false,CHP=[],CHK=[],RIC={},CT={},LAST=null,RI='',PWF=null,TK=null;
 const PEND=new Map(),ACC=new Set(),REJ=new Set();
 const CAP={reveal:'РОЛИ',night:'НОЧЬ',day:'ДЕНЬ',arrest:'АРЕСТ',vote:'СУД',result:'ПРИГОВОР',end:'КОНЕЦ'};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -503,18 +532,18 @@ function show(html,ph,left,key,turn){clearInterval(TI);const ch=PP!==ph,nw=key!=
  const t=$('tm');if(t){const f=()=>{const l=left();t.textContent=l>0?tm(l):'Время вышло. Начинается голосование.'};f();TI=setInterval(f,1000)}
  turnBar(turn)}
 function turnBar(t){clearInterval(TT);const b=$('tb');if(!t||!(t.tl>0)){b.hidden=true;document.body.classList.remove('hastb');return}b.hidden=false;document.body.classList.add('hastb');const t0=Date.now(),f=()=>{const l=Math.max(0,t.tl-Math.floor((Date.now()-t0)/1000));$('tbn').textContent='Ход: '+l+' с';$('tbf').style.width=Math.min(100,100*l/t.tt)+'%';b.classList.toggle('low',l<=8)};f();TT=setInterval(f,500)}
-function fix(){const kb=()=>{const k=$('kb');if(!k)return;const s=document.querySelector('#app .pl button.sel'),i=document.querySelector('#app input');k.disabled=!(s&&i&&i.value.trim())};document.querySelectorAll('#app input').forEach(i=>{i.oninput=kb})}
+function fix(){const kb=()=>{const k=$('kb');if(!k)return;const pl=document.querySelector('#app .pl'),s=pl&&pl.querySelector('button.sel'),i=document.querySelector('#app input');k.disabled=!(s&&i&&i.value.trim())};document.querySelectorAll('#app input').forEach(i=>{i.oninput=kb})}
 const prejoin=()=>`<svg class=apple viewBox="0 0 100 110"><use href="#ap"/></svg><h1>ТЕТРАДЬ</h1><p class=sub>Онлайн-игра на двенадцать человек.</p>
 ${HC&&!AJF?`<div class=card><div class=scn data-k=wait></div><p class=sub>Входим в комнату…</p><div class=big>${esc(HC)}</div></div>`:HC?`<div class=card><h2>Тебя позвали за стол</h2><input id=jnm placeholder="Твоё имя" maxlength=12 value="${esc(MYN)}"><button class=p onclick="jn()">Войти в комнату</button><button onclick="newRm()">Создать свою комнату</button></div>`:`<div class=card><h2>Создать комнату</h2><input id=hn placeholder="Твоё имя" maxlength=12 value="${esc(MYN)}">${isLocalHost()?`<input id=hip placeholder="Твой IP (по желанию), например 192.168.0.15" inputmode=decimal autocomplete=off maxlength=60 value="${esc(HIP)}"><p class=sub>Страница открыта на твоём компьютере (${esc(location.hostname||'файл')}), поэтому друзьям ссылка откроется, только если они в одной Wi-Fi сети с тобой. IP подставится сам, если получится. Чтобы играть из любой сети и ничего не запускать, выложи файл игры на бесплатный хостинг страниц и открой его по их адресу.</p>`:`<p class=sub>Ссылка откроется у друзей в любой сети. Им ничего запускать не нужно.</p>`}<button class=p onclick="mk()">Создать</button><p class=sub>Появится ссылка. Отправь её друзьям: ты решишь, кого пустить за стол.</p></div><div class=card><h2>Войти по коду</h2><input id=jcd placeholder="Код комнаты из пяти букв" maxlength=5 style="text-transform:uppercase"><input id=jnm placeholder="Твоё имя" maxlength=12 value="${esc(MYN)}"><button class=p onclick="jc()">Войти</button></div>`}<p class=sub id=er></p>`+RULES;
 const seatTags=()=>SEATS.map(s=>`<span class="tag ${s.on?'':'dead'}">${esc(s.n)}</span>`).join('');
 const lobHost=()=>{const f=NP-SEATS.length;return `<svg class=apple viewBox="0 0 100 110"><use href="#ap"/></svg><h1>ТЕТРАДЬ</h1><div class=card><h2>Ссылка для друзей</h2><p class=sub>Каждый, кто откроет её, появится у тебя сверху: «Принять» или «Отказать». Регистрация не нужна.</p><input id=lk readonly value="${esc(LINK())}" onfocus="this.select()">${linkNote()}<button class=p data-cp onclick="copyLink()">Скопировать ссылку</button>${navigator.share?'<button onclick="shareLink()">Поделиться</button>':''}${isLocalHost()?'<button onclick="chIP()">Указать IP</button>':''}<button onclick="autoT()">Принимать всех сразу: ${AUTO?'да':'нет'}</button></div><div class=card><h2>За столом: ${SEATS.length} из ${NP}</h2>${seatTags()}${f?`<p class=sub>Свободных мест: ${f}. ${BOTS?'Их займут боты: они сами ходят, пишут в чат и голосуют.':'Они сыграют на этом устройстве.'}</p><button onclick="botT()">Свободные места: ${BOTS?'боты':'люди на этом устройстве'}</button><div class=names ${BOTS?'hidden':''}>${[...Array(f)].map((_,i)=>`<input data-ln=${i} placeholder="Игрок ${SEATS.length+i+1}" maxlength=12 value="${esc(LN[i]||'')}">`).join('')}</div>`:''}<button class=p onclick="start()">Открыть тетрадь</button></div>`+RULES};
 const lobPub=()=>`<h1>ТЕТРАДЬ</h1><p class=sub>Ты за столом</p><div class=card><h2>Сейчас здесь</h2>${seatTags()}<div class=scn data-k=wait></div><p class=sub>Ждём, пока хозяин откроет тетрадь…</p></div>`;
 /* ---- что видит каждый ---- */
-const pubKey=()=>[S.ph,S.round,S.a,S.dead,S.w,S.ev?1:0,S.out].join();
+const pubKey=()=>[S.ph,S.round,S.a,S.dead,S.dead2,S.w,S.ev?1:0,S.out].join();
 function pubHtml(){const ph=S.ph;if(SIM.includes(ph))return pubWait();if(ph=='day')return dayHtml({});if(ph=='arrest')return pubArrest();if(ph=='result')return resultHtml(false);return endHtml(false)}
 function seatView(i){const ph=S.ph,q=S.q&&S.q[i];
  if(SIM.includes(ph)){if(!q)return null;return{h:V[ph](i),k:[ph,S.round,i,q.done,q.st,q.lm,!!q.lr,q.seen!=null,q.swd?1:0,S.mi&&S.mi[S.roles[i]]?1:0,S.nNew&&S.roles[i]=='n'?1:0,ready(i)?1:0].join()}}
- if(ph=='day'&&lSeat()===i&&arrOK())return{h:dayHtml({arrest:1,nn:S.roles[i]=='n'}),k:'da'+S.round+(S.ev?1:0)+S.dead};
+ if(ph=='day'&&lSeat()===i&&arrOK())return{h:dayHtml({arrest:1,nn:S.roles[i]=='n'}),k:'da'+S.round+(S.ev?1:0)+S.dead+'_'+S.dead2};
  if(ph=='arrest'&&S.a===i)return{h:arrestHtml(i),k:'ar'+i};
  return null}
 function hostCtx(){const L=LOC();if(S.ph=='arrest'&&S.a!=null&&L.includes(S.a))return S.a;if(SIM.includes(S.ph))return direct()?L[0]:(S.lc!=null?S.lc:L[0]);return L[0]}
@@ -523,7 +552,7 @@ function hostView(){const ph=S.ph,L=LOC();
  if(SIM.includes(ph)){if(direct()){const sv=S.q[L[0]]&&seatView(L[0]);return sv?{html:sv.h,key:sv.k}:{html:pubWait(),key:'pw'+ph}}
   const sv=S.lc!=null&&S.q[S.lc]&&!S.q[S.lc].done?seatView(S.lc):null;if(sv)return{html:sv.h+'<button onclick="back()">К списку игроков</button>',key:'lc'+sv.k};
   return{html:carousel(),key:'car'+ph+S.round+'s'+S.cs+L.filter(i=>S.q[i]&&S.q[i].done).length}}
- if(ph=='day'){const o={host:1};if(direct()){if(lSeat()===L[0]&&arrOK()){o.arrest=1;o.nn=S.roles[L[0]]=='n'}}else if(arrOK())o.decoy=1;return{html:dayHtml(o),key:'dh'+S.round+(S.ev?1:0)+S.dead}}
+ if(ph=='day'){const o={host:1};if(direct()){if(lSeat()===L[0]&&arrOK()){o.arrest=1;o.nn=S.roles[L[0]]=='n'}}else if(arrOK())o.decoy=1;return{html:dayHtml(o),key:'dh'+S.round+(S.ev?1:0)+S.dead+'_'+S.dead2}}
  if(ph=='arrest'){if(S.a==null)return{html:decoyPick(),key:'dp'};if(L.includes(S.a))return{html:arrestHtml(S.a),key:'ar'+S.a};return{html:pubArrest(),key:'pa'}}
  if(ph=='result')return{html:resultHtml(true),key:'rs'+S.round};
  return{html:endHtml(true),key:'en'}}
@@ -531,7 +560,7 @@ function turnSecs(i){const now=Date.now();if(S.ph=='arrest'&&S.adl)return{tl:Mat
  if(!SIM.includes(S.ph)||!S.q)return null;const q=S.q[i];if(q&&!q.done&&q.dl)return{tl:Math.max(0,Math.ceil((q.dl-now)/1000)),tt:ttFor(i)};
  const mx=Math.max(0,...Object.values(S.q).filter(x=>!x.done&&x.dl).map(x=>x.dl));return mx?{tl:Math.max(0,Math.ceil((mx-now)/1000)),tt:45}:null}
 function hostTurn(){if(!SIM.includes(S.ph)&&S.ph!='arrest')return null;const L=LOC();return turnSecs(direct()?L[0]:S.lc!=null?S.lc:L[0])}
-function draw(){const home=S.ph=='home';if(home&&!RM){show(prejoin(),'home',()=>0,'h0');return}
+function draw(){if(BATCH){DIRTY=1;return}const home=S.ph=='home';if(home&&!RM){show(prejoin(),'home',()=>0,'h0');return}
  if(home)document.querySelectorAll('#app [data-ln]').forEach(e=>LN[e.dataset.ln]=e.value);
  VIEWS={};KEYS={};ALLOW={H:new Set()};const pk=home?'h1':pubKey();
  if(!home&&S.names)SEATS.forEach((s,i)=>{if(rseat(i)){const sv=seatView(i);VIEWS[i]=sv;KEYS[i]=sv?sv.k:pk;ALLOW[i]=hset(sv?sv.h:'')}});
@@ -539,15 +568,16 @@ function draw(){const home=S.ph=='home';if(home&&!RM){show(prejoin(),'home',()=>
  show(hv.html,S.ph,()=>S.te?Math.max(0,Math.ceil((S.te-Date.now())/1000)):0,hv.key,hostTurn());
  hostChat();if(S.ph=='end'&&PWF!='end')endFx(S.w,S.names.filter((n,i)=>!S.alive[i]));PWF=S.ph;
  pubAll()}
+const GCA={};async function gzc(k,h){const c=GCA[k];if(c&&c.h===h)return c.z;const z=await GZ(h);GCA[k]={h,z};return z}
 async function pubAll(){if(!RM||!HOST)return;const n=++PN,ph=S.ph,vv=VIEWS,home=ph=='home';
- const pb=await GZ(home?lobPub():pubHtml()),per={};
+ const pb=await gzc('pb',home?lobPub():pubHtml()),per={};
  await Promise.all([...ACC].map(async p=>{const i=SEATS.findIndex(s=>s.p===p),sv=i>=0?vv[i]:null,o={ok:1};
-  if(sv){o.pv=await GZ(sv.h);o.kv=sv.k}
+  if(sv){o.pv=await gzc('v'+i,sv.h);o.kv=sv.k}
   if(i>=0&&S.roles&&!home){if(!RIC[i])RIC[i]=await GZ(roleCard(i,false));o.ri=RIC[i];o.ca=S.alive[i]?1:0;o.dk=S.alive[i]?null:(S.dm&&S.dm[i])||'note';o.nm=S.names[i];const ts=turnSecs(i);if(ts){o.tl=ts.tl;o.tt=ts.tt}if(evil(S.roles[i]))o.ck=chatK()}
   per[p]=o}));
  for(const p of REJ)per[p]={no:1};
  if(n!=PN)return;LAST={per};
- RM.presence({h:1,c:CODE,t:Date.now(),ph,k:home?'h1':pubKey(),x:HX,g:S.gid,pb,sl:SEATS.map(s=>s.n),cp:chatPub(),td:S.te?Math.max(0,Math.ceil((S.te-Date.now())/1000)):0,win:ph=='end'?S.w:null,wd:ph=='end'?S.names.filter((x,j)=>!S.alive[j]):null,per})}
+ RM.presence({h:1,c:CODE,t:Date.now()*1000+(PT++%1000),ph,k:home?'h1':pubKey(),x:HX,g:S.gid,pb,sl:SEATS.map(s=>s.n),cp:chatPub(),td:S.te?Math.max(0,Math.ceil((S.te-Date.now())/1000)):0,win:ph=='end'?S.w:null,wd:ph=='end'?S.names.filter((x,j)=>!S.alive[j]):null,per})}
 function more(){if(S.ph!='day')return;S.te+=6e4;pubAll()}
 function takeOver(i){SEATS[i].p=null;draw()}
 function act(seat,h,v,tk,isHost){if(!HOST||typeof h!='string'||seat==null)return;
@@ -628,52 +658,101 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
  if(HOST&&S.names&&S.ph!='home'){e.stopImmediatePropagation();e.preventDefault();act(hostCtx(),b.getAttribute('onclick'),v(),null,true)}},true);
 addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;const r=b.getBoundingClientRect(),s=document.createElement('span');s.className='rip';s.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px`;b.appendChild(s);setTimeout(()=>s.remove(),700)});
 /* ===== боты: свободные места играют сами ===== */
-let BOTS=true,BK={pub:[],ls:{},lseat:null,seen:{}},BNM=['Мацуда','Айдзава','Моги','Иде','Укита','Сая','Мэтт','Мидо','Хироми','Мори','Сакура','Хига','Кандзо','Такада'];
+let BOTS=true,BK={pub:[],thr:[],obs:{},seen:{},lseat:null,cl:{},lastT:null,blk:null},BNM=['Мацуда','Айдзава','Моги','Иде','Укита','Сая','Мэтт','Мидо','Хироми','Мори','Сакура','Хига','Кандзо','Такада'];
 const EXC=['Укус змеи','Обрушение лестницы','Отказ тормозов','Удар молнии','Обрыв лифта','Утечка газа','Падение дерева','Тепловой удар','Остановка дыхания','Обвал на стройке'],PLC=['на кухне','в метро','у школы','на крыше','в кафе','в лифте','на мосту','в парке','дома','в офисе','на вокзале','в подвале'];
 const BL=[t=>`Мне не нравится, как ведёт себя ${t}.`,t=>`${t}, объясни свои ходы.`,t=>`Я бы присмотрелся к ${t}.`,t=>`Предлагаю голосовать за ${t}.`,t=>`Кто-то здесь лжёт. Смотрю на ${t}.`,()=>'Не будем спешить: ошибка стоит жизни.',()=>'Тетрадь не выбирает случайно. Думайте.',()=>'Я пока никому не доверяю.'];
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const wpick=(a,w)=>{let t=0;const c=a.map((x,k)=>(t+=Math.max(0,w(x,k)),t));if(!(t>0))return a[Math.random()*a.length|0];const r=Math.random()*t;return a[c.findIndex(x=>x>r)]};
 const botName=()=>{const u=SEATS.map(s=>s.n),f=shuffle(BNM.slice()).find(x=>!u.includes('Бот '+x));return 'Бот '+(f||'№'+SEATS.length)};
 function botT(){BOTS=!BOTS;draw()}
-function botInit(){BK={pub:Array(NP).fill(1),ls:{},lseat:null,seen:{}}}
-/* вес цели j с точки зрения бота b: команда Киры знает своих и ищет L, мирные подозревают по итогам голосований */
-function bw(b,j){const rb=S.roles[b],rj=S.roles[j];if(evil(rb))return evil(rj)?0:(BK.lseat===j?5:1);
- if(rb=='wat'&&eff(j)=='l')return 0;let w=BK.pub[j]||1;if(eff(b)=='l')w*=(BK.ls[b]&&BK.ls[b][j])||1;return w}
-function botLearn(){if(!BK.pub.length||S.out==null)return;const e=evil(S.roles[S.out]);Object.keys(S.vt).forEach(v=>{if(S.vt[v]==S.out)BK.pub[v]*=e?.5:1.8})}
-/* «обсуждение»: боты сходятся на одном подозреваемом; слова L (его слежка) сдвигают общее мнение, команда Киры держится вместе */
+/* уровень игры бота: с вероятностью sk он решает умно, иначе по-старому, почти наугад */
+const SK=b=>Math.random()<(evil(S.roles[b])?CFG.skE:CFG.skG);
+const mkGone=()=>!S.alive[ix('mikami')];
+function botInit(){BK={pub:Array(NP).fill(1),thr:Array(NP).fill(1),obs:{},seen:{},lseat:null,cl:{},lastT:null,blk:null}}
+/* ---- L: байесовская оценка. e — шанс, что игрок из команды Киры, k — что он сам Кира. Учитывает слежку (с поправкой на то, была ли тетрадь у Киры) и мнение стола ---- */
+function lPost(b){const o=al().filter(j=>j!=b),m=Math.max(1,o.length),pk=1/m,pm=(S.alive[ix('mikami')]?1:0)/m,ps=(S.alive[ix('misa')]?1:0)/m,pg=Math.max(.01,1-pk-pm-ps),ob=BK.obs[b]||[],P={},fg=Math.min(.9,CFG.fp+.03);
+ for(const j of o){let lk=1,lm=1,lg=1,c=0;for(const x of ob){if(x.j!=j)continue;c++;const pK=x.nb?CFG.wacc:CFG.fp;lk*=x.s?pK:1-pK;lm*=x.s?CFG.wacc:1-CFG.wacc;lg*=x.s?fg:1-fg}
+  const u=Math.pow(BK.pub[j]||1,.4),A=pk*lk*u,B=(pm+ps)*lm*u,G=pg*lg,T=A+B+G||1;P[j]={k:A/T,e:(A+B)/T,n:c}}
+ return P}
+/* вес цели j при выборе голоса ботом b */
+function bw(b,j){const rb=S.roles[b],rj=S.roles[j];
+ if(evil(rb))return evil(rj)?0:(BK.lseat===j?6:Math.pow(BK.thr[j]||1,.5)*Math.pow(BK.pub[j]||1,.6));
+ if(rb=='wat'&&eff(j)=='l')return 0;
+ let w=BK.pub[j]||1;
+ if(eff(b)=='l'){const p=lPost(b)[j];if(p)w*=Math.max(.05,p.e/(1-p.e+1e-6))/.35}
+ return w}
+/* итоги голосования видят все: кто голосовал за выбывшего Киру/Миками/Мису — тому доверяют, кто за невиновного — подозрительнее */
+function botLearn(){if(!BK.pub.length||S.out==null)return;const bad=evil(S.roles[S.out]);
+ Object.keys(S.vt).forEach(v=>{if(S.vt[v]==S.out){BK.pub[v]*=bad?.5:1.8;if(bad)BK.thr[v]*=2.2}else if(!bad)BK.pub[v]*=.9})}
+/* «обсуждение»: боты сходятся на одном подозреваемом; слова L (его слежка) и подсказки Рюка сдвигают общее мнение */
 function botDay(){if(S.dtr===S.round)return;S.dtr=S.round;
- const L=lSeat();if(L!=null&&isBot(L)&&S.alive[L]){const lk=BK.ls[L]||{};BK.cl=BK.cl||{};for(const k in lk){if(!S.alive[k])continue;const pv=BK.cl[k]||1;BK.pub[k]*=Math.pow(lk[k]/pv,CFG.claim);BK.cl[k]=lk[k]}}
- const a=al();S.dt=wpick(a,x=>BK.pub[x]**2);const tw=a.filter(x=>!evil(S.roles[x]));S.dt2=tw.length?tw[Math.random()*tw.length|0]:null}
+ const L=lSeat();if(L!=null&&isBot(L)&&S.alive[L]){const lr={};for(const x of BK.obs[L]||[])lr[x.j]=(lr[x.j]||1)*(x.s?CFG.wacc/CFG.fp:(1-CFG.wacc)/(1-CFG.fp));
+  for(const k in lr){if(!S.alive[k])continue;const v=Math.max(.1,Math.min(10,lr[k])),pv=BK.cl[k]||1;BK.pub[k]*=Math.pow(v/pv,CFG.claim);BK.cl[k]=v}}
+ const d=S.evd;if(d&&!d.u){d.u=1;if(d.t=='nk')BK.pub[d.j]*=.55;else if(d.t=='in')al().forEach(j=>{BK.pub[j]*=d.l.includes(j)?1.7:.85})}
+ const a=al();S.dt=wpick(a,x=>Math.pow(BK.pub[x]||1,2.5));const tw=a.filter(x=>!evil(S.roles[x]));S.dt2=tw.length?tw[Math.random()*tw.length|0]:null}
 function botCause(){let c;do{c=EXC[Math.random()*EXC.length|0]}while(usedC(c)&&EXC.some(x=>!usedC(x)));return usedC(c)?'Причина №'+(Math.random()*9999|0):c}
 const botDetail=()=>`${Math.random()*24|0}:${String(Math.random()*60|0).padStart(2,'0')}, ${PLC[Math.random()*PLC.length|0]}`;
+/* N: когда подменять тетрадь. Осторожно, пока мирных намного больше; сразу после того, как Миса открыла чью-то роль; когда перевес мирных тает */
+function nSwapP(i){if(!SK(i))return CFG.botsw*.5;const g=al().filter(j=>!evil(S.roles[j])).length,e=al().length-g;let p=.1;
+ if(S.misaUsed&&S.round==S.misaUsed+1&&!S.alive[ix('misa')])p=.85;
+ if(g-e<=2)p=Math.max(p,.8);else if(g-e<=3)p=Math.max(p,.4);return p}
+/* L решает, кого арестовать: нужен высокий шанс, что это команда Киры (ошибка стоит жизни, а без запасного N — и партии) */
+function botArrestPick(b){const P=lPost(b),o=al().filter(j=>j!=b);let bj=null,bp=0;for(const j of o)if(P[j]&&P[j].e>bp){bp=P[j].e;bj=j}if(bj==null)return null;
+ const g=al().filter(j=>!evil(S.roles[j])).length,e=al().length-g,backup=b==ix('l')&&S.alive[ix('n')]&&!S.nUp;let thr=backup?CFG.thrE:CFG.thrE+.12;if(g-e<=2)thr-=.15;
+ return bp>=thr?bj:null}
 function botMove(i,q){const r=eff(i),o=al().filter(j=>j!=i);
  if(S.ph=='reveal')return fin();
- if(S.ph=='vote'){if(!o.length||Math.random()<.05)return castVote(-1);botDay();let j=wpick(o,x=>bw(i,x));
-  if(evil(S.roles[i])){const T=S.dt!=null&&!evil(S.roles[S.dt])?S.dt:S.dt2;if(T!=null&&T!=i&&S.alive[T]&&Math.random()<CFG.follow)j=T}
-  else if(S.dt!=null&&S.dt!=i&&S.alive[S.dt]&&Math.random()<CFG.follow)j=S.dt;
-  if(S.roles[i]=='inv'&&!S.dvu[i]&&!S.nd){const t=o.reduce((s,x)=>s+bw(i,x),0);if(t>0&&bw(i,j)/t>.3&&Math.random()<.35)q.dbl=1}return castVote(j)}
+ if(S.ph=='vote')return botVote(i,q,o);
  if(S.roles[i]=='n'&&S.nNew)S.nNew=0;
  const mm=S.mi&&S.mi[S.roles[i]];if(mm){BK.seen[mm[0]]=mm[1];if(mm[1]=='l'||mm[1]=='n')BK.lseat=mm[0];S.mi[S.roles[i]]=0}
+ if(S.roles[i]=='n'&&!S.sw&&!(CFG.nok1&&S.round==1)&&Math.random()<nSwapP(i)){swapBook();return q.done?0:fin()}
  if(writerOf(i)&&CFG.nok1&&S.round==1)return fin();
- if(writerOf(i)){const t=o.filter(j=>!evil(S.roles[j]));if(!t.length)return fin();q.t=wpick(t,x=>bw(i,x));const cs=CAUSES.filter(x=>!usedC(x));q.c=cs.length?cs[Math.random()*cs.length|0]:botCause();q.d=botDetail();
-  if(r=='kira'&&!S.fu&&Math.random()<.5)q.f=o[Math.random()*o.length|0];writeDone();return q.done?0:fin()}
- if(r=='misa'&&!S.misaUsed){if(Math.random()<(S.round>=2?(al().length<=6?.6:.3):.12)){const t=o.filter(j=>!evil(S.roles[j]));if(t.length){const j=wpick(t,x=>bw(i,x));misaSee(j);BK.seen[j]=S.roles[j];if(S.roles[j]=='l'||S.roles[j]=='n')BK.lseat=j}}return fin()}
- if(r=='n'){if(!S.sw&&!(CFG.nok1&&S.round==1)&&Math.random()<CFG.botsw)swapBook();return q.done?0:fin()}
- if(r=='l'){const op=[1,2,0];if(S.roles[i]=='n'&&!S.sw&&!(CFG.nok1&&S.round==1))op.push(3);const m=wpick(op,x=>x==1?.3:x==2?.6:x==3?CFG.botsw:.05);
-  if(m==3){swapBook();return q.done?0:fin()}
-  if(!m||!o.length)return fin();
-  if(m==1){q.lm=1;const pc=o.filter(j=>!(CFG.norep&&j==S.lpt));lAct(CFG.selfp&&Math.random()<CFG.bself&&!(CFG.norep&&S.lpt===i)?i:wpick(pc.length?pc:o,x=>1/(BK.pub[x]||1)));return q.done?0:fin()}
-  q.lm=2;const lk=BK.ls[i]=BK.ls[i]||{},j=wpick(o,x=>{const w=lk[x]||1;return w>1?w*.6:w<1?.1:1});lAct(j);if(q.lr){const rr=CFG.wacc/(1-CFG.wacc);lk[j]=(lk[j]||1)*(q.lr[1]?rr:1/rr)}return fin()}
+ if(writerOf(i))return botWrite(i,q,o);
+ if(r=='misa'&&!S.misaUsed)return botMisa(i,q,o);
+ if(r=='l')return botL(i,q,o);
  fin()}
+function botVote(i,q,o){if(!o.length||Math.random()<.04)return castVote(-1);botDay();
+ const ev=evil(S.roles[i]),smart=SK(i),wv=x=>bw(i,x);let j=wpick(o,wv);
+ const T=ev?(S.dt!=null&&S.alive[S.dt]&&!evil(S.roles[S.dt])?S.dt:S.dt2):S.dt;
+ if(ev&&BK.lseat!=null&&S.alive[BK.lseat]&&Math.random()<.45)j=BK.lseat;
+ else if(T!=null&&T!=i&&S.alive[T]&&Math.random()<CFG.follow)j=T;
+ if(eff(i)=='l'&&smart){const P=lPost(i);let b=-1,bp=0;for(const x of o)if(P[x]&&P[x].e>bp){bp=P[x].e;b=x}if(b>=0&&bp>=.4)j=b}
+ if(S.roles[i]=='wat'&&eff(j)=='l'){const z=o.filter(x=>eff(x)!='l');if(z.length)j=wpick(z,wv)}
+ if(S.roles[i]=='inv'&&!S.dvu[i]&&!S.nd){const tot=o.reduce((s,x)=>s+wv(x),0);if(tot>0&&wv(j)/tot>.28&&Math.random()<(smart?.5:.35))q.dbl=1}
+ return castVote(j)}
+/* Миками или Кира с тетрадью: бьёт по тем, кто опаснее, и по найденным Мисой L и N */
+function botWrite(i,q,o){const r=eff(i),t=o.filter(j=>!evil(S.roles[j]));if(!t.length)return fin();const smart=SK(i),pv=BK.lastT;BK.blk=pv!=null&&S.alive[pv]?pv:null;
+ const wt=j=>{let w=BK.thr[j]||1;const s=BK.seen[j];if(s=='l')w*=25;else if(s=='n')w*=9;else if(s=='wat')w*=.5;else if(s=='inv')w*=.6;if(BK.blk===j)w*=.35;return Math.pow(w,1.5)};
+ q.t=smart?wpick(t,wt):t[Math.random()*t.length|0];BK.lastT=q.t;
+ if(al().length<=CFG.dk){const t2=t.filter(j=>j!=q.t);if(t2.length)q.t2=smart?wpick(t2,wt):t2[Math.random()*t2.length|0]}
+ const cs=CAUSES.filter(x=>!usedC(x));q.c=cs.length?cs[Math.random()*cs.length|0]:botCause();q.d=botDetail();
+ if((r=='kira'||CFG.mfr)&&!S.fu&&Math.random()<(smart?.7:.5)){const fc=t.filter(j=>j!=q.t&&BK.seen[j]!='l');if(fc.length)q.f=smart?wpick(fc,x=>BK.thr[x]||1):fc[Math.random()*fc.length|0]}
+ writeDone();return q.done?0:fin()}
+/* Миса: глаза шинигами стоят жизни, поэтому тратит их, когда это окупается: поздняя стадия, угроза вылета или давно пора */
+function botMisa(i,q,o){const t=o.filter(j=>!evil(S.roles[j]));if(!t.length)return fin();const n=al().length,rs=S.round,mine=BK.pub[i]||1,rank=al().filter(j=>(BK.pub[j]||1)>mine).length;let p;
+ if(!SK(i))p=rs>=2?(n<=6?.6:.3):.12;
+ else{p=rs==1?.08:.22;if(n<=7)p=.5;if(n<=5)p=.8;if(rs>=2&&rank<=1)p=Math.max(p,.65);if(rs>=4)p=Math.max(p,.6)}
+ if(Math.random()>=p)return fin();
+ const j=wpick(t,x=>BK.thr[x]||1);misaSee(j);if(q.seen!=null){BK.seen[j]=S.roles[j];if(S.roles[j]=='l'||S.roles[j]=='n')BK.lseat=j}
+ return fin()}
+/* L (и N на его месте): защита мирного, которого тетрадь вероятнее всего выберет, или слежка за тем, о ком меньше всего ясности */
+function botL(i,q,o){if(!o.length)return fin();const P=lPost(i),smart=SK(i);
+ if(!smart){const m=wpick([1,2,0],x=>x==1?.3:x==2?.6:.05);if(!m)return fin();
+  if(m==1){q.lm=1;lAct(wpick(o,x=>1/(BK.pub[x]||1)));return q.done?0:fin()}
+  q.lm=2;lAct(o[Math.random()*o.length|0]);if(q.lr)(BK.obs[i]=BK.obs[i]||[]).push({j:q.lr[0],s:q.lr[1],nb:mkGone()});return fin()}
+ if(S.round>=2&&Math.random()<CFG.pProt){q.lm=1;const pc=o.filter(j=>!(CFG.norep&&j==S.lpt));
+  lAct(CFG.selfp&&Math.random()<CFG.bself&&!(CFG.norep&&S.lpt===i)?i:wpick(pc.length?pc:o,x=>Math.pow(1-(P[x]?P[x].e:.3),2)/(BK.pub[x]||1)));return q.done?0:fin()}
+ q.lm=2;const j=wpick(o,x=>{const p=P[x];if(!p)return .01;if(p.n>=2&&p.e<.04)return .005;return Math.pow(p.e*(1-p.e)+(p.n?0:.12),2)+.001});lAct(j);
+ if(q.lr)(BK.obs[i]=BK.obs[i]||[]).push({j:q.lr[0],s:q.lr[1],nb:mkGone()});return fin()}
 function botTick(n){if(!S.names)return;const ph=S.ph;
  if(SIM.includes(ph)&&S.q){for(const k of Object.keys(S.q)){if(S.ph!==ph||!S.q||!S.q[k])break;const i=+k,q=S.q[k];if(!isBot(i)||q.done||!q.dl)continue;
    if(!q.bt)q.bt=n+(ph=='reveal'?rnd(1e3,4e3):rnd(2e3,ph=='night'&&writerOf(i)?12e3:8e3));if(n<q.bt)continue;
    CUR=i;try{botMove(i,q)}catch(e){console.error(e);if(S.q&&S.q[k]&&!S.q[k].done)fin()}CUR=null}}
  else if(ph=='day'){const L=lSeat();
-  if(S.bdy!==S.round){S.bdy=S.round;S.bar=null;if(L!=null&&isBot(L)&&arrOK()){const b=BK.ls[L]||{},mx=Math.max(0,...Object.keys(b).filter(j=>S.alive[j]).map(j=>b[j]));S.bar=Math.random()<(mx>=CFG.barr?.75:0)?n+rnd(25e3,150e3):null}}
+  if(S.bdy!==S.round){S.bdy=S.round;S.bar=null;S.bgt=null;if(L!=null&&isBot(L)&&arrOK()){const g=botArrestPick(L);if(g!=null){S.bgt=g;S.bar=n+rnd(8e3,80e3)}}}
   if(S.bar&&n>S.bar&&L!=null&&isBot(L)&&arrOK()){S.bar=null;CUR=L;arrestGo();CUR=null;S.bat=n+rnd(1500,3500)}
-  if(Math.random()<.018){const bs=al().filter(x=>isBot(x));if(bs.length){const b=bs[Math.random()*bs.length|0],t=wpick(al().filter(j=>j!=b),x=>bw(b,x));chatIn(b,{ch:'p',t:BL[Math.random()*BL.length|0](S.names[t])})}}}
- else if(ph=='arrest'&&S.a!=null&&isBot(S.a)&&S.bat&&n>S.bat){const L=S.a;S.bat=0;CUR=L;try{arrest2(wpick(al().filter(j=>j!=L),x=>bw(L,x)**2))}catch(e){console.error(e);arrestCancel()}CUR=null}}
+  if(Math.random()<.018){const bs=al().filter(x=>isBot(x));if(bs.length){botDay();const b=bs[Math.random()*bs.length|0],T=evil(S.roles[b])&&S.dt2!=null?S.dt2:S.dt,t=T!=null&&T!=b&&S.alive[T]&&Math.random()<.7?T:wpick(al().filter(j=>j!=b),x=>bw(b,x));chatIn(b,{ch:'p',t:BL[Math.random()*BL.length|0](S.names[t])})}}}
+ else if(ph=='arrest'&&S.a!=null&&isBot(S.a)&&S.bat&&n>S.bat){const L=S.a;S.bat=0;CUR=L;try{const g=S.bgt!=null&&S.alive[S.bgt]&&S.bgt!=L?S.bgt:botArrestPick(L);if(g==null)arrestCancel();else arrest2(g)}catch(e){console.error(e);arrestCancel()}CUR=null}}
 /* ---- манга-сцены, призрак, блокнот ---- */
 const HT=id=>`<pattern id="${id}" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#fff" opacity=".13"/></pattern>`;
 const GG=(x,y,s,o)=>`<text class=gogo x="${x}" y="${y}" font-size="${s}" fill="#fff" opacity="${o||.5}" font-family="'Rubik Distressed',serif">ゴゴゴ</text>`;
@@ -710,7 +789,7 @@ note:n=>{const c=[...String(n)],fs=c.length>10?21:c.length>8?25:30,ft="font-fami
 <path d="M40 34H260M40 56H260M40 78H260M40 98H260" stroke="#3a2f1c" stroke-opacity=".28"/><path d="M62 10V104" stroke="#a11a22" stroke-opacity=".5"/>
 <text x="150" y="72" text-anchor="middle" font-size="${fs}" ${ft} fill="#16110a">${c.map((ch,k)=>`<tspan class=nl style="animation-delay:${(k*.16).toFixed(2)}s">${esc(ch)}</tspan>`).join('')}</text>
 <text class=nbd style="animation-delay:${(c.length*.16+.35).toFixed(2)}s" x="150" y="72" text-anchor="middle" font-size="${fs}" ${ft} fill="#c1121f">${esc(n)}</text></g>
-<path d="M0 150H300" stroke="#fff" stroke-opacity=".08"/><path class=ecg pathLength="1" d="${ECG}"/>${GG(214,174,22,.28)}</svg>`},
+<path d="M0 150H300" stroke="#fff" stroke-opacity=".08"/><path class="ecg ecg2" pathLength="1" d="${ECG}"/><path class=ecg pathLength="1" d="${ECG}"/>${GG(214,174,22,.28)}</svg>`},
 /* арест: сирены полосуют кадр, наручники захлопываются с искрами */
 arrest:()=>`<svg viewBox="0 0 300 170"><defs>${HT('ha')}
 <linearGradient id="cs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f1"/><stop offset=".5" stop-color="#8f8f8b"/><stop offset="1" stop-color="#dcdcd8"/></linearGradient></defs>
@@ -736,7 +815,7 @@ vote:()=>`<svg viewBox="0 0 300 170"><defs>${HT('hv')}
 <g class=vdst fill="#e4e4e1">${[[-46,-30],[-28,-44],[-10,-52],[12,-50],[32,-40],[50,-24],[-58,-8],[60,-6]].map((d,k)=>`<circle style="--dx:${d[0]}px;--dy:${d[1]}px;animation-delay:${k*.02}s" cx="150" cy="126" r="${1.4+(k%3)*.5}"/>`).join('')}</g>
 <rect class=vfl width="300" height="170" fill="#fff"/>${GG(8,40,24,.28)}</svg>`
 };
-function hydrate(r){r.querySelectorAll('.scn[data-k]').forEach(e=>{if(!e.firstChild){const f=SCN[e.dataset.k];if(f)e.innerHTML=f(e.dataset.n||'')}})}
+function hydrate(r){r.querySelectorAll('.scn[data-k]').forEach(e=>{if(!e.firstChild){const f=SCN[e.dataset.k];if(f)e.innerHTML=f(e.dataset.n||'')}if(SIO&&!e._o){e._o=1;SIO.observe(e)}})}
 const GC={note:['ТЕБЯ ВПИСАЛИ В ТЕТРАДЬ','Сердце остановилось. Теперь ты лишь тень за столом.'],eyes:['ГЛАЗА ШИНИГАМИ ЗАБРАЛИ ЖИЗНЬ','Слишком многое открылось твоему взгляду.'],vote:['ПРИГОВОР ПРИВЕДЁН В ИСПОЛНЕНИЕ','Стол решил. Ты выбываешь.'],arrest:['АРЕСТОВАН','Наручники защёлкнулись. Дальше смотришь со стороны.']},GS={note:'note',eyes:'note',vote:'vote',arrest:'arrest'};
 function flash(){const b=document.body;b.classList.remove('fl2');void b.offsetWidth;b.classList.add('fl2')}
 function ghostSet(dk,nm){dk=dk?(GC[dk]?dk:'note'):null;if(dk===GK)return;const first=!GK&&dk;GK=dk;const g=$('gh');document.body.classList.toggle('ghost',!!dk);
@@ -770,6 +849,18 @@ function endFx(w,dead){const e=$('win');if(!e)return;ET.forEach(clearTimeout);ET
  const close=()=>{ET.forEach(clearTimeout);ET=[];e.classList.add('out');setTimeout(()=>{if(e.classList.contains('out')){e.hidden=true;e.innerHTML=''}},1300)};
  at(w=='kira'?11000:14500,close);e.onclick=close}
 
+/* ===== v3: экономия ресурсов ===== */
+/* сцены вне экрана и свёрнутая вкладка не анимируются */
+const SIO=typeof IntersectionObserver=='function'?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('off',!e.isIntersecting))):null;
+document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('paused',document.hidden));
+/* если устройство явно не тянет (менее 22 кадров/с шесть секунд подряд), снимаем самые дорогие слои: сначала зерно, дальний туман и вращение лучей, потом искажающие фильтры */
+(function(){if(typeof requestAnimationFrame!='function'||(typeof matchMedia=='function'&&matchMedia('(prefers-reduced-motion:reduce)').matches))return;
+ const H=document.documentElement;let lv=0,bad=0,last=0,n=0,t0=0;const end=performance.now()+120000;
+ const f=t=>{if(document.hidden){last=0;t0=0;n=0;requestAnimationFrame(f);return}
+  if(last&&t-last<200)n++;last=t;if(!t0)t0=t;
+  if(t-t0>=2000){const fps=n*1000/(t-t0);bad=fps<22?bad+1:0;n=0;t0=0;if(bad>=3&&lv<2){lv++;H.classList.add(lv==1?'lowfx':'lowfx2');bad=0}if(t>end||lv>=2)return}
+  requestAnimationFrame(f)};
+ requestAnimationFrame(f)})();
 addEventListener('hashchange',()=>{const m=(location.hash.match(/^#([A-Za-z]{5})$/)||[])[1];if(m&&!RM&&!HOST){HC=m.toUpperCase();AJF=0;draw();jn()}});
 draw();if(HC)jn();
 </script></body></html>
