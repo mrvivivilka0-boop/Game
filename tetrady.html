@@ -797,6 +797,8 @@ for(let i=0;i<26;i++){const a=document.createElement('i');a.className='ash';a.st
    параллельно длинный тёмный холл (ConvolverNode, 3.8 с) с отсечкой низа.
    =================================================================== */
 let AU=null,mph='home';
+/* лёгкий режим для телефонов и слабых устройств: частота 24 кГц, короткий холл, меньше голосов */
+const AULITE=(typeof matchMedia=='function'&&matchMedia('(pointer:coarse)').matches)||(navigator.hardwareConcurrency||8)<=4;
 const hz=m=>440*2**((m-69)/12),arn=(a,b)=>a+Math.random()*(b-a),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),pick1=a=>a[Math.random()*a.length|0],lerp=(a,b,k)=>a+(b-a)*k;
 const AUSC={home:'amb',reveal:'amb',night:'night',day:'day',vote:'tense',arrest:'tense',result:'tense',end:'end'};
 const PIANO=[50,51,54,55,57,58,60,62,63,66,67,69,70,74]; /* D3..D5 в ре фригийском доминантном */
@@ -810,8 +812,8 @@ function auNoise(c,sec,brown){const sr=c.sampleRate,n=sr*sec|0,cf=sr*.25|0,a=new
  for(let i=0;i<n;i++){const w=Math.random()*2-1;if(brown){l=(l+.02*w)/1.02;a[i]=l*3.4}else a[i]=w}
  const m=n-cf,b=c.createBuffer(1,m,sr),d=b.getChannelData(0);
  for(let i=0;i<m;i++)d[i]=i<cf?a[i]*(i/cf)+a[m+i]*(1-i/cf):a[i];return b}
-function auIR(c,sec){const sr=c.sampleRate,n=sr*sec|0,pd=sr*.028|0,b=c.createBuffer(2,n,sr);
- for(let ch=0;ch<2;ch++){const d=b.getChannelData(ch);let y=0;
+function auIR(c,sec){const sr=c.sampleRate,n=sr*sec|0,pd=sr*.028|0,b=c.createBuffer(AULITE?1:2,n,sr);
+ for(let ch=0;ch<b.numberOfChannels;ch++){const d=b.getChannelData(ch);let y=0;
   for(let i=pd;i<n;i++){const t=(i-pd)/sr,env=Math.exp(-6.9*t/(sec*.95))*Math.min(1,t/.02),fc=5200*Math.exp(-t*1.3)+380,a=1-Math.exp(-6.2832*fc/sr);y+=a*((Math.random()*2-1)-y);d[i]=y*env}
   [[.037,.5],[.051,.42],[.073,.34],[.097,.28],[.131,.22],[.173,.16]].forEach(([tp,g],k)=>{const j=(tp*sr+ch*(19+k*7))|0;d[j]+=g*(k%2?-1:1)*(ch?-1:1)})}
  return b}
@@ -826,14 +828,14 @@ function auSrc(buf,t,dur){const s=ac.createBufferSource();s.buffer=buf;if(dur>bu
 /* ---------- мастер-шина ---------- */
 function auInit(){const c=ac,o={};
  o.duck=gn(c,1);o.bus=gn(c,1);o.dry=gn(c,1);o.fx=gn(c,1);
- const sat=c.createWaveShaper();sat.curve=auSat();sat.oversample='2x';
+ const sat=c.createWaveShaper();sat.curve=auSat();sat.oversample=AULITE?'none':'2x';
  o.bus.connect(o.duck);o.dry.connect(o.duck);o.duck.connect(sat);o.fx.connect(sat);
  const film=auChain(sat,bq(c,'highpass',24,.7),bq(c,'lowpass',6200,.6),bq(c,'highshelf',3600,null,-7));  /* старая плёнка: срез верха */
  const comp=c.createDynamicsCompressor();[['threshold',-16],['knee',14],['ratio',3],['attack',.012],['release',.3]].forEach(([k,v])=>comp[k].value=v);
  const lim=c.createDynamicsCompressor();[['threshold',-3],['knee',0],['ratio',20],['attack',.002],['release',.09]].forEach(([k,v])=>lim[k].value=v);
  const out=gn(c,.85);film.connect(comp);comp.connect(lim);lim.connect(out);out.connect(c.destination);
  /* длинный тёмный холл: в него идёт только «верх» (инфра-дроны мимо, чтобы не мутило) */
- const cv=c.createConvolver();cv.buffer=auIR(c,3.8);
+ const cv=c.createConvolver();cv.buffer=auIR(c,AULITE?1.8:3.8);
  const send=gn(c,.55),fxs=gn(c,.35),rhp=bq(c,'highpass',170,.7),rlp=bq(c,'lowpass',3000,.6),ret=gn(c,.9);
  o.bus.connect(send);o.fx.connect(fxs);send.connect(rhp);fxs.connect(rhp);auChain(rhp,cv,rlp,ret);ret.connect(comp);
  /* тёмное эхо для пианино */
@@ -846,7 +848,8 @@ const BEDS={
  drone(c,tense){const g=gn(c,0),lp=bq(c,'lowpass',280,.8),lf=c.createOscillator(),lg=gn(c,70),al=c.createOscillator(),ag=gn(c,.006),src=[];
   const o=(ty,f,d,v)=>{const x=c.createOscillator();x.type=ty;x.frequency.value=f;x.detune.value=d;x.connect(gn(c,v)).connect(g);x.start();src.push(x);return x};
   o('sine',36.71,0,.5);o('sine',55,13,.34);o('sine',55,-11,.26); /* биение A1 ≈ 0.8 Гц */
-  if(tense)o('sine',38.89,0,.34);                              /* Eb1 против D1: пульсация ≈ 2.2 Гц */
+  if(tense)o('sine',38.89,0,.34);
+  if(AULITE){const sw=c.createOscillator();sw.type='sawtooth';sw.frequency.value=73.42;sw.connect(lp);lp.connect(gn(c,.55)).connect(g);sw.start();src.push(sw);g.connect(AU.dry);return{g,src}}                              /* Eb1 против D1: пульсация ≈ 2.2 Гц */
   const sw=c.createOscillator();sw.type='sawtooth';sw.frequency.value=73.42;sw.connect(lp);lp.connect(gn(c,.55)).connect(g);sw.start();src.push(sw);
   lf.frequency.value=.045;lf.connect(lg);lg.connect(lp.frequency);lf.start();src.push(lf);
   al.frequency.value=.06;al.connect(ag);ag.connect(g.gain);al.start();src.push(al);     /* медленное «дыхание» громкости */
@@ -866,7 +869,7 @@ function auScene(name){const c=ac,t=c.currentTime,want=SCENES[name]||SCENES.amb;
 /* расстроенное старое пианино: синус + треугольник, лёгкий детюн, быстрое затухание, «просевший» питч, эхо */
 function piano(m,t,v){const c=ac,f=hz(m),dur=m<58?3:2.2,g=gn(c,0),lp=bq(c,'lowpass',2000+m*20,.6);
  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.004);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
- [['sine',0,1],['triangle',arn(6,14),.55],['triangle',-arn(5,9),.3],['sine',1200+arn(-5,5),.16]].forEach(([ty,d,a],i)=>{const o=c.createOscillator();o.type=ty;o.frequency.value=i==3?f*2:f;o.detune.setValueAtTime(i==3?0:d,t);
+ (AULITE?[['sine',0,1],['triangle',arn(6,14),.55]]:[['sine',0,1],['triangle',arn(6,14),.55],['triangle',-arn(5,9),.3],['sine',1200+arn(-5,5),.16]]).forEach(([ty,d,a],i)=>{const o=c.createOscillator();o.type=ty;o.frequency.value=i==3?f*2:f;o.detune.setValueAtTime(i==3?0:d,t);
   o.detune.linearRampToValueAtTime((i==3?0:d)-arn(8,20),t+dur);const x=gn(c,a);o.connect(x);x.connect(g);o.start(t);o.stop(t+dur+.05)});
  g.connect(lp);lp.connect(AU.bus);lp.connect(AU.dIn);
  const h=auSrc(AU.nz,t,.014),hf=bq(c,'bandpass',2400,1.2),hg=gn(c,v*.22);hg.gain.setValueAtTime(v*.22,t);hg.gain.exponentialRampToValueAtTime(.0001,t+.014);auChain(h,hf,hg,AU.bus)}
@@ -875,10 +878,10 @@ function choir(notes,t,dur,v,glide){const c=ac,att=Math.min(dur*.42,2.6),rel=Mat
  lfo.frequency.value=5.1;lfo.connect(lg);lg.gain.setValueAtTime(0,t);lg.gain.linearRampToValueAtTime(9,t+att+.5);lfo.start(t);lfo.stop(t+dur+.2);
  notes.forEach((m,k)=>{const env=gn(c,0),mix=gn(c,.5),f0=hz(m);
   env.gain.setValueAtTime(0,t);env.gain.linearRampToValueAtTime(v,t+att);env.gain.setValueAtTime(v,t+dur-rel);env.gain.linearRampToValueAtTime(0,t+dur);
-  [-1,1].forEach(sd=>{const o=c.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(f0,t);if(glide)o.frequency.linearRampToValueAtTime(f0*1.0595,t+dur);o.detune.value=sd*arn(5,11);lg.connect(o.detune);o.connect(mix);o.start(t);o.stop(t+dur+.1)});
-  [[500,6,1],[800,8,.7],[2500,11,.3]].forEach(([fq,q,a])=>{const b=bq(c,'bandpass',fq*arn(.97,1.03),q),x=gn(c,a);b.frequency.linearRampToValueAtTime(fq*(k%2?1.07:.94),t+dur);mix.connect(b);b.connect(x);x.connect(env)});
+  (AULITE?[1]:[-1,1]).forEach(sd=>{const o=c.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(f0,t);if(glide)o.frequency.linearRampToValueAtTime(f0*1.0595,t+dur);o.detune.value=sd*arn(5,11);lg.connect(o.detune);o.connect(mix);o.start(t);o.stop(t+dur+.1)});
+  (AULITE?[[500,6,1],[800,8,.7]]:[[500,6,1],[800,8,.7],[2500,11,.3]]).forEach(([fq,q,a])=>{const b=bq(c,'bandpass',fq*arn(.97,1.03),q),x=gn(c,a);b.frequency.linearRampToValueAtTime(fq*(k%2?1.07:.94),t+dur);mix.connect(b);b.connect(x);x.connect(env)});
   env.connect(AU.bus)});
- const br=auSrc(AU.nz,t,dur),bf=bq(c,'bandpass',2600,1.1),bg=gn(c,0);bg.gain.linearRampToValueAtTime(v*.1,t+att);bg.gain.linearRampToValueAtTime(0,t+dur);auChain(br,bf,bg,AU.bus)}
+ if(!AULITE){const br=auSrc(AU.nz,t,dur),bf=bq(c,'bandpass',2600,1.1),bg=gn(c,0);bg.gain.linearRampToValueAtTime(v*.1,t+att);bg.gain.linearRampToValueAtTime(0,t+dur);auChain(br,bf,bg,AU.bus)}}
 /* сухой пиццикато-бас: короткая атака, фильтр захлопывается, питч чуть «клюёт» */
 function bass(m,t,v){const c=ac,f=hz(m),g=gn(c,0),lp=bq(c,'lowpass',1300,.9);
  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.003);g.gain.exponentialRampToValueAtTime(.0001,t+.3);
@@ -913,7 +916,7 @@ function riser(t,dur,v){const c=ac,s=auSrc(AU.nz,t,Math.min(dur,2.9)),b=bq(c,'ba
 
 /* ---------- планировщик: события на 0.65 с вперёд, не зависит от дрожания таймеров ---------- */
 function auPump(up){if(!AU)return;const n=AU.n,s=AU.sc,now=ac.currentTime,t0=AU.t0,late=k=>{if(n[k]==null||n[k]<now)n[k]=now+.05};
- late('dust');while(n.dust<up){crackle(n.dust);n.dust+=arn(.35,2.4)}
+ late('dust');while(n.dust<up){if(!AULITE)crackle(n.dust);n.dust+=arn(.35,2.4)}
  if(s=='amb'||s=='night'||s=='end'){
   if(s=='amb'){late('tk');if(n.tkc==null)n.tkc=0;while(n.tk<up){tk(n.tk,n.tkc++%2?.016:.03,n.tkc%2?1500:2000);n.tk+=1.03}}
   if(n.pi==null)n.pi=t0+arn(1.5,4);late('pi');
@@ -934,9 +937,9 @@ function auPump(up){if(!AU)return;const n=AU.n,s=AU.sc,now=ac.currentTime,t0=AU.
   const I=clamp((up-t0)/36,0,1);
   if(n.hb==null)n.hb=t0+.1;late('hb');while(n.hb<up){const Ii=clamp((n.hb-t0)/36,0,1),per=lerp(.76,.44,Ii);heart(n.hb,lerp(.055,.085,Ii),per*.22);n.hb+=per}
   if(n.mt==null)n.mt=t0+arn(1.6,2.6);late('mt');while(n.mt<up){const Ii=clamp((n.mt-t0)/36,0,1);metal(n.mt,.011+.014*Ii,null,1);n.mt+=arn(2.4,5)*(1.25-.55*Ii)}
-  if(n.ch==null)n.ch=t0+.3;late('ch');while(n.ch<up){const Ii=clamp((n.ch-t0)/36,0,1);choir(pick1(CH_TENSE),n.ch,arn(6.5,8.5),.028+.02*Ii,true);n.ch+=arn(5.5,7.5)}
-  if(n.rs==null)n.rs=t0+arn(7,10);late('rs');while(n.rs<up){riser(n.rs,arn(5,8),.03);n.rs+=arn(14,20)}}}
-function auTick(){if(!ac||!AU)return;if(ac.state=='suspended'&&ac.resume)ac.resume().catch(()=>{});auPump(ac.currentTime+(document.hidden?1.8:.65))}
+  if(n.ch==null)n.ch=t0+.3;late('ch');while(n.ch<up){const Ii=clamp((n.ch-t0)/36,0,1);choir(pick1(CH_TENSE).slice(0,AULITE?3:9),n.ch,arn(6.5,8.5),.028+.02*Ii,true);n.ch+=arn(5.5,7.5)}
+  if(n.rs==null)n.rs=t0+arn(7,10);late('rs');while(n.rs<up){if(!AULITE)riser(n.rs,arn(5,8),.03);n.rs+=arn(14,20)}}}
+function auTick(){if(!ac||!AU)return;if(ac.state=='suspended'&&ac.resume)ac.resume().catch(()=>{});auPump(ac.currentTime+(document.hidden?1.8:AULITE?1:.65))}
 
 /* ---------- публичный интерфейс ---------- */
 function bell(p){if(!ac||!AU)return;mph=p;const sc=AUSC[p]||'amb',t=ac.currentTime;auScene(sc);
@@ -956,8 +959,8 @@ function sfx(k){if(!ac||!AU)return;const c=ac,t=c.currentTime;
  if(k=='clank'){metal(t,.07,1760,.35);metal(t+.09,.055,2637,.3);metal(t+.2,.035,3520,.25)}}
 function toggleSnd(){const b=$('sb');
  if(ac){clearInterval(AU&&AU.timer);try{ac.close()}catch(e){}ac=null;AU=null;b.textContent='Музыка: выкл';return}
- ac=new(window.AudioContext||window.webkitAudioContext)();if(ac.state=='suspended'&&ac.resume)ac.resume().catch(()=>{});
- auInit();mph=S.ph;auScene(AUSC[mph]||'amb');AU.timer=setInterval(auTick,110);auTick();b.textContent='Музыка: вкл'}
+ {const AC=window.AudioContext||window.webkitAudioContext;try{ac=new AC(AULITE?{latencyHint:'playback',sampleRate:24000}:{latencyHint:'playback'})}catch(e){ac=new AC()}}if(ac.state=='suspended'&&ac.resume)ac.resume().catch(()=>{});
+ auInit();mph=S.ph;auScene(AUSC[mph]||'amb');AU.timer=setInterval(auTick,AULITE?220:110);auTick();b.textContent='Музыка: вкл'}
 /* шум-эффект с прежней сигнатурой (оставлен для совместимости) */
 function nzb(d,fc,ty,v){if(!ac||!AU)return;const t=ac.currentTime,s=auSrc(AU.nz,t,Math.min(d,2.9)),f=bq(ac,ty,fc,.7),g=gn(ac,v);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);auChain(s,f,g,AU.fx)}
 /* атмосфера: луна и туман по событиям дня (видно и хозяину, и гостям: ищем по тексту карточки) */
