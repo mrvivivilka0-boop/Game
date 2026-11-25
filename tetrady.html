@@ -735,7 +735,7 @@ function beginAll(){for(const k of Object.keys(S.q)){const i=+k;if(!needsPass(i)
 function night(){S.round++;S.night={};S.lpt=S.pt;S.pt=null;S.mi=null;S.lc=null;S.dead=null;S.dead2=null;mkQ(0);S.ph='night';beginAll();go('night',{})}
 function selT(j){const q=Q();if(q&&!q.done&&S.alive[j]){q.t=j;if(q.t2===j)q.t2=null;draw()}}function selT2(j){const q=Q();if(q&&!q.done&&S.alive[j]&&j!=q.t&&!evil(S.roles[j])&&eff(CUR)=='kira'&&al().length<=CFG.dk){q.t2=q.t2===j?null:j;draw()}}function selF(j){const q=Q();if(q){q.f=q.f===j?null:j;draw()}}
 function writeDone(){const q=Q();if(!q||q.done||!writerOf(CUR)||S.ph!='night')return draw();if(q.t==null||!S.alive[q.t]||evil(S.roles[q.t])||!q.c.trim()||usedC(q.c))return draw();
- S.night={v:q.t,v2:q.t2!=null&&eff(CUR)=='kira'&&al().length<=CFG.dk&&S.alive[q.t2]&&!evil(S.roles[q.t2])&&q.t2!=q.t?q.t2:null,c:q.c.trim(),d:q.d.trim(),n:eff(CUR)=='kira'?String(q.n||'').trim().slice(0,70):'',by:CUR};S.used.push(S.night.c);if(q.f!=null&&!S.fu&&eff(CUR)=='kira'){S.fr=q.f;S.fu=1}fin()}
+ S.night={v:q.t,v2:q.t2!=null&&eff(CUR)=='kira'&&al().length<=CFG.dk&&S.alive[q.t2]&&!evil(S.roles[q.t2])&&q.t2!=q.t?q.t2:null,c:q.c.trim(),d:q.d.trim()||botDetail(),n:eff(CUR)=='kira'?String(q.n||'').trim().slice(0,70):'',by:CUR};S.used.push(S.night.c);if(q.f!=null&&!S.fu&&eff(CUR)=='kira'){S.fr=q.f;S.fu=1}fin()}
 function lAct(j){const q=Q();if(!q||q.done||eff(CUR)!='l'||!S.alive[j]||(j==CUR&&!(q.lm==1&&CFG.selfp)))return;
  if(q.lm==1){if(CFG.norep&&S.lpt===j)return draw();S.pt=j;fin()}else if(q.lm==2){q.lr=[j,Math.random()<susP(j)];draw()}}
 function misaSee(j){const q=Q();if(!q||q.done||S.roles[CUR]!='misa'||S.misaUsed||!S.alive[j]||j==CUR)return;S.misaUsed=S.round;q.seen=j;S.mi={kira:[j,S.roles[j]],mikami:[j,S.roles[j]]};draw()}
@@ -1003,31 +1003,59 @@ function loadPeer(){if(window.Peer)return Promise.resolve();if(PL)return PL;
   PURL.forEach((u,k)=>setTimeout(()=>{if(done)return;if(window.Peer)return fin();const t=document.createElement('script');t.src=u;t.onload=()=>window.Peer?fin():fin(1);t.onerror=()=>fin(1);document.head.appendChild(t)},k*2500));
   setTimeout(()=>{if(!done&&!window.Peer){done=1;PL=null;no(new Error('peerjs'))}},20000)})}
 loadPeer().catch(()=>{});
-const mkPeer1=id=>new Promise((ok,no)=>{const p=id?new Peer(id):new Peer(),t=setTimeout(()=>{try{p.destroy()}catch(e){}no({type:'timeout'})},12000);p.on('open',()=>{clearTimeout(t);ok(p)});p.on('error',e=>{clearTimeout(t);try{p.destroy()}catch(x){}no(e)})});
-const mkPeer=async id=>{try{return await mkPeer1(id)}catch(e){if(e&&e.type=='unavailable-id')throw e;return await mkPeer1(id)}};
-function mkNet(peer,isHost,hostId){const me=peer.id,P={[me]:{}},conns=new Map(),T=[];let cb=null,cc=null,hc=null,lastRx=Date.now(),dead=false;
+/* ICE: у PeerJS больше нет своего бесплатного TURN, поэтому добавляем запасные STUN/TURN. Без relay игроки на мобильном интернете или за строгим NAT не могли соединиться с хозяином */
+const ICE0=[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'stun:stun.cloudflare.com:3478'},{urls:'stun:global.stun.twilio.com:3478'},{urls:['turn:openrelay.metered.ca:80','turn:openrelay.metered.ca:443','turns:openrelay.metered.ca:443?transport=tcp'],username:'openrelayproject',credential:'openrelayproject'}];
+/* по желанию: сюда можно вставить ссылку на свой TURN, например https://ИМЯ.metered.live/api/v1/turn/credentials?apiKey=КЛЮЧ (бесплатный ключ на metered.ca). Тогда вход будет работать почти у всех */
+const TURN_API='';
+let ICE=null;
+async function getICE(){if(ICE)return ICE;let x=[];if(TURN_API){try{const c=new AbortController(),t=setTimeout(()=>c.abort(),4000),r=await fetch(TURN_API,{signal:c.signal});clearTimeout(t);const j=await r.json();if(Array.isArray(j))x=j}catch(e){}}return ICE=[...ICE0,...x]}
+/* ВАЖНО: раньше обработчик 'error' уничтожал peer при ЛЮБОЙ ошибке, даже после успешного входа (обрыв сети, peer-unavailable). Из-за этого комната «умирала». Теперь после открытия ошибки только пишутся в консоль */
+const mkPeer1=async id=>{const config={iceServers:await getICE()};return new Promise((ok,no)=>{let p;try{p=id?new Peer(id,{config}):new Peer({config})}catch(e){return no(e)}
+ const t=setTimeout(()=>{try{p.destroy()}catch(e){}no({type:'timeout'})},12000),early=e=>{clearTimeout(t);try{p.destroy()}catch(x){}no(e)};
+ p.on('error',early);p.on('open',()=>{clearTimeout(t);p.off('error',early);p.on('error',e=>{console.warn('peer',e&&e.type,e)});ok(p)})})};
+const mkPeer=async id=>{let le;for(let k=0;k<3;k++){try{return await mkPeer1(id)}catch(e){le=e;if(e&&e.type=='unavailable-id')throw e;await sleep(700)}}throw le};
+function mkNet(peer,isHost,hostId){const me=peer.id,P={[me]:{}},conns=new Map(),T=[];let cb=null,cc=null,hc=null,lastRx=Date.now(),dead=false,na=0,tries=0,rec=0,stuck=0,dial=null;
  const merge=(o,p)=>{for(const k in p){if(p[k]===null)delete o[k];else o[k]=p[k]}};
  const list=()=>Object.keys(P).map(k=>({peer:k,isMe:k===me,sameTab:k===me,presence:P[k]}));
  const fire=left=>{if(cb)cb({peers:list(),left:(left||[]).map(k=>({peer:k}))})};
  const view=k=>{const h=P[me],{per,...o}=h,m=per&&per[k];if(!m||!m.ok)return{h:o.h,c:o.c,t:o.t,no:m&&m.no?1:0};const v={...o,...m};if(m.pv)delete v.pb;return v};
- const R={peers:list,presence(patch){merge(P[me],patch);if(isHost)conns.forEach(c=>c.open&&c.send({hp:view(c.peer)}));else if(hc&&hc.open)hc.send({p:patch});fire();return Promise.resolve()},
+ const EV=[[document,'visibilitychange'],[window,'online'],[window,'pageshow']];
+ /* хозяин держит комнату зарегистрированной на сервере соединений: переподключается и при необходимости создаёт peer заново с тем же кодом */
+ const hostUp=()=>{if(dead)return;if(peer.destroyed)return recreate();if(peer.disconnected){try{peer.reconnect();stuck=Date.now()}catch(e){}}else if(!peer.open&&stuck&&Date.now()-stuck>15000){stuck=0;try{peer.disconnect()}catch(e){}}};
+ const wake=()=>{if(dead||document.hidden)return;if(isHost)hostUp();else{if(peer.disconnected&&!peer.destroyed)try{peer.reconnect()}catch(e){}if(!hc&&dial)dial()}};
+ const R={peers:list,stat:()=>({na,tries}),presence(patch){merge(P[me],patch);if(isHost)conns.forEach(c=>c.open&&c.send({hp:view(c.peer)}));else if(hc&&hc.open)hc.send({p:patch});fire();return Promise.resolve()},
   quiet(patch){merge(P[me],patch)},chat(f){conns.forEach(c=>{if(c.open){const m=f(c.peer);if(m)try{c.send({cm:m})}catch(e){}}})},onChat(f){cc=f},
   onPeers(f){cb=f;Promise.resolve().then(()=>fire());return()=>{cb=null}},
-  async leave(){dead=true;T.forEach(clearInterval);try{peer.destroy()}catch(e){}}};
- if(isHost){peer.on('connection',c=>{const gone=()=>{if(conns.get(c.peer)===c){conns.delete(c.peer);delete P[c.peer];fire([c.peer])}};
+  async leave(){dead=true;T.forEach(clearInterval);EV.forEach(([o,n])=>o.removeEventListener(n,wake));try{peer.destroy()}catch(e){}}};
+ EV.forEach(([o,n])=>o.addEventListener(n,wake));
+ if(isHost){const onConn=c=>{const gone=()=>{if(conns.get(c.peer)===c){conns.delete(c.peer);delete P[c.peer];fire([c.peer])}};
    c.on('open',()=>{conns.set(c.peer,c);P[c.peer]={};c.send({hp:view(c.peer)});fire()});
-   c.on('data',m=>{if(m&&m.p&&typeof m.p=='object'&&P[c.peer]&&conns.get(c.peer)===c){merge(P[c.peer],m.p);fire()}});c.on('close',gone);c.on('error',gone)});
-  T.push(setInterval(()=>conns.forEach(c=>c.open&&c.send({hb:1})),4000))}
- else{const dial=()=>{if(dead||hc)return;const c=peer.connect(hostId,{reliable:true});hc=c;
-   const bad=()=>{if(hc!==c)return;hc=null;if(P[hostId]){delete P[hostId];fire([hostId])}if(!dead)setTimeout(dial,1500)};
-   c.on('open',()=>{lastRx=Date.now();const o={...P[me]};delete o.a;delete o.m;c.send({p:o});const a=document.getElementById('app');if(a)a.classList.remove('busy')});
+   c.on('data',m=>{if(m&&m.p&&typeof m.p=='object'&&P[c.peer]&&conns.get(c.peer)===c){merge(P[c.peer],m.p);fire()}});c.on('close',gone);c.on('error',gone)};
+  const hook=pr=>{pr.on('connection',onConn);pr.on('open',()=>{stuck=0});
+   pr.on('disconnected',()=>{if(dead||pr!==peer)return;setTimeout(()=>{if(!dead&&pr===peer&&pr.disconnected&&!pr.destroyed){try{pr.reconnect();stuck=Date.now()}catch(e){}}},1500)});
+   pr.on('close',()=>{if(!dead&&pr===peer)recreate()})};
+  const recreate=async()=>{if(rec||dead)return;rec=1;try{for(let k=0;!dead&&k<80;k++){try{const np=await mkPeer1(me);if(dead){try{np.destroy()}catch(e){}return}peer=np;hook(np);return}catch(e){await sleep(Math.min(8000,1500+k*500))}}}finally{rec=0}};
+  hook(peer);
+  T.push(setInterval(()=>conns.forEach(c=>c.open&&c.send({hb:1})),4000));T.push(setInterval(hostUp,5000))}
+ else{dial=()=>{if(dead||hc||peer.destroyed)return;
+   if(peer.disconnected){try{peer.reconnect()}catch(e){}setTimeout(dial,1500);return}
+   let c=null;try{c=peer.connect(hostId,{reliable:true})}catch(e){}
+   if(!c){setTimeout(dial,1500);return}
+   hc=c;tries++;let ct=0;
+   const bad=()=>{clearTimeout(ct);if(hc!==c)return;hc=null;try{c.close()}catch(x){}if(P[hostId]){delete P[hostId];fire([hostId])}if(!dead)setTimeout(dial,1500)};
+   /* если соединение не открылось за 14 секунд (WebRTC завис), пробуем заново с чистого листа */
+   ct=setTimeout(()=>{if(hc===c&&!c.open)bad()},14000);
+   c.on('open',()=>{clearTimeout(ct);na=0;lastRx=Date.now();const o={...P[me]};delete o.a;delete o.m;c.send({p:o});const a=document.getElementById('app');if(a)a.classList.remove('busy')});
    c.on('data',m=>{lastRx=Date.now();if(m&&m.hp){P[hostId]=m.hp;fire()}else if(m&&m.cm&&cc)cc(m.cm)});c.on('close',bad);c.on('error',bad)};
-  peer.on('error',e=>{if(e&&e.type=='peer-unavailable'&&hc&&!hc.open){const c=hc;hc=null;try{c.close()}catch(x){}setTimeout(dial,2500)}});
-  peer.on('disconnected',()=>{if(!dead)try{peer.reconnect()}catch(e){}});
-  T.push(setInterval(()=>{if(hc&&hc.open&&Date.now()-lastRx>15000){const c=hc;hc=null;try{c.close()}catch(e){}if(P[hostId]){delete P[hostId];fire([hostId])}dial()}},3000));dial()}
+  peer.on('error',e=>{if(e&&e.type=='peer-unavailable'){na++;if(hc&&!hc.open){const c=hc;hc=null;try{c.close()}catch(x){}setTimeout(dial,2000)}}});
+  peer.on('disconnected',()=>{if(!dead)setTimeout(()=>{if(!dead&&peer.disconnected&&!peer.destroyed)try{peer.reconnect()}catch(e){}},1500)});
+  T.push(setInterval(()=>{if(hc&&hc.open&&Date.now()-lastRx>25000){const c=hc;hc=null;try{c.close()}catch(e){}if(P[hostId]){delete P[hostId];fire([hostId])}dial()}},3000));dial()}
  return R}
 const netHost=async c=>mkNet(await mkPeer(PX+c),true);
 const netJoin=async c=>mkNet(await mkPeer(),false,PX+c);
+/* хозяин не даёт экрану уснуть: уснувший телефон = комната пропадает у друзей */
+let WL=null;async function keepAwake(){try{if(navigator.wakeLock&&!document.hidden&&(!WL||WL.released))WL=await navigator.wakeLock.request('screen')}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(HOST)keepAwake()});
 let HIP='';try{HIP=localStorage.getItem('tip')||''}catch(e){}
 function parseIP(v){const s=String(v||'').trim().replace(/^[a-z]+:\/\//i,'').replace(/[\/?#].*$/,''),m=s.match(/^([A-Za-z0-9.-]+)(?::(\d{1,5}))?$/);if(!m)return null;const h=m[1],v4=/^\d{1,3}(\.\d{1,3}){3}$/.test(h);if(v4?h.split('.').some(x=>+x>255):!/^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?(\.[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?)*$/.test(h))return null;if(m[2]&&+m[2]>65535)return null;return{h,p:m[2]||''}}
 /* ссылка для друзей: хост (localhost / 127.0.0.1 / старые цифры) меняется на IP владельца, порт и путь остаются */
@@ -1167,7 +1195,7 @@ async function rend(r){const k=++RN,html=await UZ(r.pv||r.pb);if(k!=RN)return;co
  chatSet(r.cp,r.ck,r.ca,r.ph);GID=r.g||'';ghostSet(r.ca===0&&r.ph!='end'&&r.ph!='home'?r.dk:null,r.nm);RI=r.ri?await UZ(r.ri):'';$('rl').hidden=!RI;
  if(r.ph=='end'&&PWF!='end'&&r.win)endFx(r.win,r.wd||[]);PWF=r.ph}
 function clientPeers(c){const h=c.peers.find(p=>p.presence.h&&p.presence.c===CODE);
- if(!h){if(HP&&!GONE)GONE=setTimeout(()=>{CL=false;chatSet(null,null,0,'home');show('<div class=card><div class=big>Хозяин ушёл</div><p class=sub>Комната закрыта. Обнови страницу, чтобы начать заново.</p></div>','end',()=>0,'gone')},8000);return}
+ if(!h){if(HP&&!GONE)GONE=setTimeout(()=>{CL=false;chatSet(null,null,0,'home');show('<div class=card><div class=big>Хозяин ушёл</div><p class=sub>Комната закрыта. Обнови страницу, чтобы начать заново.</p></div>','end',()=>0,'gone')},30000);return}
  HP=1;clearTimeout(GONE);GONE=0;const r=h.presence;
  if(r.no){if(CL){CL=false;show('<div class=card><div class=big>Отказано</div><p class=sub>Хозяин не принял тебя за стол.</p></div>','end',()=>0,'rej');RM.leave();RM=null}return}
  if(!r.ok){if(KEY!=='wt')show('<div class=card><div class=scn data-k=wait></div><p class=sub>Запрос отправлен</p><div class=big>Ждём хозяина…</div><p class=sub>Он должен принять тебя за стол.</p><input id=pn placeholder="Твоё имя" maxlength=12 value="'+esc(MYN)+'"><button data-local onclick="renm()">Сменить имя</button></div>','home',()=>0,'wt');return}
@@ -1175,14 +1203,17 @@ function clientPeers(c){const h=c.peers.find(p=>p.presence.h&&p.presence.c===COD
 async function mk(){const nm=($('hn').value.trim()||'Хозяин').slice(0,12),hp=$('hip'),ipv=hp?(hp.value||'').trim():'';if(ipv){if(!parseIP(ipv))return err('Не похоже на IP. Пример: 192.168.0.15 (поле можно оставить пустым).');HIP=ipv}try{localStorage.setItem('tn',nm);if(HIP)localStorage.setItem('tip',HIP)}catch(e){}err('Создаём комнату…');if(isLocalHost()&&!HIP&&!AIP)AIP=await detectIP();
  try{await loadPeer();for(let t=0;t<6&&!RM;t++){const c=[...Array(5)].map(()=>'ABCDEFGHJKMNPQRSTUVWXYZ'[Math.random()*23|0]).join('');try{RM=await netHost(c);CODE=c}catch(e){if(!e||e.type!=='unavailable-id')throw e}}}catch(e){return err('Не удалось создать комнату. Проверь интернет и попробуй ещё раз.')}
  if(!RM)return err('Не нашёл свободную комнату. Попробуй ещё раз.');
- HOST=true;SEATS=[{n:nm,p:null,on:true}];RM.presence({h:1,c:CODE,n:nm});RM.onPeers(hostPeers);clearInterval(TK);TK=setInterval(gtick,500);try{history.replaceState(null,'','#'+CODE)}catch(e){}draw()}
+ HOST=true;keepAwake();SEATS=[{n:nm,p:null,on:true}];RM.presence({h:1,c:CODE,n:nm});RM.onPeers(hostPeers);clearInterval(TK);TK=setInterval(gtick,500);try{history.replaceState(null,'','#'+CODE)}catch(e){}draw()}
 function jc(){const c=(($('jcd')||{}).value||'').trim().toUpperCase();if(!/^[A-Z]{5}$/.test(c))return err('Код — пять букв.');HC=c;AJF=0;try{history.replaceState(null,'','#'+c)}catch(e){}jn()}
 function newRm(){HC='';AJF=0;try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}draw()}
 function renm(){const e=$('pn');if(!e||!RM)return;const nm=e.value.trim().slice(0,12);if(!nm)return;MYN=nm;try{localStorage.setItem('tn',nm)}catch(x){}RM.presence({n:nm});e.blur()}
-async function jn(){if(RM)return;const el=$('jnm'),typed=el&&el.value.trim();const nm=(typed||MYN||'Игрок'+(10+Math.random()*90|0)).slice(0,12);if(typed){MYN=nm;try{localStorage.setItem('tn',nm)}catch(e){}}err('Подключаемся…');
- try{await loadPeer();RM=await netJoin(HC)}catch(e){RM=null;AJF=1;draw();return err('Не удалось подключиться. Проверь интернет и попробуй ещё раз.')}
- CODE=HC;CL=true;RM.presence({n:nm});show('<div class=card><p class=sub>Ищем комнату…</p></div>','home',()=>0,'j');RM.onChat(cm=>{const a=cm.k=='k'?CH.k:CH.p;if(!a||!cm.m)return;a.push(cm.m);if(a.length>40)a.shift();chatRender()});RM.onPeers(clientPeers);
- setTimeout(async()=>{if(!HP&&RM){await RM.leave();RM=null;CL=false;AJF=1;draw();err('Комната не найдена: хозяин ещё не открыл её или уже ушёл. Проверь ссылку.')}},15000)}
+async function jn(){if(RM)return;const el=$('jnm'),typed=el&&el.value.trim();const nm=(typed||MYN||'Игрок'+(10+Math.random()*90|0)).slice(0,12);if(typed){MYN=nm;try{localStorage.setItem('tn',nm)}catch(e){}}err('Подключаемся…');HP=0;clearTimeout(GONE);GONE=0;
+ try{await loadPeer();RM=await netJoin(HC)}catch(e){RM=null;AJF=1;draw();return err('Не удалось связаться с сервером комнат. Проверь интернет (VPN и блокировщики мешают) и попробуй ещё раз.')}
+ CODE=HC;CL=true;RM.presence({n:nm});show('<div class=card><p class=sub>Ищем комнату… Это может занять до минуты: хозяин должен держать игру открытой.</p></div>','home',()=>0,'j');RM.onChat(cm=>{const a=cm.k=='k'?CH.k:CH.p;if(!a||!cm.m)return;a.push(cm.m);if(a.length>40)a.shift();chatRender()});RM.onPeers(clientPeers);
+ const net=RM,t0=Date.now(),chk=async()=>{if(RM!==net||HP)return;if(Date.now()-t0<45000)return setTimeout(chk,1000);
+  const st=net.stat();await net.leave();RM=null;CL=false;AJF=1;draw();
+  err(st.na>0?'Комната не найдена: хозяин не в сети или код неверный. Пусть хозяин откроет игру и не сворачивает её, потом нажми «Войти в комнату» ещё раз.':'Не получилось соединиться с хозяином. Обычно мешает сеть (мобильный интернет, VPN, строгий Wi-Fi). Попробуй другую сеть и нажми «Войти в комнату» ещё раз.')};
+ setTimeout(chk,1000)}
 document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app [onclick]');if(!b||(b.hasAttribute&&b.hasAttribute('data-local')))return;
  const i=()=>[...document.querySelectorAll('#app input')],v=()=>({c:i()[0]?i()[0].value:null,d:i()[1]?i()[1].value:null,n:i()[2]?i()[2].value:null});
  if(CL&&RM){e.stopImmediatePropagation();e.preventDefault();$('app').classList.add('busy');clearTimeout(BT);BT=setTimeout(()=>$('app').classList.remove('busy'),3500);RM.presence({a:{k:++SEQ,h:b.getAttribute('onclick'),tk:KEY,...v()}});return}
@@ -1190,7 +1221,7 @@ document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest
 addEventListener('pointerdown',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;const r=b.getBoundingClientRect(),s=document.createElement('span');s.className='rip';s.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px`;b.appendChild(s);setTimeout(()=>s.remove(),700)});
 /* ===== боты: свободные места играют сами ===== */
 let BOTS=true,BK={pub:[],thr:[],obs:{},seen:{},lseat:null,cl:{},lastT:null,blk:null},BNM=['Мацуда','Айдзава','Моги','Иде','Укита','Сая','Мэтт','Мидо','Хироми','Мори','Сакура','Хига','Кандзо','Такада'];
-const EXC=['Укус змеи','Обрушение лестницы','Отказ тормозов','Удар молнии','Обрыв лифта','Утечка газа','Падение дерева','Тепловой удар','Остановка дыхания','Обвал на стройке'],PLC=['на кухне','в метро','у школы','на крыше','в кафе','в лифте','на мосту','в парке','дома','в офисе','на вокзале','в подвале'];
+const EXC=['Укус змеи','Обрушение лестницы','Отказ тормозов','Удар молнии','Обрыв лифта','Утечка газа','Падение дерева','Тепловой удар','Остановка дыхания','Обвал на стройке'],PLC=['на кухне','в метро','у школы','на крыше','в кафе','в лифте','на мосту','в парке','дома','в офисе','на вокзале','в подвале','в ванной','на парковке','в библиотеке','у входа в магазин','на остановке','в спортзале','в гараже','на лестнице','во дворе','на набережной','в поезде','в кинотеатре'];
 const BL=[t=>`Мне не нравится, как ведёт себя ${t}.`,t=>`${t}, объясни свои ходы.`,t=>`Я бы присмотрелся к ${t}.`,t=>`Предлагаю голосовать за ${t}.`,t=>`Кто-то здесь лжёт. Смотрю на ${t}.`,()=>'Не будем спешить: ошибка стоит жизни.',()=>'Тетрадь не выбирает случайно. Думайте.',()=>'Я пока никому не доверяю.'];
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const wpick=(a,w)=>{let t=0;const c=a.map((x,k)=>(t+=Math.max(0,w(x,k)),t));if(!(t>0))return a[Math.random()*a.length|0];const r=Math.random()*t;return a[c.findIndex(x=>x>r)]};
