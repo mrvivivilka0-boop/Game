@@ -679,6 +679,25 @@ html.lowfx2 .win .wt::before,html.lowfx2 .win .wt::after{display:none}
 .win.kira .weye{position:relative;top:auto;display:block;width:min(70vw,360px,56vh)}
 .win.kira .kaura{left:-50%;right:-50%;top:-100%;bottom:-100%;height:auto;background:radial-gradient(ellipse 50% 50% at 50% 50%,#d4121fa6,#d4121f00)}
 .win.kira .wt{margin-top:2.5vh}
+
+/* ===== v4: слой атмосферы («лампа», Рюк, шёпот, вороны, чернила, пульс) ===== */
+#v4l{position:fixed;inset:0;z-index:4;pointer-events:none;background:radial-gradient(circle 72vmax at var(--lx,50%) var(--ly,42%),#0000 16%,#000b 100%)}
+.v4e{position:fixed;z-index:3;pointer-events:none;width:70px;height:14px;opacity:0;animation:v4e 3.4s ease-in-out forwards}
+.v4e::before,.v4e::after{content:'';position:absolute;top:0;width:26px;height:12px;border-radius:50% 50% 60% 60%/80% 80% 40% 40%;background:radial-gradient(ellipse 2px 7px at 50% 55%,#120000 90%,#0000),#c4151f;box-shadow:0 0 16px 5px #c4151f88}
+.v4e::before{left:0;transform:rotate(-13deg)}.v4e::after{right:0;transform:rotate(13deg)}
+@keyframes v4e{0%{opacity:0}16%{opacity:.9}30%{opacity:.9;transform:scaleY(1)}33%{transform:scaleY(.08)}37%{transform:scaleY(1)}72%{opacity:.9}100%{opacity:0}}
+.v4w{position:fixed;bottom:-34px;z-index:3;pointer-events:none;white-space:nowrap;font:400 22px 'Marck Script',cursive;color:#8a1018;opacity:0;animation:v4w 16s linear forwards}
+@keyframes v4w{12%{opacity:.22}80%{opacity:.12}to{opacity:0;transform:translateY(-112vh) rotate(-3deg)}}
+.v4c{position:fixed;left:0;width:56px;z-index:3;pointer-events:none;fill:#030303;opacity:.85;animation:v4c 7s linear forwards}
+.v4c path{transform-origin:50% 62%;animation:v4f .32s ease-in-out infinite alternate}
+@keyframes v4c{from{transform:translateX(-90px)}to{transform:translate(calc(100vw + 90px),-50px)}}
+@keyframes v4f{to{transform:scaleY(.4)}}
+.v4i{position:fixed;z-index:60;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50% 45% 55% 50%;background:#8a1018;box-shadow:15px -9px 0 -3px #8a1018,-13px 10px 0 -4px #8a1018,9px 14px 0 -4px #8a1018;pointer-events:none;animation:v4i .7s ease-out forwards}
+@keyframes v4i{to{transform:scale(5) rotate(40deg);opacity:0}}
+body.v4g #app{animation:v4g .42s steps(3)}
+@keyframes v4g{0%{transform:translate(5px,0);text-shadow:-3px 0 #f00,3px 0 #0ff}50%{transform:translate(-5px,1px);filter:contrast(1.5)}100%{transform:none}}
+html.calm #v4l,html.lowfx #v4l,html.calm .v4e,html.calm .v4w,html.calm .v4c,html.calm .v4i{display:none}
+html.paused .v4e,html.paused .v4w,html.paused .v4c{animation-play-state:paused}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="rough" x="-10%" y="-25%" width="120%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9"/></filter><filter id="scr" x="-5%" y="-12%" width="110%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".02 .9" numOctaves="1" seed="11" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -10.7" result="l"/><feComposite in="d" in2="l" operator="out"/></filter><filter id="ink" x="-3%" y="-8%" width="106%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" result="d"/><feGaussianBlur in="d" stdDeviation=".45" result="b"/><feComponentTransfer in="b"><feFuncA type="linear" slope="2.6" intercept="-.55"/></feComponentTransfer></filter><filter id="mis" x="-8%" y="-15%" width="120%" height="135%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 .36  0 0 0 0 .03  0 0 0 0 .06  0 0 0 1 0" result="r"/><feOffset in="r" dx="-3" dy="1.5" result="ro"/><feMerge><feMergeNode in="ro"/><feMergeNode in="SourceGraphic"/></feMerge></filter><symbol id="ap" viewBox="0 0 100 110"><defs><radialGradient id="ag" cx=".35" cy=".35"><stop offset="0" stop-color="#e0303a"/><stop offset="1" stop-color="#5c0710"/></radialGradient><mask id="bt"><rect width="100" height="110" fill="#fff"/><circle cx="93" cy="40" r="15"/></mask></defs><path mask="url(#bt)" fill="url(#ag)" d="M50 32C34 18 8 26 10 58c2 26 20 48 36 46 3 0 5-2 8-2s5 2 8 2c16 2 34-20 34-46 0-28-26-36-46-26z"/><path d="M50 32c0-12 4-20 12-26" stroke="#3a2a14" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M56 14c8-8 20-6 24 0-8 6-18 6-24 0z" fill="#1d3a1a"/><path d="M22 52c0-10 6-16 12-18" stroke="#fff3" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="ey" viewBox="0 0 120 60"><path d="M4 30C30 2 90 2 116 30 90 58 30 58 4 30Z" fill="#0a0504" stroke="#c1121f" stroke-width="3"/><circle cx="60" cy="30" r="17" fill="#d4121f"/><ellipse cx="60" cy="30" rx="5" ry="15" fill="#000"/><circle cx="54" cy="23" r="3" fill="#fff8"/></symbol></svg>
 <button id="sb" onclick="toggleSnd()">Музыка: выкл</button><button id="fs" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">Экран</button><div id="gr"></div><div id="mn"></div><div id="rn"></div><div id="fg"></div><div id="fg2"></div><div id="lt"></div><div id="pg"></div><div id="sl"></div><div id="gh" hidden></div><main id="app"></main><div id="tb" hidden><i id="tbf"></i><span id="tbn"></span></div>
@@ -1579,4 +1598,29 @@ const dvCard=()=>!DV.ok?'':`<div class=card><h2>Роль для демо</h2><p 
 function dvApply(){if(!HOST||!DV.ok||!DV.role||!S||!S.roles)return;const j=S.roles.indexOf(DV.role);if(j>0){const t=S.roles[0];S.roles[0]=S.roles[j];S.roles[j]=t}}
 addEventListener('hashchange',()=>{const m=(location.hash.match(/^#([A-Za-z]{5})$/)||[])[1];if(m&&!RM&&!HOST){HC=m.toUpperCase();AJF=0;draw();jn()}});
 draw();if(HC)jn();
+
+/* ===== v4: слой атмосферы ===== */
+(function(){const H=document.documentElement,B=document.body,off=()=>H.classList.contains('calm')||document.hidden,lite=()=>off()||H.classList.contains('lowfx'),rnd=(a,b)=>a+Math.random()*(b-a),
+ mk=(c,h)=>{const e=document.createElement('div');e.className=c;if(h)e.innerHTML=h;B.appendChild(e);return e};
+ /* лампа: затемнение по краям, световое пятно плавно идёт за пальцем и возвращается в центр */
+ const L=mk('');L.id='v4l';let tx=50,ty=42,cx=50,cy=42,idle=0,run=0;
+ const lp=()=>{cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;if(Date.now()-idle>3500){tx=50;ty=42}L.style.setProperty('--lx',cx.toFixed(1)+'%');L.style.setProperty('--ly',cy.toFixed(1)+'%');if(Math.abs(tx-cx)+Math.abs(ty-cy)>.2||Date.now()-idle<3600)requestAnimationFrame(lp);else run=0};
+ addEventListener('pointermove',e=>{if(lite())return;tx=e.clientX/innerWidth*100;ty=e.clientY/innerHeight*100;idle=Date.now();if(!run){run=1;requestAnimationFrame(lp)}},{passive:true});
+ /* чернильная клякса и лёгкая вибрация при нажатии */
+ addEventListener('pointerdown',e=>{if(off())return;const i=mk('v4i');i.style.left=e.clientX+'px';i.style.top=e.clientY+'px';setTimeout(()=>i.remove(),750);
+  try{if(navigator.vibrate&&e.target.closest&&e.target.closest('button'))navigator.vibrate(12)}catch(x){}},{passive:true});
+ /* глаза Рюка в темноте: чаще ночью */
+ const eyes=()=>{if(!lite()){const e=mk('v4e');e.style.left=(Math.random()<.5?rnd(3,12):rnd(78,88))+'%';e.style.top=rnd(12,78)+'%';setTimeout(()=>e.remove(),3600)}setTimeout(eyes,B.dataset.p=='night'?rnd(4000,8000):rnd(11000,22000))};setTimeout(eyes,5000);
+ /* шёпот: бледные строки всплывают и тают */
+ const W=['имя уже вписано…','Рюк смеётся','яблоко ещё не упало','кто-то из вас лжёт','сорок секунд','ты слышишь, как скрипит перо?','справедливость без лица','тетрадь не прощает','кто следующий?','не оборачивайся'];
+ const wh=()=>{if(!lite()){const e=mk('v4w');e.textContent=W[Math.random()*W.length|0];e.style.left=rnd(2,58)+'%';setTimeout(()=>e.remove(),16500)}setTimeout(wh,rnd(7000,13000))};setTimeout(wh,3000);
+ /* ворон пролетает над сценой */
+ const cr=()=>{if(!lite()){const e=mk('v4c','<svg viewBox="0 0 60 30"><path d="M30 18C24 6 10 2 0 8c9 0 14 4 18 10-5-1-9 0-12 3 9-1 16 1 24 6 8-5 15-7 24-6-3-3-7-4-12-3 4-6 9-10 18-10C50 2 36 6 30 18z"/></svg>');e.style.top=rnd(6,30)+'%';setTimeout(()=>e.remove(),7200)}setTimeout(cr,rnd(28000,50000))};setTimeout(cr,14000);
+ /* сердцебиение в голосовании и аресте, помехи и вибрация при смене фазы */
+ const hb=()=>{if(typeof ac=='undefined'||!ac||!AU||document.hidden)return;const t=ac.currentTime;[0,.22].forEach((d,i)=>{const o=ac.createOscillator(),g=gn(ac,0);o.frequency.setValueAtTime(70,t+d);o.frequency.exponentialRampToValueAtTime(38,t+d+.14);g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(i?.2:.3,t+d+.01);g.gain.exponentialRampToValueAtTime(.001,t+d+.2);o.connect(g).connect(AU.fx);o.start(t+d);o.stop(t+d+.25)})};
+ let hbT=0,lastp;new MutationObserver(()=>{const p=B.dataset.p;if(p===lastp)return;lastp=p;
+  if(!off()){B.classList.remove('v4g');void B.offsetWidth;B.classList.add('v4g');setTimeout(()=>B.classList.remove('v4g'),450)}
+  try{if(navigator.vibrate&&['vote','arrest','result','end'].includes(p))navigator.vibrate([40,60,40])}catch(x){}
+  clearInterval(hbT);if(p=='vote'||p=='arrest')hbT=setInterval(hb,1100)}).observe(B,{attributes:true,attributeFilter:['data-p']});
+})();
 </script></body></html>
