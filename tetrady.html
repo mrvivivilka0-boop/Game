@@ -626,6 +626,52 @@ html.lowfx2 #rq{filter:none}
 html.lowfx2 .paper{background-image:radial-gradient(ellipse at 18% 0,#eeeade,var(--paper2) 118%)}
 html.lowfx2 .card:not(.paper){background:#0c0c0b}
 html.lowfx2 .rip{display:none}
+/* ===== v5: победы как кино (letterbox, зерно, прожекторы, сирены, рассвет; Кира: аура, ударная волна, перо) ===== */
+.win .lb{position:absolute;left:0;right:0;height:5.5vh;background:#000;z-index:8;pointer-events:none}
+.win .lb.t{top:0;animation:lbt 1s .1s cubic-bezier(.2,.8,.2,1) both}.win .lb.b{bottom:0;animation:lbb 1s .1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes lbt{from{transform:translateY(-100%)}}@keyframes lbb{from{transform:translateY(100%)}}
+.win::before{content:'';position:absolute;inset:-40px;z-index:6;pointer-events:none;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:gr .9s steps(6) infinite}
+/* --- Кира --- */
+.win.kira .wfl{animation-duration:.9s}
+.win.kira .kaura{position:absolute;left:-10%;right:-10%;top:0;height:46vh;background:radial-gradient(ellipse 50% 50% at 50% 42%,#d4121fa6,#d4121f00);opacity:0;animation:kaur 1.2s .3s ease-out forwards,kpul 1.3s 1.5s ease-in-out infinite}
+@keyframes kaur{to{opacity:1}}@keyframes kpul{0%,100%{opacity:.65}10%{opacity:1}22%{opacity:.75}34%{opacity:1}}
+.win.kira .kcam{position:absolute;inset:0;display:grid;place-items:center;text-align:center;transform-origin:50% 38%;animation:kcz 14s linear both}
+@keyframes kcz{to{transform:scale(1.08)}}
+.win.kira .kem{position:absolute;bottom:-12px;width:var(--z);height:var(--z);border-radius:50%;background:#ff4a54;box-shadow:0 0 8px #ff2a36;opacity:0;animation:kemr linear infinite;will-change:transform,opacity}
+@keyframes kemr{0%{opacity:0;transform:translate3d(0,0,0)}12%{opacity:.9}100%{opacity:0;transform:translate3d(var(--dx),-105vh,0)}}
+.win.kira .wt::before,.win.kira .wt::after{content:attr(data-t);position:absolute;inset:0;pointer-events:none;text-shadow:none}
+.win.kira .wt::before{color:#e0141f;transform:translate(-6px,2px);animation:kgl 3.6s 2.3s steps(1) infinite}
+.win.kira .wt::after{color:#fff;opacity:.55;transform:translate(5px,-2px);animation:kgl 3.6s 2.52s steps(1) infinite reverse}
+@keyframes kgl{0%,84%,100%{clip-path:inset(0 0 100% 0)}86%{clip-path:inset(12% 0 56% 0)}90%{clip-path:inset(62% 0 8% 0)}94%{clip-path:inset(32% 0 40% 0)}}
+.win.kira .kring{position:absolute;left:50%;top:56%;width:36vmin;height:36vmin;margin:-18vmin 0 0 -18vmin;border:3px solid #ff3b46;border-radius:50%;opacity:0;pointer-events:none;animation:kring 1.9s 1.4s cubic-bezier(.1,.7,.3,1) forwards}
+.win.kira .k2{animation-delay:1.65s;border-color:#d4121f}
+@keyframes kring{0%{opacity:.95;transform:scale(.15)}100%{opacity:0;transform:scale(5)}}
+.win.kira .kfl{position:absolute;inset:0;background:#ffd6d8;opacity:0;pointer-events:none;animation:kflk .8s 1.4s ease-out forwards}
+@keyframes kflk{0%{opacity:.8}100%{opacity:0}}
+.win.kira .wn{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 24px;margin-top:18px;text-shadow:0 0 14px #d4121f,0 0 2px #000}
+.win.kira .wn span{margin:0;opacity:1;clip-path:inset(-10px 100% -10px 0);animation:kpen .75s steps(16) forwards}
+@keyframes kpen{to{clip-path:inset(-10px 0 -10px 0)}}
+.win.kira .kry{position:absolute;left:0;right:0;bottom:9vh;text-align:center;font:1.7em 'Marck Script',cursive;color:#b3202b;letter-spacing:.08em;opacity:0;pointer-events:none;animation:kryk 4.5s 6s ease-in-out forwards}
+@keyframes kryk{0%{opacity:0;transform:translateY(10px)}18%{opacity:.85}26%{opacity:.4}34%,72%{opacity:.85}100%{opacity:0}}
+/* --- L --- */
+.win.peace .beam{position:absolute;top:-6vh;width:46vw;height:120vh;margin-left:-23vw;transform-origin:50% 0;background:linear-gradient(#ffffffa6,#fff0 82%);clip-path:polygon(45% 0,55% 0,100% 100%,0 100%);mix-blend-mode:screen;opacity:0;animation:bsw 5.4s ease-in-out forwards}
+@keyframes bsw{0%{opacity:0;transform:rotate(calc(34deg*var(--a)))}8%{opacity:.5}26%{transform:rotate(calc(-26deg*var(--a)))}44%{transform:rotate(calc(18deg*var(--a)))}61%{transform:rotate(calc(-9deg*var(--a)));opacity:.55}64%{opacity:.95}100%{opacity:0;transform:rotate(calc(-9deg*var(--a)))}}
+.win.peace .ret{position:absolute;left:50%;top:40%;width:min(58vw,300px);height:min(58vw,300px);margin:calc(min(58vw,300px)/-2) 0 0 calc(min(58vw,300px)/-2);fill:none;stroke:#e03a44;stroke-width:2;opacity:0;pointer-events:none;animation:retk 1.5s 2s ease-out forwards}
+.win.peace .ret path{stroke-linecap:round}.win.peace .ret circle:last-child{fill:#e03a44;stroke:none}
+@keyframes retk{0%{opacity:0;transform:scale(3.2) rotate(90deg)}35%{opacity:1}68%{opacity:1;transform:none}74%{opacity:.15}80%{opacity:1}100%{opacity:0;transform:none}}
+.win.peace .sirs{position:absolute;inset:0;opacity:0;pointer-events:none;animation:sirv 4.4s 5.2s forwards}
+@keyframes sirv{0%,65%{opacity:1}100%{opacity:0}}
+.win.peace .sirs i{position:absolute;bottom:-18vh;width:100vw;height:84vh;border-radius:50%;opacity:0;mix-blend-mode:screen;animation:sirf .9s 5.2s infinite}
+.win.peace .sirs .sr{left:-46vw;background:radial-gradient(closest-side,#e0141fb3,#e0141f00)}
+.win.peace .sirs .sb{right:-46vw;background:radial-gradient(closest-side,#5877ffa6,#5877ff00);animation-delay:5.65s}
+@keyframes sirf{0%,46%{opacity:.9}50%,96%{opacity:0}}
+.win.peace .sun{position:absolute;left:50%;bottom:-8vh;width:130vw;height:70vh;margin-left:-65vw;background:radial-gradient(ellipse 50% 50% at 50% 100%,#fff3cf,#ffe3a055 32%,#0000 70%);opacity:0;animation:sunk 9.4s linear both}
+@keyframes sunk{0%,50%{opacity:0;transform:translateY(24vh)}100%{opacity:1;transform:none}}
+.win.peace .sk{transform-origin:50% 100%;animation:skz 15s linear both}
+@keyframes skz{to{transform:scale(1.14)}}
+html.calm .win.kira .wn span{clip-path:none}
+html.lowfx .win::before,html.lowfx .win .beam,html.lowfx .win .sirs,html.lowfx .win .kem:nth-of-type(2n){display:none}
+html.lowfx2 .win .wt::before,html.lowfx2 .win .wt::after{display:none}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="rough" x="-10%" y="-25%" width="120%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9"/></filter><filter id="scr" x="-5%" y="-12%" width="110%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".02 .9" numOctaves="1" seed="11" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -10.7" result="l"/><feComposite in="d" in2="l" operator="out"/></filter><filter id="ink" x="-3%" y="-8%" width="106%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" result="d"/><feGaussianBlur in="d" stdDeviation=".45" result="b"/><feComponentTransfer in="b"><feFuncA type="linear" slope="2.6" intercept="-.55"/></feComponentTransfer></filter><filter id="mis" x="-8%" y="-15%" width="120%" height="135%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 .36  0 0 0 0 .03  0 0 0 0 .06  0 0 0 1 0" result="r"/><feOffset in="r" dx="-3" dy="1.5" result="ro"/><feMerge><feMergeNode in="ro"/><feMergeNode in="SourceGraphic"/></feMerge></filter><symbol id="ap" viewBox="0 0 100 110"><defs><radialGradient id="ag" cx=".35" cy=".35"><stop offset="0" stop-color="#e0303a"/><stop offset="1" stop-color="#5c0710"/></radialGradient><mask id="bt"><rect width="100" height="110" fill="#fff"/><circle cx="93" cy="40" r="15"/></mask></defs><path mask="url(#bt)" fill="url(#ag)" d="M50 32C34 18 8 26 10 58c2 26 20 48 36 46 3 0 5-2 8-2s5 2 8 2c16 2 34-20 34-46 0-28-26-36-46-26z"/><path d="M50 32c0-12 4-20 12-26" stroke="#3a2a14" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M56 14c8-8 20-6 24 0-8 6-18 6-24 0z" fill="#1d3a1a"/><path d="M22 52c0-10 6-16 12-18" stroke="#fff3" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="ey" viewBox="0 0 120 60"><path d="M4 30C30 2 90 2 116 30 90 58 30 58 4 30Z" fill="#0a0504" stroke="#c1121f" stroke-width="3"/><circle cx="60" cy="30" r="17" fill="#d4121f"/><ellipse cx="60" cy="30" rx="5" ry="15" fill="#000"/><circle cx="54" cy="23" r="3" fill="#fff8"/></symbol></svg>
 <button id="sb" onclick="toggleSnd()">Музыка: выкл</button><button id="fs" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">Экран</button><div id="gr"></div><div id="mn"></div><div id="rn"></div><div id="fg"></div><div id="fg2"></div><div id="lt"></div><div id="pg"></div><div id="sl"></div><div id="gh" hidden></div><main id="app"></main><div id="tb" hidden><i id="tbf"></i><span id="tbn"></span></div>
@@ -1472,18 +1518,22 @@ const skyline=()=>{let q=7;const r=()=>{q=(q*9301+49297)%233280;return q/233280}
  return `<svg class=sk viewBox="0 0 400 120" preserveAspectRatio="xMidYMax slice"><g fill="#040404">${b}</g><g class=lt fill="#ece5c8">${w}</g></svg>`};
 const TERM=['> ДЕЛО «КИРА»: ЗАПРОС ОТПРАВЛЕН','> СВЕРКА ПОКАЗАНИЙ… ГОТОВО','> ПОДОЗРЕВАЕМЫЙ УСТАНОВЛЕН','> СОВПАДЕНИЕ: 100%'];
 const TS=[.5,1.3,2.0,2.7];
-const LFX=()=>`<div class=sky></div><div class=dwn></div><div class=thun></div>${skyline()}<div class="rain rA"></div><div class="rain rB"></div>
+const LB='<i class="lb t"></i><i class="lb b"></i>';
+const LFX=()=>`<div class=sky></div><div class=dwn></div><div class=sun></div><div class=thun></div>${skyline()}<div class="rain rA"></div><div class="rain rB"></div>
+<i class="beam b1" style="left:26%;--a:1"></i><i class="beam b2" style="left:74%;--a:-1"></i>
+<div class=sirs><i class=sr></i><i class=sb></i></div>
 <div class=term>${TERM.map((t,k)=>`<span class=tl style="--n:${[...t].length};--s:${TS[k]}s;--d:${(.5+[...t].length*.03).toFixed(2)}s">${esc(t)}</span>`).join('')}</div>
+<svg class=ret viewBox="0 0 120 120"><circle cx=60 cy=60 r=44 /><circle cx=60 cy=60 r=30 stroke-dasharray="5 7" /><path d="M60 2v28M60 90v28M2 60h28M90 60h28" /><circle cx=60 cy=60 r=2.6 /></svg>
 <div class=pcol><div class=wL>L</div><svg class=wcuf viewBox="0 0 240 104"><g class=cl><circle cx=50 cy=52 r=30 /><rect x=78 y=40 width=26 height=24 rx=4 /><circle class=kh cx=91 cy=52 r=3.4 /></g><g class=chk><ellipse cx=110 cy=52 rx=9 ry=5.2 /><ellipse cx=120 cy=52 rx=9 ry=5.2 /><ellipse cx=130 cy=52 rx=9 ry=5.2 /></g><g class=cr><circle cx=190 cy=52 r=30 /><rect x=136 y=40 width=26 height=24 rx=4 /><circle class=kh cx=149 cy=52 r=3.4 /></g></svg><div class=wst>КИРА ПОЙМАН</div><div class=ws>Справедливость восторжествовала</div></div>
-${[...Array(16)].map((_,k)=>`<i class=cube style="left:${4+k*6}%;animation-delay:${(5.6+(k*37%10)/3).toFixed(2)}s"></i>`).join('')}<div class=wfl></div>`;
-const KFX=dead=>`<div class=wl></div><div class=wfl></div><div class=kfog></div>${[...Array(8)].map((_,k)=>`<svg class=kap viewBox="0 0 100 110" style="left:${6+k*12}%;animation-duration:${7+(k*5%4)*1.6}s;animation-delay:${(k*.9%5).toFixed(1)}s;--r:${(k%2?1:-1)*(120+k*25)}deg"><use href="#ap"/></svg>`).join('')}<svg class=weye viewBox="0 0 120 60"><use href="#ey"/></svg><div class=wt>НОВЫЙ МИР</div><div class=ws>Кира победил</div><div class=wn>${(dead||[]).map((n,k)=>`<span style="animation-delay:${2.4+k*.4}s">${esc(n)}</span>`).join('')}</div>`;
+${[...Array(16)].map((_,k)=>`<i class=cube style="left:${4+k*6}%;animation-delay:${(5.6+(k*37%10)/3).toFixed(2)}s"></i>`).join('')}<div class=wfl></div>${LB}`;
+const KFX=dead=>`<div class=wl></div><div class=wfl></div><div class=kfog></div><div class=kaura></div><div class=kcam>${[...Array(8)].map((_,k)=>`<svg class=kap viewBox="0 0 100 110" style="left:${6+k*12}%;animation-duration:${7+(k*5%4)*1.6}s;animation-delay:${(k*.9%5).toFixed(1)}s;--r:${(k%2?1:-1)*(120+k*25)}deg"><use href="#ap"/></svg>`).join('')}${[...Array(16)].map((_,k)=>`<i class=kem style="left:${(k*37+9)%97}%;--dx:${((k%5)-2)*18}px;--z:${(2+(k%4)*.7).toFixed(1)}px;animation-delay:${(k*.55%4).toFixed(1)}s;animation-duration:${(5+(k*7%5)).toFixed(1)}s"></i>`).join('')}<svg class=weye viewBox="0 0 120 60"><use href="#ey"/></svg><div class=wt data-t="НОВЫЙ МИР">НОВЫЙ МИР</div><div class=ws>Кира победил</div><div class=wn>${(dead||[]).map((n,k)=>`<span style="animation-delay:${2.6+k*.5}s">${esc(n)}</span>`).join('')}</div></div><i class=kring></i><i class="kring k2"></i><div class=kfl></div><div class=kry>Хе-хе-хе…</div>${LB}`;
 function endFx(w,dead){const e=$('win');if(!e)return;ET.forEach(clearTimeout);ET=[];const at=(ms,f)=>ET.push(setTimeout(f,ms));
  e.className='win '+w;e.hidden=false;e.classList.remove('out');e.innerHTML=w=='kira'?KFX(dead):LFX();
  hit();
- if(w=='kira'){at(900,hit);at(2200,()=>sfx('thunder'))}
+ if(w=='kira'){at(1400,()=>{hit();sfx('thunder')})}
  else{at(3500,()=>sfx('thunder'));at(3800,hit);at(5200,()=>{sfx('clank');hit()})}
  const close=()=>{ET.forEach(clearTimeout);ET=[];e.classList.add('out');setTimeout(()=>{if(e.classList.contains('out')){e.hidden=true;e.innerHTML=''}},1300)};
- at(w=='kira'?11000:14500,close);e.onclick=close}
+ at(w=='kira'?13500:15000,close);e.onclick=close}
 
 /* ===== v3: экономия ресурсов ===== */
 /* сцены вне экрана и свёрнутая вкладка не анимируются */
