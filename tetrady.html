@@ -1,6 +1,6 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Тетрадь</title><script>try{if(localStorage.getItem('calm')=='1')document.documentElement.classList.add('calm')}catch(e){}</script>
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Тетрадь</title><script>(function(){var h=document.documentElement,q='auto';try{q=localStorage.getItem('tgq')||(localStorage.getItem('calm')=='1'?'min':'auto')}catch(e){}var c={ultra:['ultra'],mid:['lowfx'],low:['lowfx','lowfx2'],min:['lowfx','lowfx2','calm']};window.gqCap=function(){var n=navigator;return !((n.deviceMemory&&n.deviceMemory<=2)||(n.hardwareConcurrency&&n.hardwareConcurrency<=3)||(n.connection&&n.connection.saveData))};if(!c[q]&&q!='high')q='auto';h.dataset.gq=q;(c[q]||[]).forEach(function(x){h.classList.add(x)});if(q=='auto'&&gqCap())h.classList.add('ultra')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://0.peerjs.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Rubik+Distressed&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Rubik+Distressed&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&display=swap"></noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Rubik+Distressed&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&family=Bad+Script&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=Rubik+Distressed&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Marck+Script&family=Bad+Script&display=swap"></noscript>
 <style>
 :root{color-scheme:dark;--ink:#0a0807;--bone:#d6cbb0;--blood:#8a1018;--ash:#857d70;--rust:#a58445;--line:#2e2823;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
@@ -57,7 +57,7 @@ body.fl2{animation:bl 1s}body.fl2 #app{animation:shk .6s}
 .eye{width:160px;margin:0 auto 6px;filter:drop-shadow(-4px 3px 0 #5a0a10);animation:blink 5s infinite}
 .ap2{float:left;width:34px;margin:2px 12px 0 0}
 .stamp{display:inline-block;font:400 1.6em 'Ruslan Display',serif;color:#c4151f;border:solid #c4151f;border-width:3px 5px 4px 3px;padding:0 14px 1px 12px;margin:6px 0;transform:rotate(-6deg);animation:stamp .5s .3s both;filter:url(#rough) url(#mis);outline:2px solid #c4151f40;outline-offset:3px}
-body[data-p=vote] #lt{animation:hb2 1.1s infinite}@keyframes hb2{0%,100%{opacity:1}8%{opacity:.6}24%{opacity:.85}}body[data-p=vote] #gr{opacity:.16}
+body[data-p=vote] #lt,body[data-p=arrest] #lt{animation:none}body[data-p=vote] #gr{opacity:.16}
 @keyframes drop{from{transform:translateY(-320px) rotate(-50deg);opacity:0}}
 @keyframes bob{50%{transform:translateY(-6px) rotate(3deg)}}
 /* ВАЖНО: правило #app.nw>*{animation:ink} (появление нового экрана) по специфичности перебивало анимации прямых детей #app: яблоко, глаз и заголовок играли только «чернила» и замирали. Возвращаем им свои циклы через !important */
@@ -190,7 +190,7 @@ body.bfog #fg2{opacity:.7}
 body[data-p=night] #rn{opacity:.2}body.bfog #rn{opacity:.12}
 @keyframes rnf{to{transform:translateY(160px)}}
 body[data-p=night] #lt{background:radial-gradient(ellipse at 50% 42%,#0000 34%,#01030aa6 100%)}
-body[data-p=vote] #lt,body[data-p=arrest] #lt{background:radial-gradient(ellipse at 50% 42%,#0000 18%,#2b0206ee 100%)}
+#lt::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,#0000 18%,#2b0206ee 100%);opacity:0;transition:opacity 1.2s ease;will-change:opacity;transform:translateZ(0)}body[data-p=vote] #lt::after,body[data-p=arrest] #lt::after{opacity:1}
 
 /* ===== v2: сцены ===== */
 .wsc{position:relative;--s:1.1px}.wsc>*{position:absolute;pointer-events:none}.wsc>.wbg{position:relative}
@@ -571,8 +571,8 @@ button:nth-child(3n+2){rotate:-.8deg;translate:1px -1px}
 button:nth-child(3n){rotate:.6deg;translate:-1px 1px}
 button:nth-child(5n+4){rotate:-.4deg;translate:2px 1px}
 button:nth-child(7n+1){rotate:.35deg;translate:-2px 0}
-#sb,#fs{min-height:36px;padding:4px 10px 5px}
-#sb,#fs,#cb,#rl,#nbb{rotate:-.7deg}
+#sb,#fs,#gqb{min-height:36px;padding:4px 10px 5px}
+#sb,#fs,#gqb,#cb,#rl,#nbb{rotate:-.7deg}
 #fs{rotate:.8deg}#rl{rotate:.6deg}
 
 /* ---------- формы вырезок: обычные / на бумаге / лезвия (.p) ---------- */
@@ -703,9 +703,191 @@ body.v4g #app{animation:v4g .42s steps(3)}
 @keyframes v4d{from{transform:rotate(var(--a)) translateX(4px) scale(.5);opacity:1}70%{opacity:1}to{transform:rotate(var(--a)) translateX(var(--d)) scale(1.6,.5);opacity:0}}
 html.calm #v4l,html.lowfx #v4l,html.calm .v4e,html.calm .v4w,html.calm .v4c,html.calm .v4s{display:none}
 html.paused .v4e,html.paused .v4w,html.paused .v4c{animation-play-state:paused}
+/* ===== настройки графики ===== */
+#tl{position:fixed;top:calc(env(safe-area-inset-top,0px) + 8px);left:10px;z-index:6;display:flex;align-items:flex-start}
+#tl>button{position:relative;top:auto;left:auto;font-size:.8em;opacity:.7}
+#gqb{rotate:.5deg}
+.gqs{display:grid;gap:8px;margin:12px 0 16px}
+.gqs button{display:block;width:100%;margin:0;text-align:left;padding:10px 14px 11px 26px}
+.gqs b{display:block;font-size:1.05em}
+.gqs small{display:block;margin-top:3px;font:italic 400 .82em/1.35 'PT Serif',Georgia,serif;opacity:.78}
+.gqs button.sel small{opacity:.92}
+
+/* ===== ULTRA: кинематографичная атмосфера, только при html.ultra (Ультра, либо Авто на мощном устройстве) ===== */
+.ux{position:fixed;pointer-events:none;z-index:3}
+html:not(.ultra) .ux,html.calm .ux{display:none!important}
+html.paused .ux{animation-play-state:paused}
+#ux-c{inset:0;width:100%;height:100%}
+#ux-v{inset:0;background:radial-gradient(ellipse at 50% 45%,#0000 38%,#2a050a5c 78%,#0a0101e0 100%);animation:uhb 3.2s ease-in-out infinite}
+@keyframes uhb{0%,100%{opacity:.6}9%{opacity:.9}18%{opacity:.65}28%{opacity:.85}45%{opacity:.6}}
+#ux-g,#ux-h{inset:-10%}
+#ux-g{background:radial-gradient(42% 30% at 22% 32%,#5c071030,#0000),radial-gradient(46% 34% at 80% 68%,#2a0a1a3a,#0000),radial-gradient(36% 28% at 60% 14%,#46101826,#0000);animation:ufog 42s ease-in-out infinite alternate}
+#ux-h{background:radial-gradient(60% 22% at 30% 100%,#1a0608aa,#0000),radial-gradient(55% 20% at 78% 96%,#12070a99,#0000);animation:ufog 60s ease-in-out infinite alternate-reverse}
+@keyframes ufog{from{transform:translate3d(-3%,-2%,0)}to{transform:translate3d(3%,2%,0) scale(1.06)}}
+#ux-r{left:0;right:0;top:-6%;height:106%;transform-origin:50% 0;background:conic-gradient(from 166deg at 50% 0,#0000 0deg,#d6cbb01e 9deg,#0000 22deg,#0000 27deg,#8a101814 33deg,#0000 46deg);animation:ulf 7s infinite,usw 16s ease-in-out infinite alternate}
+@keyframes ulf{0%{opacity:.8}6%{opacity:.45}8%{opacity:.95}30%{opacity:.7}33%{opacity:.3}35%{opacity:.85}62%{opacity:.75}100%{opacity:.8}}
+@keyframes usw{from{rotate:-2.2deg}to{rotate:2.2deg}}
+#ux-f{inset:0;background:#000;opacity:0;animation:uff 6s infinite}
+@keyframes uff{0%,100%{opacity:0}11%{opacity:.07}13%{opacity:0}40%{opacity:.09}42%{opacity:.02}44%{opacity:.07}46%{opacity:0}78%{opacity:.06}80%{opacity:0}}
+#ux-l{inset:0;opacity:0;background:radial-gradient(ellipse at var(--fx,50%) 0,#e9e6efaa,#4a2a3a44 42%,#0000 76%)}
+#ux-l.go{animation:ulg .9s}
+@keyframes ulg{0%{opacity:0}6%{opacity:.7}12%{opacity:.08}20%{opacity:.55}100%{opacity:0}}
+html.ultra:not(.xo-tx) h1{animation:fl 7s infinite,ugl 7s infinite}
+@keyframes ugl{93%{transform:translateX(-3px) skewX(-4deg);text-shadow:3px 0 #ff0a1c,-3px 0 #0ff4,0 0 24px var(--blood)}95%{transform:translateX(3px) skewX(3deg);text-shadow:-3px 0 #ff0a1c,3px 0 #0ff4,0 0 24px var(--blood)}97%{transform:none}}
+/* отражение света: невидимый источник идёт за пальцем (в покое плавает сверху); заголовки и кнопки получают блик со стороны света, сила зависит от расстояния. Переменные --bx --by --ldx --ldy --bi выставляет скрипт для каждого элемента */
+html.ultra:not(.xo-tx) h1,html.ultra:not(.xo-tx) .role,html.ultra:not(.xo-tx) .card:not(.paper) h2,html.ultra:not(.xo-tx) .card:not(.paper) .big{text-shadow:calc(var(--ldx,0)*-2.4px) calc(var(--ldy,0)*-2.4px) 1px #000,0 0 22px #8a1018aa;text-shadow:calc(var(--ldx,0)*-2.4px) calc(var(--ldy,0)*-2.4px) 1px #000,calc(var(--ldx,0)*1.4px) calc(var(--ldy,0)*1.4px) 0 rgb(245 230 200 / calc(.12 + var(--bi,0)*.6)),0 0 14px rgb(255 235 200 / calc(var(--bi,0)*.3)),0 0 22px #8a1018aa}
+html.ultra:not(.xo-tx) button{text-shadow:calc(var(--ldx,0)*-1.2px) calc(var(--ldy,0)*-1.2px) 0 #000b;text-shadow:calc(var(--ldx,0)*-1.2px) calc(var(--ldy,0)*-1.2px) 0 #000b,calc(var(--ldx,0)*.9px) calc(var(--ldy,0)*.9px) 0 rgb(255 240 215 / calc(.1 + var(--bi,0)*.35))}
+html.ultra:not(.xo-tx) button::after{background:linear-gradient(var(--tick),var(--tick)) 11px 50%/3px 48% no-repeat,radial-gradient(circle 130px at var(--bx,50%) var(--by,-40%),rgb(255 240 215 / calc(.1 + var(--bi,0)*.38)),#0000 72%),var(--face)}
+html.ultra:not(.xo-tx) button::before{background:radial-gradient(circle 150px at var(--bx,50%) var(--by,-40%),rgb(255 235 205 / calc(var(--bi,0)*.8)),#0000 70%),var(--edge)}
+/* ===== ULTRA v6 «Откровение»: готика, свечи, витражи, письмена на стене. Модули выключаются классами xo-lt / xo-pt / xo-ph / xo-tx (меню «Графика») ===== */
+html.xo-lt #ux-v,html.xo-lt #ux-r,html.xo-lt #ux-k,html.xo-lt #ux-k2,html.xo-lt #ux-l,html.xo-lt #ux-f,html.xo-lt #ux-w,html.xo-lt #ux-t{display:none!important}
+html.xo-pt #ux-c,html.xo-pt #ux-g,html.xo-pt #ux-h{display:none!important}
+html.xo-ph .uxs,html.xo-ph .uxd,html.xo-ph .uxh{display:none!important}
+/* розетта собора: огромное окно-роза медленно вращается за интерфейсом, в суде наливается кровью */
+#ux-w{left:50%;top:-34vmin;width:112vmin;height:112vmin;margin-left:-56vmin;z-index:-1;opacity:.17;transition:opacity 2s;animation:uro 320s linear infinite;will-change:transform}
+#ux-w svg{display:block;width:100%;height:100%}
+@keyframes uro{from{rotate:0deg}to{rotate:360deg}}
+body[data-p=vote] #ux-w,body[data-p=arrest] #ux-w,body[data-p=result] #ux-w{opacity:.34}
+/* свечи: тёплый дрожащий свет из нижних углов */
+#ux-k,#ux-k2{inset:0;will-change:opacity}
+#ux-k{background:radial-gradient(circle 46vmax at 0 104%,#ff7a2a3a,#c2410c14 46%,#0000 72%);animation:ukf 3.1s infinite}
+#ux-k2{background:radial-gradient(circle 42vmax at 100% 102%,#ff8a3a32,#b4360a12 46%,#0000 72%);animation:ukf 2.3s -1.1s infinite}
+@keyframes ukf{0%{opacity:.9}7%{opacity:.6}12%{opacity:1}21%{opacity:.7}30%{opacity:.95}41%{opacity:.55}47%{opacity:.85}60%{opacity:1}72%{opacity:.65}85%{opacity:.9}100%{opacity:.9}}
+/* в суде и аресте сердце бьётся быстрее, края наливаются багрянцем */
+body[data-p=vote] #ux-v,body[data-p=arrest] #ux-v{background:radial-gradient(ellipse at 50% 45%,#0000 30%,#5c071080 75%,#120102f0 100%);animation-duration:1.1s}
+/* терновые углы: статичные, ничего не стоят */
+#ux-t{inset:0}#ux-t svg:first-child{width:0;height:0;opacity:0}
+#ux-t svg{position:absolute;width:clamp(90px,22vmin,210px);height:auto;opacity:.75}
+#ux-t .tl{left:0;top:0}#ux-t .tr{right:0;top:0;transform:scaleX(-1)}#ux-t .bl{left:0;bottom:0;transform:scaleY(-1)}#ux-t .br{right:0;bottom:0;transform:scale(-1)}
+/* письмена на стене: строка из Писания пишется буква за буквой, как перо тетради, и высыхает */
+.uxs{left:6vw;right:6vw;text-align:center;font:400 clamp(22px,6vw,40px)/1.25 'Marck Script',cursive;color:#b3202b;text-shadow:0 0 12px #8a1018,0 0 2px #000;rotate:-2deg;animation:uxsf 15s linear forwards}
+.uxs span{display:inline-block;white-space:pre;opacity:0;animation:wr .45s forwards}
+@keyframes uxsf{0%,80%{opacity:.62}100%{opacity:0;transform:translateY(10px)}}
+/* кровь стекает с верхнего края */
+.uxd{top:-190px;width:4px;height:170px;background:linear-gradient(#0000,#7d0b14 45%,#c4151f);border-radius:0 0 3px 3px;animation:uxd var(--t,8s) cubic-bezier(.45,0,.9,.55) forwards}
+.uxd::after{content:'';position:absolute;left:-1.5px;bottom:-6px;width:7px;height:10px;border-radius:50%;background:#c4151f}
+@keyframes uxd{to{transform:translateY(calc(100vh + 220px));opacity:.4}}
+/* тень в капюшоне у края экрана: показалась и исчезла */
+.uxh{bottom:-2vh;height:min(52vh,420px);width:calc(min(52vh,420px)*100/220);aspect-ratio:100/220;opacity:0;animation:uxh 4.2s ease-in-out forwards}
+.uxh svg{display:block;width:100%;height:100%;filter:drop-shadow(0 0 10px #5c0710)}
+@keyframes uxh{0%{opacity:0}35%,78%{opacity:.78}80%{opacity:0}82%{opacity:.7}84%,100%{opacity:0}}
+
+/* ===== РУКОТВОРНЫЙ СЛОЙ: всё, что было светом и свечением, теперь тушь, штрих и вырезанная бумага. Без блюра, без радиальных бликов, без цифрового RGB-сдвига; анимация покадровая ===== */
+h1,h2,h2:nth-of-type(2n),.card h2,.big,.role{word-spacing:.22em}
+h1,.role{text-shadow:3px 3px 0 #000}
+html.ultra:not(.xo-tx) h1,html.ultra:not(.xo-tx) .role,html.ultra:not(.xo-tx) .card:not(.paper) h2,html.ultra:not(.xo-tx) .card:not(.paper) .big{text-shadow:2px 2px 0 #000,calc(var(--ldx,0)*-3px) calc(var(--ldy,0)*-3px) 0 rgb(163 16 27 / calc(.35 + var(--bi,0)*.6))}
+html.ultra:not(.xo-tx) button{text-shadow:1px 1px 0 #0009}
+html.ultra:not(.xo-tx) button::after{background:linear-gradient(var(--tick),var(--tick)) 11px 50%/3px 48% no-repeat,var(--face)}
+html.ultra:not(.xo-tx) button::before{background:var(--edge)}
+@keyframes ugl{93%{transform:translateX(-3px) rotate(-.7deg)}95%{transform:translateX(2px) rotate(.5deg)}97%{transform:none}}
+@keyframes v4g{0%{transform:translate(5px,0)}34%{transform:translate(-4px,1px) rotate(.2deg)}67%{transform:translate(2px,-1px)}100%{transform:none}}
+@keyframes uhx{to{transform:translate(4px,-3px)}}
+/* края экрана: четыре жёстких тона, как в литографии */
+#ux-v{background:radial-gradient(ellipse 82% 76% at 50% 46%,#0000 0 60%,#1d060a70 60% 76%,#0a0102b0 76% 89%,#050101e0 89%);animation:uhb 3.2s steps(1,end) infinite}
+body[data-p=vote] #ux-v,body[data-p=arrest] #ux-v{background:radial-gradient(ellipse 78% 72% at 50% 46%,#0000 0 54%,#5c07107a 54% 72%,#2a0508c0 72% 88%,#120102f0 88%);animation:uhb 1.1s steps(1,end) infinite}
+#lt{background:radial-gradient(ellipse at 50% 42%,#0000 0 24%,#0005 24% 50%,#000a 50% 76%,#000e 76%)}
+#v4l{background:radial-gradient(circle 72vmax at var(--lx,50%) var(--ly,42%),#0000 0 20%,#0004 20% 38%,#0008 38% 58%,#000c 58%)}
+/* туман: пучки штрихов вместо размытых пятен */
+#ux-g{background:repeating-linear-gradient(104deg,#0000 0 11px,#d6cbb010 11px 12px,#0000 12px 29px);animation:uhx 1.3s steps(2,end) infinite}
+#ux-h{background:repeating-linear-gradient(77deg,#0000 0 17px,#8a101814 17px 19px,#0000 19px 41px);animation:uhx 1.7s steps(2,end) infinite reverse}
+#fg,#fg2{background:repeating-linear-gradient(176deg,#0000 0 7px,#d2d2cf26 7px 8px,#0000 8px 19px,#d2d2cf16 19px 20px,#0000 20px 33px);clip-path:polygon(0 18%,14% 9%,31% 21%,47% 8%,66% 19%,83% 7%,100% 16%,100% 100%,0 100%)}
+/* лучи из окна: резаные клинья разной ширины */
+#ux-r{background:conic-gradient(from 168deg at 50% 0,#0000 0 6deg,#d6cbb016 6deg 11deg,#0000 11deg 19deg,#d6cbb00d 19deg 22deg,#0000 22deg 30deg,#8a10180f 30deg 34deg,#0000 34deg);animation:ulf 7s steps(1,end) infinite,usw 16s steps(24) infinite alternate}
+/* свечи: красные ступенчатые пятна, без оранжевого свечения */
+#ux-k{background:radial-gradient(circle 44vmax at 0 104%,#8a101826 0 36%,#8a101814 36% 62%,#0000 62%);animation:ukf 3.1s steps(1,end) infinite}
+#ux-k2{background:radial-gradient(circle 40vmax at 100% 102%,#8a101822 0 36%,#8a101812 36% 62%,#0000 62%);animation:ukf 2.3s -1.1s steps(1,end) infinite}
+/* молния: трещина чернил по бумаге, а не мягкая вспышка */
+#ux-l{background:#e8e0cc;clip-path:polygon(calc(var(--fx,50%) - 1.4%) 0,calc(var(--fx,50%) + 1.2%) 0,calc(var(--fx,50%) - .6%) 24%,calc(var(--fx,50%) + 3.2%) 25%,calc(var(--fx,50%) - 2%) 52%,calc(var(--fx,50%) + 1.6%) 53%,calc(var(--fx,50%) - 3.6%) 86%,calc(var(--fx,50%) - 4.5%) 100%,calc(var(--fx,50%) - 5%) 100%,calc(var(--fx,50%) - 2%) 55%,calc(var(--fx,50%) - 4.4%) 54%,calc(var(--fx,50%) + .6%) 27%,calc(var(--fx,50%) - 3%) 26%)}
+#ux-l.go{animation:ulg .9s steps(1,end)}
+#ux-w{animation:uro 320s steps(160) infinite}
+/* явления */
+.uxs{text-shadow:2px 2px 0 #000}
+.uxd{width:var(--w,4px);background:#8f0e17;border-radius:0;clip-path:polygon(20% 0,85% 0,100% 38%,88% 72%,100% 90%,72% 100%,34% 100%,0 88%,14% 60%,4% 30%)}.uxd::after{display:none}
+.uxh svg{filter:none}
+/* луна: плоский диск с тёмной обводкой */
+#mn{background:#d6cbb0;box-shadow:4px 3px 0 #000;border-radius:52% 48% 50% 50%/49% 53% 47% 51%;outline:3px solid #0a0807}
+body.bmoon #mn{background:#a3101b;box-shadow:5px 4px 0 #000}
+.ash{border-radius:30% 70% 40% 60%}
+/* глаза Рюка: угловые прорези */
+.v4e::before,.v4e::after{box-shadow:2px 2px 0 #000;border-radius:0;clip-path:polygon(0 62%,30% 8%,100% 38%,72% 100%)}
+.v4e::after{clip-path:polygon(100% 62%,70% 8%,0 38%,28% 100%)}
+.v4c path{animation-timing-function:steps(2)}
+.v4b{background:#a3101b}.v4r{display:none}
+
+/* ===== мягкий свет: плавный спад, рассеянные края, тёплый цвет. Без ступеней и без резаных лучей ===== */
+#lt{background:radial-gradient(ellipse at 50% 42%,#0000 16%,#0000000e 32%,#00000034 50%,#0000006a 68%,#000000b4 86%,#000000e6 100%)}
+#v4l{background:radial-gradient(circle 34vmax at var(--lx,50%) var(--ly,42%),#e9cf9a1c,#e9cf9a0a 48%,#0000 100%),radial-gradient(circle 82vmax at var(--lx,50%) var(--ly,42%),#0000 6%,#00000012 22%,#0000003c 38%,#00000072 56%,#000000aa 76%,#000000d0 100%)}
+#ux-v{background:radial-gradient(ellipse 92% 86% at 50% 46%,#0000 38%,#1d060a22 56%,#2a050a5c 72%,#0a0101ac 88%,#050101e4 100%);animation:uhb 3.2s ease-in-out infinite}
+body[data-p=vote] #ux-v,body[data-p=arrest] #ux-v{background:radial-gradient(ellipse 88% 82% at 50% 46%,#0000 30%,#5c07102a 52%,#5c071070 70%,#2a0508c0 86%,#120102f0 100%);animation:uhb 1.1s ease-in-out infinite}
+#ux-g{background:radial-gradient(42% 30% at 22% 32%,#4a0c1428,#0000),radial-gradient(46% 34% at 80% 68%,#2e1c1a30,#0000),radial-gradient(36% 28% at 60% 14%,#3a141a1c,#0000);animation:ufog 42s ease-in-out infinite alternate}
+#ux-h{background:radial-gradient(60% 22% at 30% 100%,#1a0a0c99,#0000),radial-gradient(55% 20% at 78% 96%,#120a0a88,#0000);animation:ufog 60s ease-in-out infinite alternate-reverse}
+#fg,#fg2{background:radial-gradient(ellipse 20% 42% at 10% 72%,#d2d2cf3c,#0000),radial-gradient(ellipse 26% 46% at 36% 58%,#d2d2cf30,#0000),radial-gradient(ellipse 22% 42% at 63% 76%,#d2d2cf3c,#0000),radial-gradient(ellipse 25% 44% at 89% 60%,#d2d2cf2e,#0000);clip-path:none}
+#ux-r{background:conic-gradient(from 160deg at 50% -4%,#0000 0deg,#d6cbb006 5deg,#d6cbb012 12deg,#d6cbb008 19deg,#0000 27deg,#0000 31deg,#8a101806 37deg,#8a10180e 42deg,#8a101806 48deg,#0000 56deg);animation:ulf 9s ease-in-out infinite,usw 22s ease-in-out infinite alternate}
+#ux-k{background:radial-gradient(circle 50vmax at 0 106%,#e8782a22,#b4410c10 38%,#7a200a08 58%,#0000 76%);animation:ukf 3.1s infinite}
+#ux-k2{background:radial-gradient(circle 46vmax at 100% 104%,#e8823022,#b4410c0e 38%,#7a200a08 58%,#0000 76%);animation:ukf 2.3s -1.1s infinite}
+#ux-l{clip-path:none;background:radial-gradient(ellipse 70% 90% at var(--fx,50%) 0,#eae4d4a0,#6a4a4a30 46%,#0000 82%)}
+#ux-l.go{animation:ulg .9s}
+#ux-w{animation:uro 320s linear infinite}
+#mn{background:radial-gradient(circle at 36% 34%,#efe9d8,#cfc8b4 46%,#9a9484);box-shadow:0 0 40px 8px #e8e2d01c;border-radius:50%;outline:none}
+body.bmoon #mn{background:radial-gradient(circle at 34% 32%,#d9585c,#a3101b 48%,#4a050c);box-shadow:0 0 50px 10px #a3101b44}
+.v4e::before,.v4e::after{box-shadow:0 0 10px 2px #c4151f55}
+.uxs,.v4w{font-family:'Bad Script','Marck Script',cursive}
+.uxs{color:#a8222b;text-shadow:1px 1px 0 #000,0 0 8px #5c071099;letter-spacing:.02em}
+
+/* глаза Рюка снова круглые */
+.v4e::before,.v4e::after{border-radius:50% 50% 60% 60%/80% 80% 40% 40%;clip-path:none;box-shadow:0 0 16px 5px #c4151f88}
+/* ===== ULTRA: переходы, запись пером, финалы. Всё только при html.ultra, на других графиках ничего не добавляется ===== */
+html.ultra:not(.calm) .wr span{animation:uxwr .42s forwards}
+@keyframes uxwr{0%{opacity:0;transform:translateY(-7px) scale(1.6);color:#e0303a}55%{opacity:1;transform:none;color:#e0303a}100%{opacity:1;color:inherit}}
+html.ultra:not(.calm) body.v4g #app{animation:uxq .55s cubic-bezier(.2,1.5,.4,1)}
+@keyframes uxq{0%{transform:scale(.94) rotate(-.8deg);opacity:.2}60%{transform:scale(1.015)}100%{transform:none;opacity:1}}
+.uxw{position:fixed;inset:0;z-index:51;overflow:hidden}
+.uxw i{position:absolute;display:block;background:var(--c);left:var(--x);top:var(--y);width:var(--s);height:var(--s);margin:calc(var(--s)/-2) 0 0 calc(var(--s)/-2);clip-path:var(--p);transform:scale(0);animation:uxwb var(--t) cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes uxwb{0%{transform:scale(0) rotate(var(--r));opacity:1}45%{transform:scale(1);opacity:1}100%{transform:scale(1.25);opacity:0}}
+.uxwx{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1}
+.uxwx::before{content:'';position:absolute;inset:0;background:#d4121f;animation:uxfl 1.2s ease-out forwards}
+@keyframes uxfl{0%{opacity:.8}100%{opacity:0}}
+.uxwx .wpl{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#0000 30%,#5c071080 75%,#120102 100%);animation:uhb 1.3s ease-in-out infinite}
+.uxwx .wd{position:absolute;top:-200px;width:var(--w);height:190px;background:linear-gradient(#0000,#7d0b14 40%,#c4151f);clip-path:polygon(20% 0,85% 0,100% 40%,88% 78%,100% 92%,60% 100%,0 90%,14% 55%);animation:uxwd var(--t) cubic-bezier(.4,0,.8,.6) infinite}
+@keyframes uxwd{to{transform:translateY(calc(100vh + 260px))}}
+.uxwx .we{position:absolute;bottom:-12px;width:var(--s);height:var(--s);background:#c4151f;border-radius:30% 70% 40% 60%;animation:uxwe var(--t) ease-in infinite}
+@keyframes uxwe{0%{transform:translate(0,0);opacity:0}15%{opacity:.8}100%{transform:translate(var(--dx),-105vh) rotate(260deg);opacity:0}}
+.uxwx .wfc{position:absolute;inset:0;background:#fff;opacity:0;animation:uxcf 5s steps(1) forwards}
+@keyframes uxcf{0%,100%{opacity:0}3%{opacity:.9}5%{opacity:0}9%{opacity:.7}11%{opacity:0}24%{opacity:.9}26%{opacity:0}52%{opacity:.6}54%{opacity:0}}
+.uxwx .wsl{position:absolute;top:-10%;width:60%;height:130%;transform-origin:50% 0;background:conic-gradient(from 160deg at 50% 0,#0000 0deg,#ffffff14 10deg,#ffffff24 14deg,#ffffff14 18deg,#0000 28deg);animation:uxsl 6s ease-in-out infinite alternate}
+@keyframes uxsl{from{transform:rotate(calc(var(--a) - 10deg))}to{transform:rotate(calc(var(--a) + 10deg))}}
+
+/* ===== ULTRA: переход-арка. Чёрная карта с названием фазы «съедается» готической стрельчатой аркой, по краю идёт красный витражный контур; в суде и приговоре поверх вычёркивают красные штрихи пера ===== */
+html.ultra:not(.calm) #pg{transform:none;clip-path:none;visibility:hidden;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140'%3E%3Cpath d='M50 0C68 22 90 40 90 80V140H10V80C10 40 32 22 50 0Z'/%3E%3C/svg%3E") center/0 0 no-repeat,linear-gradient(#000,#000);mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140'%3E%3Cpath d='M50 0C68 22 90 40 90 80V140H10V80C10 40 32 22 50 0Z'/%3E%3C/svg%3E") center/0 0 no-repeat,linear-gradient(#000,#000);-webkit-mask-composite:xor;mask-composite:exclude}
+html.ultra:not(.calm) #pg.on{animation:uxpg 1.3s cubic-bezier(.5,0,.15,1)}
+@keyframes uxpg{0%,35%{visibility:visible;-webkit-mask-size:0 0,auto;mask-size:0 0,auto}99%{visibility:visible}100%{visibility:hidden;-webkit-mask-size:260vmax 364vmax,auto;mask-size:260vmax 364vmax,auto}}
+.uxar{left:50%;top:50%;width:100vmax;height:140vmax;margin:-70vmax 0 0 -50vmax;z-index:52;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 140'%3E%3Cpath d='M50 1C68 22 89.5 40 89.5 80V140H10.5V80C10.5 40 32 22 50 1Z' fill='none' stroke='%23b01a24' stroke-width='1.6'/%3E%3Cpath d='M50 5C65 24 85 41 85 80V140H15V80C15 41 35 24 50 5Z' fill='none' stroke='%23d6cbb0' stroke-width='.5' stroke-opacity='.8'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform:scale(0);animation:uxar 1.3s cubic-bezier(.5,0,.15,1) forwards}
+@keyframes uxar{0%,35%{transform:scale(0);opacity:1}85%{opacity:.9}100%{transform:scale(2.6);opacity:0}}
+.uxsc{inset:0;z-index:52;overflow:hidden}
+.uxsc i{position:absolute;left:0;height:var(--h);width:var(--w);top:var(--y);background:#b01a24;clip-path:polygon(0 30%,6% 0,40% 20%,78% 0,100% 40%,92% 100%,55% 70%,18% 100%);transform:scaleX(0);transform-origin:var(--o);animation:uxsc .55s cubic-bezier(.2,.9,.3,1) forwards}
+@keyframes uxsc{0%{transform:scaleX(0);opacity:1}35%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+.uxh{display:none!important}
+
+/* ===== ULTRA: финалы. Кира: скоростные линии манги, буря страниц тетради, чёрные перья, вертикальные строки. L: вспышки, прожекторы, косой удар и печать «ЗАКРЫТО» ===== */
+.uxwx{perspective:700px}
+.uxwx .wd,.uxwx .we{display:none}
+.uxwx .sl{position:absolute;inset:-20%;background:repeating-conic-gradient(from 0deg at 50% 45%,#0000 0 3deg,#d6cbb0cc 3deg 3.7deg,#0000 3.7deg 7deg),repeating-conic-gradient(from 2deg at 50% 45%,#0000 0 5deg,#b01a24aa 5deg 5.5deg,#0000 5.5deg 11.3deg);-webkit-mask:radial-gradient(circle at 50% 45%,#0000 14%,#000 56%);mask:radial-gradient(circle at 50% 45%,#0000 14%,#000 56%);opacity:0;animation:uxsl2 1.4s ease-out forwards}
+@keyframes uxsl2{0%{opacity:0;transform:scale(1.5)}12%{opacity:.9}100%{opacity:0;transform:scale(1)}}
+.uxwx .pp{position:absolute;left:var(--x);bottom:-30vmin;width:var(--w);aspect-ratio:3/4;opacity:0;background:repeating-linear-gradient(#0000 0 11px,#3a2f2230 11px 12px),linear-gradient(#e9e2cd,#d3caae);clip-path:polygon(0 3%,8% 0,46% 4%,100% 0,97% 40%,100% 62%,96% 100%,52% 96%,10% 100%,3% 70%,0 38%);animation:uxpp var(--t) cubic-bezier(.3,.6,.4,1) var(--d) infinite}
+.uxwx .pp::before{content:'';position:absolute;inset:18% 12% 22% 14%;background:repeating-linear-gradient(#0000 0 15px,#a3101bcc 15px 17px,#0000 17px 30px);clip-path:polygon(0 0,70% 6%,100% 0,92% 38%,100% 70%,60% 62%,0 100%,8% 50%)}
+@keyframes uxpp{0%{transform:translate3d(0,0,0) rotate(var(--r)) rotateY(0);opacity:0}8%{opacity:.95}50%{transform:translate3d(var(--dx),-70vh,0) rotate(calc(var(--r)*-1)) rotateY(180deg)}100%{transform:translate3d(calc(var(--dx)*1.6),-140vh,0) rotate(var(--r)) rotateY(360deg);opacity:0}}
+.uxwx .fe{position:absolute;top:0;height:auto;opacity:0;animation:uxfe 7s linear infinite}
+@keyframes uxfe{0%{transform:translate(0,-12vh) rotate(0);opacity:0}8%{opacity:.9}25%{transform:translate(-30px,25vh) rotate(60deg)}50%{transform:translate(28px,55vh) rotate(150deg)}75%{transform:translate(-24px,85vh) rotate(230deg)}100%{transform:translate(20px,112vh) rotate(300deg);opacity:.9}}
+.uxwx .vt{position:absolute;top:6vh;bottom:6vh;writing-mode:vertical-rl;font:400 clamp(14px,3.6vmin,26px)/1.4 'Bad Script','Marck Script',cursive;color:#b01a24;opacity:.8;letter-spacing:.12em;white-space:nowrap;overflow:hidden}
+.uxwx .vt span{opacity:0;animation:wr .3s forwards}
+.uxwx .vl{left:3vw}.uxwx .vr{right:3vw}
+.uxwx .slash{position:absolute;left:-10%;top:42%;width:120%;height:7px;background:#fff;rotate:-12deg;transform:scaleX(0);animation:uxsh .4s 5.15s ease-out both}
+@keyframes uxsh{0%{transform:scaleX(0);opacity:1}40%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+.uxwx .stmp{position:absolute;right:7vw;bottom:20vh;padding:.05em .3em;border:.9vmin solid #a3101b;color:#a3101b;font:400 clamp(34px,13vmin,110px)/1 'Ruslan Display',serif;rotate:-9deg;opacity:0;filter:url(#ink);animation:uxst .35s 5.35s cubic-bezier(.2,1.8,.4,1) both}
+@keyframes uxst{0%{opacity:0;transform:scale(2.6)}100%{opacity:.92;transform:scale(1)}}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="rough" x="-10%" y="-25%" width="120%" height="150%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="9"/></filter><filter id="scr" x="-5%" y="-12%" width="110%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="7" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="7" result="d"/><feTurbulence type="fractalNoise" baseFrequency=".02 .9" numOctaves="1" seed="11" result="s"/><feColorMatrix in="s" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 16 -10.7" result="l"/><feComposite in="d" in2="l" operator="out"/></filter><filter id="ink" x="-3%" y="-8%" width="106%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.8" result="d"/><feGaussianBlur in="d" stdDeviation=".45" result="b"/><feComponentTransfer in="b"><feFuncA type="linear" slope="2.6" intercept="-.55"/></feComponentTransfer></filter><filter id="mis" x="-8%" y="-15%" width="120%" height="135%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 .36  0 0 0 0 .03  0 0 0 0 .06  0 0 0 1 0" result="r"/><feOffset in="r" dx="-3" dy="1.5" result="ro"/><feMerge><feMergeNode in="ro"/><feMergeNode in="SourceGraphic"/></feMerge></filter><symbol id="ap" viewBox="0 0 100 110"><defs><radialGradient id="ag" cx=".35" cy=".35"><stop offset="0" stop-color="#e0303a"/><stop offset="1" stop-color="#5c0710"/></radialGradient><mask id="bt"><rect width="100" height="110" fill="#fff"/><circle cx="93" cy="40" r="15"/></mask></defs><path mask="url(#bt)" fill="url(#ag)" d="M50 32C34 18 8 26 10 58c2 26 20 48 36 46 3 0 5-2 8-2s5 2 8 2c16 2 34-20 34-46 0-28-26-36-46-26z"/><path d="M50 32c0-12 4-20 12-26" stroke="#3a2a14" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M56 14c8-8 20-6 24 0-8 6-18 6-24 0z" fill="#1d3a1a"/><path d="M22 52c0-10 6-16 12-18" stroke="#fff3" stroke-width="4" fill="none" stroke-linecap="round"/></symbol><symbol id="ey" viewBox="0 0 120 60"><path d="M4 30C30 2 90 2 116 30 90 58 30 58 4 30Z" fill="#0a0504" stroke="#c1121f" stroke-width="3"/><circle cx="60" cy="30" r="17" fill="#d4121f"/><ellipse cx="60" cy="30" rx="5" ry="15" fill="#000"/><circle cx="54" cy="23" r="3" fill="#fff8"/></symbol></svg>
-<button id="sb" onclick="toggleSnd()">Музыка: выкл</button><button id="fs" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">Экран</button><div id="gr"></div><div id="mn"></div><div id="rn"></div><div id="fg"></div><div id="fg2"></div><div id="lt"></div><div id="pg"></div><div id="sl"></div><div id="gh" hidden></div><main id="app"></main><div id="tb" hidden><i id="tbf"></i><span id="tbn"></span></div>
+<button id="sb" onclick="toggleSnd()">Музыка: выкл</button><div id="tl"><button id="fs" onclick="document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()">Экран</button><button id="gqb" onclick="gqShow()">Графика</button></div><div id="gr"></div><div id="mn"></div><div id="rn"></div><div id="fg"></div><div id="fg2"></div><div id="lt"></div><div id="pg"></div><div id="sl"></div><div id="gh" hidden></div><main id="app"></main><div id="tb" hidden><i id="tbf"></i><span id="tbn"></span></div>
 <button id="rl" hidden onclick="roleShow()">Роль</button><button id="nbb" hidden onclick="nbShow()">Блокнот</button><div id="dx" hidden></div>
 <button id="cb" hidden onclick="chatToggle()">Чат<b id="cbn" hidden></b></button>
 <div id="cd" hidden><div class="ch"><div id="ct"></div><div id="cl"></div><div id="cf"><select id="cs" hidden></select><input id="ci" maxlength="140" onkeydown="if(event.key=='Enter')sendChat()"><button class="p" onclick="sendChat()">→</button></div><button onclick="chatToggle()">Закрыть</button></div></div>
@@ -1463,7 +1645,7 @@ function wInit(scn){const w=scn.querySelector('.wsc'),cv=w&&w.querySelector('.wi
  if(!WR)WR=requestAnimationFrame(wLoop)}
 function wLoop(){WR=0;if(!WS.size)return;if(!document.hidden){const lo=document.documentElement.classList.contains('lowfx');for(const sc of WS){if(!sc.cv.isConnected){WS.delete(sc);continue}if(sc.scn.classList.contains('off'))continue;if(lo&&(sc.fr^=1))continue;wStep(sc)}}
  if(WS.size)WR=requestAnimationFrame(wLoop)}
-function wStep(sc,_,tt){const w=sc.w;if(!sc.W||(++sc.cn%20==0)){const cw=w.clientWidth;if(cw&&cw!==sc.W){sc.W=cw;w.style.setProperty('--s',cw/300+'px');const d=Math.min(window.devicePixelRatio||1,2);sc.cv.width=Math.round(cw*d);sc.cv.height=Math.round(cw*170/300*d);sc.cx.setTransform(sc.cv.width/300,0,0,sc.cv.width/300,0,0);sc.k=[0,0,0]}}
+function wStep(sc,_,tt){const w=sc.w;if(!sc.W||(++sc.cn%20==0)){const cw=w.clientWidth;if(cw&&cw!==sc.W){sc.W=cw;w.style.setProperty('--s',cw/300+'px');const d=Math.min(window.devicePixelRatio||1,gqDpr());sc.cv.width=Math.round(cw*d);sc.cv.height=Math.round(cw*170/300*d);sc.cx.setTransform(sc.cv.width/300,0,0,sc.cv.width/300,0,0);sc.k=[0,0,0]}}
  if(!sc.W)return;const t=tt!=null?tt:(performance.now()/1000)%WSEG.T,a=wAt(t);
  if(t<sc.lt){sc.cx.clearRect(0,0,300,170);sc.k=[0,0,0]}sc.lt=t;
  const cx=sc.cx;cx.lineWidth=1.15;cx.lineCap=cx.lineJoin='round';cx.strokeStyle='#1a0c0f';
@@ -1571,13 +1753,34 @@ function endFx(w,dead){const e=$('win');if(!e)return;ET.forEach(clearTimeout);ET
 const SIO=typeof IntersectionObserver=='function'?new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('off',!e.isIntersecting))):null;
 document.addEventListener('visibilitychange',()=>document.documentElement.classList.toggle('paused',document.hidden));
 /* если устройство явно не тянет (менее 22 кадров/с шесть секунд подряд), снимаем самые дорогие слои: сначала зерно, дальний туман и вращение лучей, потом искажающие фильтры */
-(function(){if(typeof requestAnimationFrame!='function'||document.documentElement.classList.contains('calm'))return;
- const H=document.documentElement;let lv=0,bad=0,last=0,n=0,t0=0;const end=performance.now()+120000;
- const f=t=>{if(document.hidden){last=0;t0=0;n=0;requestAnimationFrame(f);return}
+/* ===== ГРАФИКА: Авто / Высокая / Средняя / Низкая / Минимум (кнопка «Графика» в углу) ===== */
+const GQL={auto:'Авто',ultra:'Ультра',high:'Высокая',mid:'Средняя',low:'Низкая',min:'Минимум'},GQC={auto:[],ultra:['ultra'],high:[],mid:['lowfx'],low:['lowfx','lowfx2'],min:['lowfx','lowfx2','calm']};let GQR=0;
+function gqDpr(){const H=document.documentElement,q=H.dataset.gq;return q=='high'||q=='ultra'?3:q=='mid'?1.5:(q=='low'||q=='min')?1:H.classList.contains('lowfx2')?1:H.classList.contains('lowfx')?1.5:2}
+function gqSet(q){const H=document.documentElement;if(!GQC[q])q='auto';H.dataset.gq=q;['lowfx','lowfx2','calm','ultra'].forEach(c=>H.classList.toggle(c,GQC[q].includes(c)));if(q=='auto'&&window.gqCap())H.classList.add('ultra');
+ try{localStorage.setItem('tgq',q);localStorage.removeItem('calm')}catch(e){}GQR++;if(q=='auto')gqAuto();try{WS.forEach(sc=>sc.W=0)}catch(e){}if($('md').querySelector('.gqs'))gqShow()}
+function gqShow(){const H=document.documentElement,q=H.dataset.gq||'auto',now=H.classList.contains('lowfx2')?'низкая':H.classList.contains('lowfx')?'средняя':H.classList.contains('ultra')?'ультра':'высокая';
+ const D={auto:'Игра сама следит за плавностью и снижает качество, если начинает тормозить. Сейчас: '+now+'.',
+  ultra:'Готическая арка и красные штрихи пера при смене фазы, запись имён пером, финалы: у Киры бурей летят страницы тетради и чёрные перья, у L вспышки, прожекторы и печать «ЗАКРЫТО». Всё нарисовано тушью: красные пятна свечей, лучи, роза на стене, колючки в углах, штриховка вместо тумана, перья, строки на стене, капли крови, молния. Самая тяжёлая. Тормозит — выключи слои ниже или возьми «Высокая».',
+  high:'Все эффекты и самая чёткая картинка. Для мощных телефонов и компьютеров.',
+  mid:'Без зерна плёнки, второго слоя тумана, «лампы», глаз Рюка и шёпота. Сцены смерти идут с меньшей частотой кадров.',
+  low:'Ещё проще: без шероховатых фильтров и теней на заголовках и кнопках, бумага без текстуры. Для слабых устройств.',
+  min:'Почти без анимаций. Если игра всё равно тормозит или быстро садится батарея.'};
+ const gx=H.classList.contains('ultra')?`<h2>Эффекты Ультра</h2><p class=sub>Каждый слой выключается отдельно. Чем меньше включено, тем плавнее игра.</p><div class=gqs>${Object.keys(GXM).map(k=>`<button class="${GXO[k]?'':'sel'}" onclick="gxSet('${k}')"><b>${GXM[k][0]}: ${GXO[k]?'выкл':'вкл'}</b><small>${GXM[k][1]}</small></button>`).join('')}</div>`:'';
+ $('md').innerHTML=`<div class=card><h2>Графика</h2><p class=sub>Выбор запоминается на этом устройстве.</p><div class=gqs>${Object.keys(GQL).map(k=>`<button class="${k==q?'sel':''}" onclick="gqSet('${k}')"><b>${GQL[k]}</b><small>${D[k]}</small></button>`).join('')}</div>${gx}<button class=p onclick="$('md').innerHTML=''">Закрыть</button></div>`}
+function gqAuto(){const H=document.documentElement,tok=++GQR;if(typeof requestAnimationFrame!='function'||H.dataset.gq!='auto')return;
+ let lv=H.classList.contains('lowfx2')?2:H.classList.contains('lowfx')?1:0,bad=0,last=0,n=0,t0=0;const end=performance.now()+120000;
+ const f=t=>{if(tok!==GQR)return;if(document.hidden){last=0;t0=0;n=0;requestAnimationFrame(f);return}
   if(last&&t-last<200)n++;last=t;if(!t0)t0=t;
-  if(t-t0>=2000){const fps=n*1000/(t-t0);bad=fps<22?bad+1:0;n=0;t0=0;if(bad>=3&&lv<2){lv++;H.classList.add(lv==1?'lowfx':'lowfx2');bad=0}if(t>end||lv>=2)return}
+  if(t-t0>=2000){const fps=n*1000/(t-t0);bad=fps<22?bad+1:0;n=0;t0=0;if(bad>=2&&H.classList.contains('ultra')){H.classList.remove('ultra');bad=0}else if(bad>=3&&lv<2){lv++;H.classList.add(lv==1?'lowfx':'lowfx2');bad=0}if(t>end||lv>=2)return}
   requestAnimationFrame(f)};
- requestAnimationFrame(f)})();
+ requestAnimationFrame(f)}
+/* слои Ультра: отключённые хранятся в localStorage (tgx), на html вешается класс xo-<ключ> */
+const GXM={lt:['Свет и готика','Пятна свечей, лучи, роза на стене, колючки, тёмные края, молния с громом.'],pt:['Частицы и туман','Штриховка вместо тумана, угольки, пыль, перья. Самый тяжёлый слой, на слабом телефоне гаси его первым.'],ph:['Явления','Строки на стене и капли крови. Появляются редко и ненадолго.'],tx:['Свет на тексте','Красная сдвинутая печать на заголовках идёт за пальцем, заголовок дёргается.']};
+let GXO={};try{GXO=JSON.parse(localStorage.getItem('tgx'))||{}}catch(e){}
+function gxApply(){Object.keys(GXM).forEach(k=>document.documentElement.classList.toggle('xo-'+k,!!GXO[k]))}
+function gxSet(k){if(!GXM[k])return;GXO[k]=!GXO[k];try{localStorage.setItem('tgx',JSON.stringify(GXO))}catch(e){}gxApply();gqShow()}
+gxApply();
+gqAuto();
 /* ===== РЕЖИМ ДЕМО: хозяин сам выбирает себе роль. Скрыт от всех: открывается только секретным словом (в файле лежит лишь его хеш) ===== */
 const DV={ok:0,role:'',salt:'c4833ec980862cdf',n:20000,hash:'61d439d50ecccfcb55fe68e73e59051f5c43484c7dc0a2ee28f3eb049d9579c4'},DVK=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];
 function dvSha(m){const l=m.length,n=((l+9+63)>>6)<<6,b=new Uint8Array(n);b.set(m);b[l]=128;const v=new DataView(b.buffer);v.setUint32(n-8,Math.floor(l/536870912));v.setUint32(n-4,l<<3);
@@ -1636,4 +1839,75 @@ draw();if(HC)jn();
   try{if(navigator.vibrate&&['vote','arrest','result','end'].includes(p))navigator.vibrate([40,60,40])}catch(x){}
   clearInterval(hbT);if(p=='vote'||p=='arrest')hbT=setInterval(hb,1100)}).observe(B,{attributes:true,attributeFilter:['data-p']});
 })();
+/* ===== ULTRA v6 «Откровение»: готический слой в духе Апокалипсиса и Тетради смерти. Живёт только при html.ultra. Модули (классы xo-lt / xo-pt / xo-ph / xo-tx) выключаются из меню «Графика» ===== */
+(function(){const H=document.documentElement,B=document.body,R=(a,b)=>a+Math.random()*(b-a),on=()=>H.classList.contains('ultra')&&!H.classList.contains('calm')&&!document.hidden,mod=k=>!H.classList.contains('xo-'+k),ok=k=>on()&&mod(k);
+ const mk=(id,t,h)=>{const e=document.createElement(t||'div');e.id=id;e.className='ux';if(h)e.innerHTML=h;B.appendChild(e);return e};
+ const sub=(c,h)=>{const e=document.createElement('div');e.className='ux '+c;if(h)e.innerHTML=h;B.appendChild(e);return e};
+ let scr=0,st=0,cv,cx,g,g2,lx=0,ly=0,ox=-99,oy=-99,fr=0,lit=[],dirty=1,force=1,P=[],w=0,h=0,mx=-999,my=-999,px=0,py=0,run=0,last=0,T=0,ready=0,fa=0,fc=0,vt=0;
+ /* спрайты: тлеющий уголёк и чёрное перо рисуются один раз, дальше только drawImage */
+ const sp=document.createElement('canvas');sp.width=sp.height=32;{const q=sp.getContext('2d');q.fillStyle='#a3101b';q.beginPath();[[16,3],[22,12],[29,17],[19,21],[14,30],[11,19],[3,15],[12,11]].forEach((p,i)=>i?q.lineTo(p[0],p[1]):q.moveTo(p[0],p[1]));q.fill()}
+ const fe=document.createElement('canvas');fe.width=22;fe.height=60;{const q=fe.getContext('2d');q.translate(11,4);q.fillStyle='#19141b';q.strokeStyle='#52475a';q.lineWidth=.8;
+  q.beginPath();q.moveTo(0,0);q.bezierCurveTo(9,10,10,30,1,52);q.bezierCurveTo(-1,38,-10,28,-9,14);q.bezierCurveTo(-8,8,-4,3,0,0);q.fill();q.stroke();
+  q.strokeStyle='#9a8f9c';q.lineWidth=1;q.beginPath();q.moveTo(0,0);q.lineTo(1,54);q.stroke();
+  q.strokeStyle='#6b5a6e66';q.lineWidth=.6;for(let i=8;i<46;i+=5){q.beginPath();q.moveTo(1,i);q.lineTo(i<30?8:5,i+7);q.moveTo(1,i);q.lineTo(-7,i+6);q.stroke()}}
+ /* виды частиц: 0 уголь, 1 пыль, 2 падающее чёрное перо */
+ const nw=(k,y)=>k==2?{k:2,x:R(0,w),y:y==null?R(-h*.2,h):y,s:R(.55,1),vx:R(-4,4),vy:R(14,26),ph:R(0,6.28),r:0}:{k,x:R(0,w),y:y==null?R(0,h):y,s:k?R(.8,2):R(7,15),vx:R(-3,3),vy:-(k?R(3,12):R(5,16)),ph:R(0,6.28)};
+ const fit=()=>{w=cv.width=innerWidth;h=cv.height=innerHeight;const n=w<500?28:w<900?40:54;P=[];for(let i=0;i<n;i++)P.push(nw(i%11==5?2:i%6?1:0))};
+ const step=t=>{if(!on()||!(mod('pt')||mod('tx'))){run=0;return}if(t-last<30){requestAnimationFrame(step);return}run=1;const raw=Math.min((t-last)/1000||.016,.25),dt=Math.min(raw,.05);last=t;T+=dt;
+  if(mod('pt')){cx.clearRect(0,0,w,h);
+   for(const p of P){
+    if(p.k!=2){const dx=p.x-mx,dy=p.y-my,d2=dx*dx+dy*dy;if(d2<10000&&d2>1){const d=Math.sqrt(d2),f=(1-d/100)*140*dt;p.vx+=dx/d*f;p.vy+=dy/d*f}}
+    p.vx*=.99;p.x+=(p.vx+Math.sin(T*.5+p.ph)*(p.k==2?18:5))*dt;p.y+=p.vy*dt;
+    if(p.k==2?(p.y>h+70||p.x<-60||p.x>w+60):(p.y<-40||p.x<-40||p.x>w+40)){Object.assign(p,nw(p.k,p.k==2?-60:h+30));continue}
+    if(p.k==2){cx.save();cx.translate(p.x,p.y);cx.rotate(Math.sin(T*.7+p.ph)*.9+p.ph*.2);cx.globalAlpha=.6;cx.drawImage(fe,-11*p.s,-30*p.s,22*p.s,60*p.s);cx.restore()}
+    else if(p.k){cx.globalAlpha=.22+.3*Math.abs(Math.sin(T*.8+p.ph));cx.fillStyle='#b5aa98';cx.fillRect(p.x,p.y,p.s*.8,p.s*2.8)}
+    else{cx.globalAlpha=.15+.3*Math.abs(Math.sin(T*.6+p.ph));cx.drawImage(sp,p.x-p.s/2,p.y-p.s/2,p.s,p.s)}}
+   cx.globalAlpha=1;
+   /* если кадр дольше ~46 мс в среднем, молча убираем часть частиц (защита для слабых устройств в режиме «Ультра») */
+   fa+=raw;if(++fc>=120){if(fa/fc>.07&&P.length>12)P.length=P.length*.6|0;fa=fc=0}
+   px+=((mx<0?0:(mx/w-.5)*-34)-px)*.05;py+=((my<0?0:(my/h-.5)*-24)-py)*.05;g.style.translate=px.toFixed(1)+'px '+py.toFixed(1)+'px';g2.style.translate=(-px*.6).toFixed(1)+'px '+(-py*.4).toFixed(1)+'px'}
+  if(mod('tx')&&!scr){const tx=mx<0?w*(.5+.2*Math.sin(T*.25)):mx,ty=mx<0?h*.2:my;lx+=(tx-lx)*.07;ly+=(ty-ly)*.07;if(++fr%3==0&&(force||Math.abs(lx-ox)+Math.abs(ly-oy)>6)){ox=lx;oy=ly;force=0;lightUp()}}
+  requestAnimationFrame(step)};
+ const SEL='h1,.role,.card:not(.paper) h2,.card:not(.paper) .big,button';
+ const lightUp=()=>{if(dirty){lit=[...document.querySelectorAll(SEL)];dirty=0}
+  const vh=innerHeight,rs=lit.map(e=>e.getBoundingClientRect()),far=Math.max(w,h)*.7;
+  lit.forEach((e,i)=>{const r=rs[i];if(!r.width||r.bottom<-60||r.top>vh+60)return;
+   const dx=lx-(r.left+r.width/2),dy=ly-(r.top+r.height/2),d=Math.hypot(dx,dy)||1,k=Math.max(0,1-d/far),st=e.style;
+   st.setProperty('--bx',((lx-r.left)/r.width*100).toFixed(0)+'%');st.setProperty('--by',((ly-r.top)/r.height*100).toFixed(0)+'%');
+   st.setProperty('--ldx',(dx/d).toFixed(2));st.setProperty('--ldy',(dy/d).toFixed(2));st.setProperty('--bi',(k*k).toFixed(2))})};
+ /* розетта: 12 лепестков, дуги и малая роза в центре */
+ const rose=()=>{let q=7;const rn=()=>(q=q*16807%2147483647)/2147483647,f=v=>v.toFixed(1),m=(a,b)=>f((a+b)/2),blob=(x,y,r,n)=>{const p=[];for(let i=0;i<n;i++){const a=i/n*6.283+rn()*.15,k=r*(1+(rn()-.5)*.08);p.push([x+k*Math.cos(a),y+k*Math.sin(a)])}let d='M'+m(p[0][0],p[n-1][0])+' '+m(p[0][1],p[n-1][1]);for(let i=0;i<n;i++){const a=p[i],b=p[(i+1)%n];d+='Q'+f(a[0])+' '+f(a[1])+' '+m(a[0],b[0])+' '+m(a[1],b[1])}return d+'Z'},pa=(d,w)=>`<path d="${d}" stroke-width="${f(w)}"/>`;
+ let o='<svg viewBox="-100 -100 200 200"><path d="'+blob(0,0,92,10)+'" fill="#8a1018" fill-opacity=".14"/><g fill="none" stroke="#d6cbb0" stroke-linecap="round">'+pa(blob(0,0,96,11),1.1)+pa(blob(1,0,90,12),.5)+pa(blob(0,-1,66,10),.9)+pa(blob(-1,1,38,9),1.2)+pa(blob(0,0,12,7),.8)+pa('M-14 .5H11M.5-10V15',.7);
+ for(let i=0;i<12;i++){if(i==7&&rn()<.7)continue;const g=i*30+(rn()-.5)*5;o+=`<g transform="rotate(${f(g)})">`+pa('M0-12V'+f(-36-rn()*4)+'M0-66V'+f(-88-rn()*4),.5+rn()*.8)+pa(blob(0,-52,13+rn()*2.5,8),.5+rn()*.9)+pa('M-10-66Q'+f((rn()-.5)*3)+' '+f(-82-rn()*4)+' 10-66',.5+rn()*.7)+pa(blob(0,-80,3+rn()*2,6),.7)+'</g>'}
+ return o+'</g></svg>'};
+ /* терновая лоза вдоль двух краёв угла: ломаная и шипы через одну точку */
+ const thorns=()=>{let q=3;const rn=()=>(q=q*16807%2147483647)/2147483647,one=()=>{let d='';for(const sw of[0,1]){let t=rn()*.04,pts=[];while(t<1){const x=t*(100+rn()*26),y=5+Math.sin(t*(5+rn()*3)+rn())*4+t*t*(18+rn()*10);pts.push(sw?[y,x]:[x,y]);t+=.022+rn()*.03}
+ d+='M'+pts.map(p=>p[0].toFixed(1)+' '+p[1].toFixed(1)).join('L');
+ for(let i=1;i<pts.length-1;i++){if(rn()<.42)continue;const a=pts[i],b=pts[i+1],tx=b[0]-a[0],ty=b[1]-a[1],l=Math.hypot(tx,ty)||1,sg=rn()<.5?1:-1,L=5+rn()*9;d+='M'+a[0].toFixed(1)+' '+a[1].toFixed(1)+'L'+(a[0]-ty/l*sg*L+tx/l*3).toFixed(1)+' '+(a[1]+tx/l*sg*L+ty/l*3).toFixed(1)}}
+ return `<path d="${d}" fill="none" stroke="#8a1420" stroke-width="${(1.3+rn()).toFixed(1)}" stroke-linecap="round"/>`};
+ return '<svg width="0" height="0" style="position:absolute"></svg>'+['tl','tr','bl','br'].map(c=>`<svg class="${c}" viewBox="0 0 124 124">${one()}</svg>`).join('')};
+ /* письмена: короткие строки из Писания и латинские, по фазе игры */
+ const VS={home:['Memento mori','Имя твоё вписано в книгу'],reveal:['Имя твоё вписано в книгу','Кто не записан в книге жизни, тот ввержен в озеро огненное'],night:['Имя твоё вписано в книгу','Прах ты и в прах возвратишься','Memento mori','И се, конь бледный, и имя ему смерть'],day:['Всё тайное станет явным','Око за око','Ибо возмездие за грех — смерть'],vote:['Мене, мене, текел, упарсин','Мне отмщение, и Аз воздам','Dies irae, dies illa'],arrest:['Dies irae, dies illa','Всё тайное станет явным'],result:['Мене, мене, текел, упарсин','Ибо возмездие за грех — смерть'],end:['Прах ты и в прах возвратишься','Memento mori']};
+ const verse=()=>{if(!ok('ph')||Date.now()-vt<12000)return;vt=Date.now();const L=VS[B.dataset.p]||VS.home,t=L[Math.random()*L.length|0],e=sub('uxs',[...t].map((c,k)=>`<span style="animation-delay:${(k*.085).toFixed(2)}s">${esc(c)}</span>`).join(''));e.style.top=(Math.random()<.5?R(10,24):R(66,80))+'vh';setTimeout(()=>e.remove(),15500)};
+ const drip=()=>{if(!ok('ph'))return;const n=B.dataset.p=='vote'||B.dataset.p=='arrest'?2:1;for(let i=0;i<n;i++){const e=sub('uxd');e.style.left=R(4,96)+'vw';e.style.setProperty('--w',R(3,7).toFixed(1)+'px');e.style.setProperty('--t',R(6,11).toFixed(1)+'s');setTimeout(()=>e.remove(),11500)}};
+ const GH='<svg viewBox="0 0 100 220" preserveAspectRatio="xMidYMax meet"><path fill="#050203" d="M50 4L36 13 29 33 22 58 15 92 8 128 2 218 31 213 52 219 70 212 98 218 93 126 86 90 80 58 71 32 64 13z"/><path fill="#c4151f" d="M34 31l13 4-2 3zM66 31l-13 4 2 3z"/></svg>';
+ const shade=()=>{if(!ok('ph')||(B.dataset.p=='home'&&Math.random()<.6))return;const e=sub('uxh',GH);e.style[Math.random()<.5?'left':'right']=R(0,5)+'vw';setTimeout(()=>e.remove(),4400)};
+ const arch=p=>{const w=document.createElement('div');w.className='ux uxar';B.appendChild(w);setTimeout(()=>w.remove(),1450);if(['vote','arrest','result','end'].includes(p)){const c=document.createElement('div');c.className='ux uxsc';let h='';for(let k=0;k<7;k++){const r=k%2;h+=`<i style="--y:${R(8,88).toFixed(0)}%;--h:${R(5,13).toFixed(0)}px;--w:${R(70,100).toFixed(0)}%;--o:${r?'100% 50%':'0 50%'};${r?'left:auto;right:0;':''}animation-delay:${(k*.045).toFixed(2)}s"></i>`}c.innerHTML=h;B.appendChild(c);setTimeout(()=>c.remove(),1000)}};
+  const FE='<svg class="fe" viewBox="0 0 22 60"><path d="M11 4C20 14 21 34 12 56 10 42 1 32 2 18 3 12 7 7 11 4z" fill="#1c0f14" stroke="#8a1018" stroke-width=".9"/><path d="M11 4L12 56" stroke="#b01a24" stroke-width=".7" fill="none"/></svg>',vtx=(t,c,d)=>`<div class="vt ${c}">${[...t].map((ch,k)=>`<span style="animation-delay:${(d+k*.09).toFixed(2)}s">${esc(ch)}</span>`).join('')}</div>`;
+ const wk=()=>{let h='<i class="sl"></i>';for(let i=0;i<14;i++)h+=`<i class="pp" style="--x:${R(-4,92)|0}%;--w:${R(15,26)|0}vmin;--t:${R(5,8).toFixed(1)}s;--d:${R(0,4.5).toFixed(1)}s;--dx:${R(-30,30)|0}vw;--r:${R(-40,40)|0}deg"></i>`;for(let i=0;i<10;i++)h+=FE.replace('<svg class="fe"',`<svg class="fe" style="left:${R(0,96)|0}%;width:${R(16,32)|0}px;animation-duration:${R(5,9).toFixed(1)}s;animation-delay:${R(0,6).toFixed(1)}s"`);return h+vtx('Новый мир. Новый бог. Иного пути нет.','vl',2.2)+vtx('Тетрадь не прощает. Кто следующий?','vr',3)+'<i class="wpl"></i>'},wp=()=>'<i class="wfc"></i><i class="wsl" style="left:-10%;--a:-14deg"></i><i class="wsl" style="left:50%;--a:12deg"></i><i class="slash"></i><div class="stmp">ЗАКРЫТО</div>';
+ const uxExtra=()=>{let lp=B.dataset.p;new MutationObserver(()=>{const p=B.dataset.p;if(p===lp)return;lp=p;if(ok('ph'))arch(p)}).observe(B,{attributes:true,attributeFilter:['data-p']});
+  const W=document.getElementById('win');if(W)new MutationObserver(()=>{if(W.hidden||!ok('ph')||W.querySelector('.uxwx'))return;const k=W.classList.contains('kira')?1:W.classList.contains('peace')?2:0;if(!k)return;const d=document.createElement('div');d.className='uxwx';d.innerHTML=k==1?wk():wp();W.appendChild(d)}).observe(W,{attributes:true,childList:true})};
+ const loop=(fn,d)=>{const t=()=>{try{fn()}catch(e){console.error(e)}setTimeout(t,d()*1000)};setTimeout(t,d()*1000)};
+ const go=()=>{if(!on())return;if(!ready)init();if(!run&&(mod('pt')||mod('tx'))){run=1;last=performance.now();requestAnimationFrame(step)}};
+ const init=()=>{ready=1;uxExtra();g=mk('ux-g');g2=mk('ux-h');mk('ux-w','div',rose());mk('ux-r');mk('ux-k');mk('ux-k2');cv=mk('ux-c','canvas');cx=cv.getContext('2d');mk('ux-v');mk('ux-f');mk('ux-t','div',thorns());lx=innerWidth/2;ly=innerHeight*.2;const L=mk('ux-l');
+  fit();addEventListener('resize',()=>{if(ready)fit()});
+  /* молния: вспышка, а при включённом звуке следом гром */
+  const zap=()=>setTimeout(()=>{if(ok('lt')){L.style.setProperty('--fx',R(15,85)+'%');L.classList.remove('go');void L.offsetWidth;L.classList.add('go');setTimeout(()=>{try{sfx('thunder')}catch(e){}},R(250,1100))}zap()},R(20000,45000));zap();
+  addEventListener('pointermove',e=>{mx=e.clientX;my=e.clientY},{passive:true});
+  addEventListener('scroll',()=>{scr=1;clearTimeout(st);st=setTimeout(()=>{scr=0;force=1},200)},{passive:true,capture:true});
+  addEventListener('pointerup',()=>setTimeout(()=>{mx=my=-999},500),{passive:true});
+  /* явления: письмена, кровь, тень. Чаще в суде и аресте, и письмена на смену фазы */
+  loop(verse,()=>R(34,70));loop(drip,()=>B.dataset.p=='vote'||B.dataset.p=='arrest'?R(6,12):R(16,34));
+  let lp=B.dataset.p;new MutationObserver(()=>{const p=B.dataset.p;if(p===lp)return;lp=p;if(Math.random()<(p=='vote'?.7:p=='night'?.4:.25))setTimeout(verse,1400)}).observe(B,{attributes:true,attributeFilter:['data-p']})};
+ new MutationObserver(()=>{dirty=1;force=1}).observe(B,{childList:true,subtree:true});new MutationObserver(go).observe(H,{attributes:true,attributeFilter:['class']});document.addEventListener('visibilitychange',go);go()})();
 </script></body></html>
